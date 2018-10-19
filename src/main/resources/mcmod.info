@@ -1,0 +1,20 @@
+[
+    {
+        "modid": "${id}",
+        "name": "${name}",
+        "description": "${description}",
+        "version": "${version}",
+        "mcversion": "${minecraftVersion}",
+        "url": "",
+        "authorList": [
+            "The_BrainStone"
+        ],
+        "dependencies": [
+            "forge",
+            "spongeapi@7.1.0"
+        ],
+        "requiredMods": [
+            "forge"
+        ]
+    }
+]
