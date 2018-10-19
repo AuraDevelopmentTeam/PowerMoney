@@ -1,0 +1,81 @@
+#################
+## Gradle
+#################
+
+.gradle/
+build/
+run/
+gradle-app.setting
+
+# Test reports
+*-TestReport*
+# Coverage reports
+*-CoverageReport*
+# Spotbugs reports
+*-SpotbugsReport*
+
+
+#################
+## Eclipse
+#################
+
+*.pydevproject
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+
+#################
+## IntelliJ
+#################
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+
+#############
+## Windows detritus
+#############
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac crap
+.DS_Store
+
+#################
+## Dev Env
+#################
+
+run
+*.lang.txt
