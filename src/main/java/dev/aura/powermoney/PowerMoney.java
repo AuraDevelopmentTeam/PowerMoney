@@ -34,7 +34,7 @@ public class PowerMoney {
   private static PowerMoney instance;
 
   @SidedProxy(
-    clientSide = "dev.aura.powermoney.ClientProxy",
+    clientSide = "dev.aura.powermoney.client.ClientProxy",
     serverSide = "dev.aura.powermoney.common.CommonProxy"
   )
   @Getter
