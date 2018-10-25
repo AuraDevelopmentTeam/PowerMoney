@@ -1,5 +1,6 @@
 package dev.aura.powermoney;
 
+import dev.aura.powermoney.common.block.BlockPowerReceiver;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class PowerMoneyBlocks {
   protected static void generateBlocks() {
     PowerMoney.getLogger().debug("Registering blocks");
 
-    // TODO
+    addBlock("power_receiver", new BlockPowerReceiver());
   }
 
   public static void addBlock(String name, Block block) {
@@ -32,6 +33,11 @@ public class PowerMoneyBlocks {
     ItemBlock item = new ItemBlock(block);
 
     PowerMoneyItems.addItem(name, item);
+  }
+
+  /** @return the instance of PowerReceiver */
+  public static final Block brainStone() {
+    return blocks.get("power_receiver");
   }
 
   @SubscribeEvent

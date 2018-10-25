@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.NoArgsConstructor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -14,7 +15,7 @@ public class PowerMoneyItems {
   protected static void generateItems() {
     PowerMoney.getLogger().debug("Registering blocks");
 
-    // TODO
+    // None
   }
 
   public static void addItem(String name, Item item) {
@@ -29,6 +30,11 @@ public class PowerMoneyItems {
     items.put(name, item);
   }
 
+  /** @return the instance of PowerReceiver */
+  public static final ItemBlock brainStone() {
+    return (ItemBlock) items.get("power_receiver");
+  }
+
   @SubscribeEvent
   public void registerItems(RegistryEvent.Register<Item> event) {
     items
@@ -37,8 +43,7 @@ public class PowerMoneyItems {
         .forEach(
             item -> {
               event.getRegistry().register(item);
-              // TODO
-              // BrainStone.proxy.registerModel(item);
+              PowerMoney.getProxy().registerModel(item);
             });
   }
 }

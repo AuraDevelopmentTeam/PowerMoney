@@ -37,7 +37,8 @@ public class PowerMoney {
     clientSide = "dev.aura.powermoney.ClientProxy",
     serverSide = "dev.aura.powermoney.common.CommonProxy"
   )
-  public static CommonProxy proxy;
+  @Getter
+  private static CommonProxy proxy;
 
   @Getter private static Logger logger;
 

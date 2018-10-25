@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "powermoney:power_receiver"
+        }
+    }
+}
