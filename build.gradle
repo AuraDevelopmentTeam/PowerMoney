@@ -5,5 +5,5 @@ repositories {
 }
 
 dependencies {
-    // Additional dependencies
+    compile "org.spongepowered:spongeapi:${sponge_version}"
 }
