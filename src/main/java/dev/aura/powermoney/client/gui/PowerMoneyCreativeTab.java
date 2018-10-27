@@ -14,7 +14,7 @@ public class PowerMoneyCreativeTab extends CreativeTabs {
   private final ItemStack iconItem = new ItemStack(PowerMoneyBlocks.powerReceiver());
 
   public PowerMoneyCreativeTab() {
-    super("tab." + PowerMoney.ID);
+    super(PowerMoney.ID);
   }
 
   @Override
