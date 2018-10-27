@@ -1,3 +1,5 @@
 tile.power_receiver.name=Stromabnehmer
 
+container.power_receiver=Stromabnehmer
+
 itemGroup.powermoney=Power Money

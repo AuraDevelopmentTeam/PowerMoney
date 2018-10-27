@@ -1,3 +1,5 @@
 tile.power_receiver.name=Power Receiver
 
+container.power_receiver=Power Receiver
+
 itemGroup.powermoney=Power Money
