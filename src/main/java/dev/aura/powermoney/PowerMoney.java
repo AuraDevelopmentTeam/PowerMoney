@@ -1,5 +1,6 @@
 package dev.aura.powermoney;
 
+import dev.aura.powermoney.client.gui.PowerMoneyCreativeTab;
 import dev.aura.powermoney.common.CommonProxy;
 import lombok.Getter;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,7 +20,8 @@ import org.apache.logging.log4j.Logger;
   certificateFingerprint = PowerMoney.FINGERPRINT
 )
 public class PowerMoney {
-  public static final String ID = "@id@";
+  // Hardcode ID to be able to start mod from Eclipse
+  public static final String ID = "powermoney";
   public static final String RESOURCE_PACKAGE = ID;
   public static final String RESOURCE_PREFIX = RESOURCE_PACKAGE + ":";
   public static final String NAME = "@name@";
@@ -41,6 +43,8 @@ public class PowerMoney {
   private static CommonProxy proxy;
 
   @Getter private static Logger logger;
+
+  public static final PowerMoneyCreativeTab creativeTab = new PowerMoneyCreativeTab();
 
   @EventHandler
   public void preInit(FMLPreInitializationEvent event) {

@@ -31,7 +31,7 @@ public class PowerMoneyItems {
   }
 
   /** @return the instance of PowerReceiver */
-  public static final ItemBlock brainStone() {
+  public static final ItemBlock powerReceiver() {
     return (ItemBlock) items.get("power_receiver");
   }
 
