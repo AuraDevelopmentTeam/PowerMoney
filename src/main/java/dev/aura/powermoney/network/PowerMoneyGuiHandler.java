@@ -3,12 +3,14 @@ package dev.aura.powermoney.network;
 import dev.aura.powermoney.client.gui.GuiPowerReceiver;
 import dev.aura.powermoney.common.container.ContainerGeneric;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
+import lombok.NoArgsConstructor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
+@NoArgsConstructor(staticName = "registrar")
 public class PowerMoneyGuiHandler implements IGuiHandler {
   public static final int ID_POWER_RECEIVER = 0;
 

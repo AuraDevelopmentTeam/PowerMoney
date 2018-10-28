@@ -67,7 +67,7 @@ public class PowerMoney {
 
   @EventHandler
   public void init(FMLInitializationEvent event) {
-    NetworkRegistry.INSTANCE.registerGuiHandler(this, new PowerMoneyGuiHandler());
+    NetworkRegistry.INSTANCE.registerGuiHandler(this, PowerMoneyGuiHandler.registrar());
 
     registerTileEntities(); // TileEntities
   }
