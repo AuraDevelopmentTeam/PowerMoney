@@ -2,6 +2,7 @@ package dev.aura.powermoney;
 
 import dev.aura.powermoney.client.gui.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.common.CommonProxy;
+import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PowerMoneyGuiHandler;
 import lombok.Getter;
@@ -61,6 +62,7 @@ public class PowerMoney {
     // Event Handlers
     MinecraftForge.EVENT_BUS.register(PowerMoneyBlocks.registrar());
     MinecraftForge.EVENT_BUS.register(PowerMoneyItems.registrar());
+    MinecraftForge.EVENT_BUS.register(PowerMoneyTickHandler.registrar());
   }
 
   @EventHandler
