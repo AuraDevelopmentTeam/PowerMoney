@@ -2,12 +2,14 @@ package dev.aura.powermoney;
 
 import dev.aura.powermoney.client.gui.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.common.CommonProxy;
+import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PowerMoneyGuiHandler;
 import lombok.Getter;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -55,6 +57,8 @@ public class PowerMoney {
   @EventHandler
   public void preInit(FMLPreInitializationEvent event) {
     if (logger == null) logger = event.getModLog();
+
+    PowerMoneyConfigWrapper.loadConfig(new Configuration(event.getSuggestedConfigurationFile()));
 
     PowerMoneyBlocks.generateBlocks();
     PowerMoneyItems.generateItems();

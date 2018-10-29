@@ -1,6 +1,7 @@
 package dev.aura.powermoney.common.capability;
 
 import com.google.common.collect.ImmutableMap;
+import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.sponge.SpongeMoneyInterface;
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -62,7 +63,8 @@ public class EnergyConsumer implements IEnergyStorage {
 
   @Override
   public boolean canReceive() {
-    return (owner != null) && SpongeMoneyInterface.canAcceptMoney();
+    return (owner != null)
+        && (PowerMoneyConfigWrapper.getSimulate() || SpongeMoneyInterface.canAcceptMoney());
   }
 
   private void addEnergy(long energy) {
