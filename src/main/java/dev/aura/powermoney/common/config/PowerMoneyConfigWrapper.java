@@ -1,6 +1,5 @@
 package dev.aura.powermoney.common.config;
 
-import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import net.minecraftforge.common.config.ConfigElement;
@@ -13,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class PowerMoneyConfigWrapper {
   public static final String CAT_CALCULATION = "calculation";
   public static final String CAT_MISC = "misc";
+  public static final String CAT_PAYMENT = "payment";
 
   private static Configuration configStorage;
 
@@ -21,9 +21,13 @@ public class PowerMoneyConfigWrapper {
 
   @Getter private static boolean simulate;
 
+  @Getter private static String currency;
+  @Getter private static int payoutInterval;
+
   public static void loadConfig() {
     loadCalculationSettings();
     loadMiscSettings();
+    loadPaymentSettings();
 
     saveIfChanged();
   }
@@ -75,6 +79,29 @@ public class PowerMoneyConfigWrapper {
                 + "If Sponge and an Economy plugin is installed, this setting has no effect!");
 
     addCustomCategoryComment(CAT_MISC, "Settings that don't belong anywhere else");
+  }
+
+  private static void loadPaymentSettings() {
+    currency =
+        getString(
+            CAT_PAYMENT,
+            "Currency",
+            "",
+            "The currency to make the payments.\n"
+                + "If the currency specified here doesn't exist or is empty, then the system will fallback to the\n"
+                + "default currency.\n"
+                + "Only really needs to be set if there's more than one currency.");
+    payoutInterval =
+        getInt(
+            CAT_PAYMENT,
+            "payoutInterval",
+            15,
+            1,
+            1000,
+            "The interval in seconds between payouts.\n"
+                + "The value 1 means instant payouts (the money the player gets is calculated on a per second base).");
+
+    addCustomCategoryComment(CAT_PAYMENT, "Settings regarding the payment to the players.");
   }
 
   private static String getDefaultLangKey(String category, String name) {
@@ -165,21 +192,22 @@ public class PowerMoneyConfigWrapper {
   }
 
   /**
-   * Creates an integer list property.
+   * Creates a String property.
    *
    * @param category Category of the property.
    * @param name Name of the property.
-   * @param defaultValues Default value of the property.
+   * @param defaultValue Default value of the property.
    * @param comment A brief description what the property does.
-   * @return The value of the new integer list property.
+   * @return The value of the new String property.
    */
-  private static int[] getIntList(
-      String category, String name, int[] defaultValues, String comment) {
-    Property prop = configStorage.get(category, name, defaultValues);
+  private static String getString(
+      String category, String name, String defaultValue, String comment) {
+    Property prop = configStorage.get(category, name, defaultValue);
     prop.setLanguageKey(getDefaultLangKey(category, name));
-    prop.setComment(comment + " [default: " + Arrays.toString(defaultValues) + "]");
+    prop.setComment(comment + " [default: \"" + defaultValue + "\"]");
+    prop.setDefaultValue(defaultValue);
 
-    return prop.getIntList();
+    return prop.getString();
   }
 
   /**
@@ -206,5 +234,10 @@ public class PowerMoneyConfigWrapper {
   @SideOnly(Side.CLIENT)
   public static List<IConfigElement> getMiscCategory() {
     return new ConfigElement(configStorage.getCategory(CAT_MISC)).getChildElements();
+  }
+
+  @SideOnly(Side.CLIENT)
+  public static List<IConfigElement> getPaymentCategory() {
+    return new ConfigElement(configStorage.getCategory(CAT_PAYMENT)).getChildElements();
   }
 }

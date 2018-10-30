@@ -1,6 +1,7 @@
 package dev.aura.powermoney.common.sponge;
 
 import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -52,20 +53,33 @@ public class SpongeMoneyInterface {
     }
 
     public void addMoneyToPlayer(UUID player, BigDecimal money) {
-      economyService.ifPresent(
-          economyService ->
-              economyService
-                  .getOrCreateAccount(player)
-                  .get()
-                  .deposit(
-                      getCurrency(),
-                      money,
-                      Cause.of(EventContext.empty(), PowerMoney.getInstance())));
+      verifyEconomyService();
+
+      economyService
+          .get()
+          .getOrCreateAccount(player)
+          .get()
+          .deposit(getCurrency(), money, Cause.of(EventContext.empty(), PowerMoney.getInstance()));
     }
 
     private Currency getCurrencyFromConfig() {
-      // TODO Use value from config. And fall back to the default if it doesn't exist
-      return economyService.map(EconomyService::getDefaultCurrency).orElse(null);
+      verifyEconomyService();
+
+      final String currencyName = PowerMoneyConfigWrapper.getCurrency();
+
+      for (Currency currency : economyService.get().getCurrencies()) {
+        if (currency.getId().equalsIgnoreCase(currencyName)
+            || currency.getName().equalsIgnoreCase(currencyName)) {
+          return currency;
+        }
+      }
+
+      return economyService.get().getDefaultCurrency();
+    }
+
+    private void verifyEconomyService() {
+      if (!hasEconomyService())
+        throw new IllegalStateException("An EconomySerice is missing. Cannot accept money!");
     }
   }
 }
