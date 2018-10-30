@@ -2,7 +2,7 @@ package dev.aura.powermoney.common.capability;
 
 import com.google.common.collect.ImmutableMap;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
-import dev.aura.powermoney.common.sponge.SpongeMoneyInterface;
+import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
