@@ -47,7 +47,7 @@ public class MoneyCalculator {
     if (comparison > 0) throw new IllegalArgumentException("money must not be negative");
     else if (comparison == 0) return BigDecimal.ZERO;
 
-    // baseMultiplier * ((logHelper * log2(money) + 1))
+    // baseMultiplier * ((logHelper * log2(money)) + 1)
     // which is also
     // baseMultiplier * (log_logBase(money) + 1)
     return roundResult(
