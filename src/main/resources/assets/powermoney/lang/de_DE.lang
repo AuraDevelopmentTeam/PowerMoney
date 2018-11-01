@@ -3,3 +3,29 @@ tile.power_receiver.name=Stromabnehmer
 container.power_receiver=Stromabnehmer
 
 itemGroup.powermoney=Power Money
+
+gui.powermoney.owner=Besitzer
+gui.powermoney.owner.notyou=Nicht du
+gui.powermoney.totalenergy=Gesamte Energie
+gui.powermoney.totalearning=Gesamte Einnahmen
+gui.powermoney.energyunit=FE
+gui.powermoney.persecond=/s
+
+gui.powermoney.config.cat.calculation=Berechnung
+gui.powermoney.config.cat.calculation.tooltip=Hier kannst du die Berechnungen anpassen, die Energie in Geld umwandeln.\\n\\nDas Geld wird so berechnet:\\n    MoneyPerSecond = BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)
+gui.powermoney.config.cat.calculation.basemultiplier=Basis-Multiplikator
+gui.powermoney.config.cat.calculation.basemultiplier.tooltip=Der Basis-Multiplikator in der Berechnung.\\nIm Wesentlichen, wie viel 1 Einheit Energie pro Sekunde wert ist.
+gui.powermoney.config.cat.calculation.logbase=Log-Basis
+gui.powermoney.config.cat.calculation.logbase.tooltip=Die logarithmische Basis in der Berechnung.\\nJe höher der Wert, desto weniger Geld erhalten die Spieler.
+
+gui.powermoney.config.cat.payment=Auszahlung
+gui.powermoney.config.cat.payment.tooltip=Einstellungen bezüglich der Auszahlung an die Spieler.
+gui.powermoney.config.cat.payment.currency=Währung
+gui.powermoney.config.cat.payment.currency.tooltip=Die Währung, in der die Zahlungen erfolgen.\\nWenn die hier angegebene Währung nicht existiert oder leer ist, greift das System auf die Standardwährung zurück.\\nMuss eigentlich nur eingestellt werden, wenn es mehr als eine Währung gibt.
+gui.powermoney.config.cat.payment.payoutinterval=Auszahlungsintervall
+gui.powermoney.config.cat.payment.payoutinterval.tooltip=Das Intervall in Sekunden zwischen den Auszahlungen.\\nDer Wert 1 bedeutet sofortige Auszahlungen (das Geld, das der Spieler erhält, wird auf einer sekündlichen Basis berechnet).
+
+gui.powermoney.config.cat.misc=Sonstiges
+gui.powermoney.config.cat.misc.tooltip=Einstellungen, die nirgendwo sonst hingehören.
+gui.powermoney.config.cat.misc.simulate=Simulieren
+gui.powermoney.config.cat.misc.simulate.tooltip=Falls Sponge oder ein Economy-Plugin fehlt, verbrauchen die Blöcke keine Energie. Wenn du dies aktivierst, werden sie Energie verbrauchen. Aber es wird kein Geld erzeugen. Dies ist nützlich für den Test und sollte auf einem Produktionsserver nicht aktiviert werden.\\n§4Wenn Sponge und ein Economy-Plugin installiert sind, hat diese Einstellung keine Auswirkung!

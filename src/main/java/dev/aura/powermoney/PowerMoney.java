@@ -25,7 +25,8 @@ import org.apache.logging.log4j.Logger;
   name = PowerMoney.NAME,
   version = PowerMoney.VERSION,
   dependencies = PowerMoney.DEPENDENCIES,
-  certificateFingerprint = PowerMoney.FINGERPRINT
+  certificateFingerprint = PowerMoney.FINGERPRINT,
+  guiFactory = PowerMoney.GUI_FACTORY
 )
 public class PowerMoney {
   // Hardcode ID to be able to start mod from Eclipse
@@ -38,6 +39,8 @@ public class PowerMoney {
   public static final String DESCRIPTION = "@description@";
   public static final String DEPENDENCIES = "after:spongeapi";
   public static final String FINGERPRINT = "2238d4a92d81ab407741a2fdb741cebddfeacba6";
+  public static final String GUI_FACTORY =
+      "dev.aura.powermoney.client.gui.config.PowerMoneyGuiFactory";
 
   @Instance(ID)
   @Getter

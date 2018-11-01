@@ -6,6 +6,7 @@ import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import java.util.UUID;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -37,6 +38,10 @@ public class GuiPowerReceiver extends GuiContainer {
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     String tileName = tileEntity.getDisplayName().getUnformattedText();
     String ownerName = tileEntity.getOwnerName();
+
+    if (!player.equals(tileEntity.getOwner())) {
+      ownerName += " (" + I18n.format("gui.powermoney.owner.notyou") + ')';
+    }
 
     fontRenderer.drawString(
         tileName, (xSize - fontRenderer.getStringWidth(tileName)) / 2, 8, 0x404040);

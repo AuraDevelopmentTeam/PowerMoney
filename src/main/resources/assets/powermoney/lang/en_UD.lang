@@ -3,3 +3,29 @@ tile.power_receiver.name=ɹǝʌᴉǝɔǝɹ ɹǝʍoԀ
 container.power_receiver=ɹǝʌᴉǝɔǝɹ ɹǝʍoԀ
 
 itemGroup.powermoney=ʎǝuoW ɹǝʍoԀ
+
+gui.powermoney.owner=ɹǝuʍO
+gui.powermoney.owner.notyou=noʎ ʇoN
+gui.powermoney.totalenergy=ʎƃɹǝuƎ lɐʇo┴
+gui.powermoney.totalearning=sƃuᴉuɹɐƎ lɐʇo┴
+gui.powermoney.energyunit=ƎℲ
+gui.powermoney.persecond=s/
+
+gui.powermoney.config.cat.calculation=uoᴉʇɐlnɔlɐƆ
+gui.powermoney.config.cat.calculation.tooltip=˙ʎǝuoɯ oʇuᴉ ʎƃɹǝuǝ sʇɹǝʌuoɔ ʇɐɥʇ suoᴉʇɐlnɔlɐɔ ǝɥʇ ʞɐǝʍʇ uɐɔ noʎ ǝɹǝH\\n\\n:sᴉɥʇ ǝʞᴉl pǝʇɐlnɔlɐɔ sᴉ ʎǝuoɯ ǝɥ┴\\n    (Ɩ + (puoɔǝSɹǝԀʎƃɹǝuƎ)ǝsɐqƃo˥‾ƃol) * ɹǝᴉldᴉʇlnWǝsɐq = puoɔǝSɹǝԀʎǝuoW
+gui.powermoney.config.cat.calculation.basemultiplier=ɹǝᴉldᴉʇlnW ǝsɐq
+gui.powermoney.config.cat.calculation.basemultiplier.tooltip=˙uoᴉʇɐlnɔlɐɔ ǝɥʇ uᴉ ɹǝᴉldᴉʇlnɯ ǝsɐq ǝɥ┴\\n˙ɥʇɹoʍ sᴉ puoɔǝs ɹǝd ʎƃɹǝuǝ ɟo ʇᴉun Ɩ ɥɔnɯ ʍoɥ ʎllɐᴉʇuǝssƎ
+gui.powermoney.config.cat.calculation.logbase=ǝsɐq ƃo˥
+gui.powermoney.config.cat.calculation.logbase.tooltip=˙uoᴉʇɐlnɔlɐɔ ǝɥʇ uᴉ ǝsɐq ɔᴉɯɥʇᴉɹɐƃol ǝɥ┴\\n˙ʇǝƃ sɹǝʎɐld ǝɥʇ ʎǝuoɯ ssǝl ǝɥʇ ǝnlɐʌ ǝɥʇ ɹǝɥƃᴉɥ ǝɥ┴
+
+gui.powermoney.config.cat.payment=ʇuǝɯʎɐԀ
+gui.powermoney.config.cat.payment.tooltip=˙sɹǝʎɐld ǝɥʇ oʇ ʇuǝɯʎɐd ǝɥʇ ƃuᴉpɹɐƃǝɹ sƃuᴉʇʇǝS
+gui.powermoney.config.cat.payment.currency=ʎɔuǝɹɹnƆ
+gui.powermoney.config.cat.payment.currency.tooltip=˙sʇuǝɯʎɐd ǝɥʇ ǝʞɐɯ oʇ ʎɔuǝɹɹnɔ ǝɥ┴\\n˙ʎɔuǝɹɹnɔ ʇlnɐɟǝp ǝɥʇ oʇ ʞɔɐqllɐɟ llᴉʍ ɯǝʇsʎs ǝɥʇ uǝɥʇ 'ʎʇdɯǝ sᴉ ɹo ʇsᴉxǝ ʇ,usǝop ǝɹǝɥ pǝᴉɟᴉɔǝds ʎɔuǝɹɹnɔ ǝɥʇ ɟI\\n˙ʎɔuǝɹɹnɔ ǝuo uɐɥʇ ǝɹoɯ s,ǝɹǝɥʇ ɟᴉ ʇǝs ǝq oʇ spǝǝu ʎllɐǝɹ ʎluO
+gui.powermoney.config.cat.payment.payoutinterval=lɐʌɹǝʇuI ʇnoʎɐԀ
+gui.powermoney.config.cat.payment.payoutinterval.tooltip=˙sʇnoʎɐd uǝǝʍʇǝq spuoɔǝs uᴉ lɐʌɹǝʇuᴉ ǝɥ┴\\n˙(ǝsɐq puoɔǝs ɹǝd ɐ uo pǝʇɐlnɔlɐɔ sᴉ sʇǝƃ ɹǝʎɐld ǝɥʇ ʎǝuoɯ ǝɥʇ) sʇnoʎɐd ʇuɐʇsuᴉ suɐǝɯ Ɩ ǝnlɐʌ ǝɥ┴
+
+gui.powermoney.config.cat.misc=snoǝuɐllǝɔsᴉW
+gui.powermoney.config.cat.misc.tooltip=˙ǝslǝ ǝɹǝɥʍʎuɐ ƃuolǝq ʇ,uop ʇɐɥʇ sƃuᴉʇʇǝS
+gui.powermoney.config.cat.misc.simulate=ǝʇɐlnɯᴉS
+gui.powermoney.config.cat.misc.simulate.tooltip=˙ɹǝʌɹǝs uoᴉʇɔnpoɹd ɐ uo pǝlqɐuǝ ǝq ʇ,uplnoɥs puɐ ƃuᴉʇsǝʇ ɹoɟ lnɟǝsn sᴉ sᴉɥ┴ ˙ʎǝuoɯ ʎuɐ ǝɔnpoɹd ʇou llᴉʍ ʇᴉ ʇnq ˙ʎƃɹǝuǝ ǝɯnsuoɔ ɯǝɥʇ ǝʞɐɯ llᴉʍ sᴉɥʇ ƃuᴉlqɐuƎ ˙ʎƃɹǝuǝ ǝɯnsuoɔ ʇou llᴉʍ sʞɔolq ǝɥʇ 'ƃuᴉssᴉɯ sᴉ uᴉƃnld ʎɯouoɔƎ uɐ ɹo ǝƃuodS ɟI\\n§4¡ʇɔǝɟɟǝ ou sɐɥ ƃuᴉʇʇǝs sᴉɥʇ 'pǝllɐʇsuᴉ sᴉ uᴉƃnld ʎɯouoɔƎ uɐ puɐ ǝƃuodS ɟI

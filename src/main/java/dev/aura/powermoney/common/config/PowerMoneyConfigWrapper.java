@@ -21,15 +21,15 @@ public class PowerMoneyConfigWrapper {
   @Getter private static double logBase;
   @Getter private static MoneyCalculator moneyCalculator;
 
-  @Getter private static boolean simulate;
-
   @Getter private static String currency;
   @Getter private static int payoutInterval;
 
+  @Getter private static boolean simulate;
+
   public static void loadConfig() {
     loadCalculationSettings();
-    loadMiscSettings();
     loadPaymentSettings();
+    loadMiscSettings();
 
     saveIfChanged();
   }
@@ -65,24 +65,10 @@ public class PowerMoneyConfigWrapper {
 
     addCustomCategoryComment(
         CAT_CALCULATION,
-        "Here you can tweak the calculation that converts energy into money\n"
+        "Here you can tweak the calculations that converts energy into money.\n"
             + "\n"
             + "The money is calculated like this:\n"
             + "    MoneyPerSecond = BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)");
-  }
-
-  private static void loadMiscSettings() {
-    simulate =
-        getBoolean(
-            CAT_MISC,
-            "Simulate",
-            false,
-            "If Sponge or an Economy plugin is missing, the blocks will not consume energy. Enabling this will\n"
-                + "make them consume energy. But it will not produce any money. This is useful for testing and\n"
-                + "shouldn't be enabled on a production server.\n"
-                + "If Sponge and an Economy plugin is installed, this setting has no effect!");
-
-    addCustomCategoryComment(CAT_MISC, "Settings that don't belong anywhere else");
   }
 
   private static void loadPaymentSettings() {
@@ -98,7 +84,7 @@ public class PowerMoneyConfigWrapper {
     payoutInterval =
         getInt(
             CAT_PAYMENT,
-            "payoutInterval",
+            "PayoutInterval",
             15,
             1,
             1000,
@@ -106,6 +92,20 @@ public class PowerMoneyConfigWrapper {
                 + "The value 1 means instant payouts (the money the player gets is calculated on a per second base).");
 
     addCustomCategoryComment(CAT_PAYMENT, "Settings regarding the payment to the players.");
+  }
+
+  private static void loadMiscSettings() {
+    simulate =
+        getBoolean(
+            CAT_MISC,
+            "Simulate",
+            false,
+            "If Sponge or an Economy plugin is missing, the blocks will not consume energy. Enabling this will\n"
+                + "make them consume energy. But it will not produce any money. This is useful for testing and\n"
+                + "shouldn't be enabled on a production server.\n"
+                + "If Sponge and an Economy plugin is installed, this setting has no effect!");
+
+    addCustomCategoryComment(CAT_MISC, "Settings that don't belong anywhere else.");
   }
 
   private static String getDefaultLangKey(String category, String name) {
@@ -208,7 +208,7 @@ public class PowerMoneyConfigWrapper {
       String category, String name, String defaultValue, String comment) {
     Property prop = configStorage.get(category, name, defaultValue);
     prop.setLanguageKey(getDefaultLangKey(category, name));
-    prop.setComment(comment + " [default: \"" + defaultValue + "\"]");
+    prop.setComment(comment + " [default: " + defaultValue + "]");
     prop.setDefaultValue(defaultValue);
 
     return prop.getString();
@@ -236,12 +236,12 @@ public class PowerMoneyConfigWrapper {
   }
 
   @SideOnly(Side.CLIENT)
-  public static List<IConfigElement> getMiscCategory() {
-    return new ConfigElement(configStorage.getCategory(CAT_MISC)).getChildElements();
+  public static List<IConfigElement> getPaymentCategory() {
+    return new ConfigElement(configStorage.getCategory(CAT_PAYMENT)).getChildElements();
   }
 
   @SideOnly(Side.CLIENT)
-  public static List<IConfigElement> getPaymentCategory() {
-    return new ConfigElement(configStorage.getCategory(CAT_PAYMENT)).getChildElements();
+  public static List<IConfigElement> getMiscCategory() {
+    return new ConfigElement(configStorage.getCategory(CAT_MISC)).getChildElements();
   }
 }
