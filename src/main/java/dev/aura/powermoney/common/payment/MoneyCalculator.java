@@ -1,16 +1,19 @@
 package dev.aura.powermoney.common.payment;
 
+import com.google.common.annotations.VisibleForTesting;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Value;
 
 @Value
 public class MoneyCalculator {
-  public static final MathContext RESULT_PRECISION = new MathContext(4);
-  public static final MathContext CALCULATION_PRECISION = new MathContext(8);
+  private static final MathContext CALCULATION_PRECISION = MathContext.DECIMAL128;
+  private static final int RESULT_DIGITS = 4;
+  private static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
   private final double baseMultiplier;
   private final double logBase;
@@ -32,10 +35,10 @@ public class MoneyCalculator {
     this.baseMultiplier = baseMultiplier;
     this.logBase = logBase;
 
-    baseMultiplierBD = new BigDecimal(baseMultiplier, CALCULATION_PRECISION);
+    baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
     logHelper =
         BigDecimal.ONE.divide(
-            new BigDecimal(Math.log(logBase) / Math.log(2.0)), CALCULATION_PRECISION);
+            BigDecimal.valueOf(Math.log(logBase) / Math.log(2.0)), CALCULATION_PRECISION);
   }
 
   public BigDecimal covertEnergyToMoney(BigInteger money) {
@@ -47,11 +50,12 @@ public class MoneyCalculator {
     // baseMultiplier * ((logHelper * log2(money) + 1))
     // which is also
     // baseMultiplier * (log_logBase(money) + 1)
-    return baseMultiplierBD.multiply(
-        logHelper
-            .multiply(new BigDecimal(log2(money), CALCULATION_PRECISION), CALCULATION_PRECISION)
-            .add(BigDecimal.ONE, CALCULATION_PRECISION),
-        RESULT_PRECISION);
+    return roundResult(
+        baseMultiplierBD.multiply(
+            logHelper
+                .multiply(BigDecimal.valueOf(log2(money)), CALCULATION_PRECISION)
+                .add(BigDecimal.ONE, CALCULATION_PRECISION),
+            CALCULATION_PRECISION));
   }
 
   /**
@@ -94,5 +98,10 @@ public class MoneyCalculator {
     return (n - 1 + Math.log(f) * 1.44269504088896340735992468100189213742664595415298D);
     // Magic number converts from base e to base 2 before adding. For other
     // bases, correct the result, NOT this number!
+  }
+
+  @VisibleForTesting
+  static BigDecimal roundResult(BigDecimal val) {
+    return val.setScale(RESULT_DIGITS, RESULT_ROUNDING_MODE);
   }
 }
