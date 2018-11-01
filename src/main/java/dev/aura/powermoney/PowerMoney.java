@@ -1,6 +1,7 @@
 package dev.aura.powermoney;
 
 import dev.aura.powermoney.client.gui.helper.PowerMoneyCreativeTab;
+import dev.aura.powermoney.client.handler.ConfigChangedHandler;
 import dev.aura.powermoney.common.CommonProxy;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
 @Mod(
@@ -70,6 +72,10 @@ public class PowerMoney {
     MinecraftForge.EVENT_BUS.register(PowerMoneyBlocks.registrar());
     MinecraftForge.EVENT_BUS.register(PowerMoneyItems.registrar());
     MinecraftForge.EVENT_BUS.register(PowerMoneyTickHandler.registrar());
+
+    if (event.getSide() == Side.CLIENT) {
+      MinecraftForge.EVENT_BUS.register(ConfigChangedHandler.registrar());
+    }
   }
 
   @EventHandler

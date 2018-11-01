@@ -125,7 +125,7 @@ public class PowerMoneyConfigWrapper {
       String category, String name, boolean defaultValue, String comment) {
     Property prop = configStorage.get(category, name, defaultValue);
     prop.setLanguageKey(getDefaultLangKey(category, name));
-    prop.setComment(comment + " [default: " + defaultValue + "]");
+    prop.setComment(comment + "\n[default: " + defaultValue + "]");
 
     return prop.getBoolean(defaultValue);
   }
@@ -146,7 +146,7 @@ public class PowerMoneyConfigWrapper {
     Property prop = configStorage.get(category, name, defaultValue);
     prop.setLanguageKey(getDefaultLangKey(category, name));
     prop.setComment(
-        comment + " [range: " + minValue + " ~ " + maxValue + ", default: " + defaultValue + "]");
+        comment + "\n[range: " + minValue + " ~ " + maxValue + ", default: " + defaultValue + "]");
     prop.setMinValue(minValue);
     prop.setMaxValue(maxValue);
 
@@ -181,7 +181,7 @@ public class PowerMoneyConfigWrapper {
     Property prop = configStorage.get(category, name, defaultValue);
     prop.setLanguageKey(getDefaultLangKey(category, name));
     prop.setComment(
-        comment + " [range: " + minValue + " ~ " + maxValue + ", default: " + defaultValue + "]");
+        comment + "\n[range: " + minValue + " ~ " + maxValue + ", default: " + defaultValue + "]");
     prop.setMinValue(minValue);
     prop.setMaxValue(maxValue);
 
@@ -208,7 +208,7 @@ public class PowerMoneyConfigWrapper {
       String category, String name, String defaultValue, String comment) {
     Property prop = configStorage.get(category, name, defaultValue);
     prop.setLanguageKey(getDefaultLangKey(category, name));
-    prop.setComment(comment + " [default: " + defaultValue + "]");
+    prop.setComment(comment + "\n[default: " + defaultValue + "]");
     prop.setDefaultValue(defaultValue);
 
     return prop.getString();
