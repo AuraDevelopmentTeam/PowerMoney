@@ -6,6 +6,7 @@ import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -44,6 +45,10 @@ public class PowerMoneyTickHandler {
         consumedEnergy.get(blockOwner), generatedMoney.get(blockOwner));
   }
 
+  @SuppressFBWarnings(
+    value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
+    justification = "Only one instance of this class exists."
+  )
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onServerTick(WorldTickEvent event) {
     // Make sure we're
