@@ -1,6 +1,6 @@
 package dev.aura.powermoney.network.packet.serverbound;
 
-import dev.aura.powermoney.network.SerializationHelper;
+import dev.aura.powermoney.network.helper.SerializationHelper;
 import io.netty.buffer.ByteBuf;
 import java.math.BigDecimal;
 import java.math.BigInteger;

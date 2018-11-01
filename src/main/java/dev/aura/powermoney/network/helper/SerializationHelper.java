@@ -1,4 +1,4 @@
-package dev.aura.powermoney.network;
+package dev.aura.powermoney.network.helper;
 
 import io.netty.buffer.ByteBuf;
 import java.math.BigDecimal;

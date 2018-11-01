@@ -1,7 +1,6 @@
 package dev.aura.powermoney.common.payment;
 
-import static org.junit.Assert.fail;
-
+import dev.aura.powermoney.helper.AssertHelper;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.junit.Test;
@@ -26,18 +25,7 @@ public class MoneyCalculatorTest {
   }
 
   private static void assertEquals(String comment, BigDecimal expected, BigDecimal actual) {
-    final BigDecimal expectedRounded = MoneyCalculator.roundResult(expected);
-    final BigDecimal actualRounded = MoneyCalculator.roundResult(actual);
-
-    if (expectedRounded.compareTo(actualRounded) != 0) {
-      fail(
-          (((comment == null) || comment.isEmpty()) ? "" : (comment + ' '))
-              + "expected:<"
-              + expectedRounded
-              + "> but was:<"
-              + actualRounded
-              + '>');
-    }
+    AssertHelper.assertEquals(comment, expected, actual, MoneyCalculator::roundResult);
   }
 
   @Test(expected = IllegalArgumentException.class)
