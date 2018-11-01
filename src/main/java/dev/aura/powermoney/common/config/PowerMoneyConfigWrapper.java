@@ -1,5 +1,6 @@
 package dev.aura.powermoney.common.config;
 
+import dev.aura.powermoney.common.payment.MoneyCalculator;
 import java.util.List;
 import lombok.Getter;
 import net.minecraftforge.common.config.ConfigElement;
@@ -18,6 +19,7 @@ public class PowerMoneyConfigWrapper {
 
   @Getter private static double baseMultiplier;
   @Getter private static double logBase;
+  @Getter private static MoneyCalculator moneyCalculator;
 
   @Getter private static boolean simulate;
 
@@ -58,6 +60,8 @@ public class PowerMoneyConfigWrapper {
             1E6,
             "The logarithmic base in the calculation.\n"
                 + "The higher the value the less money the players get.");
+
+    moneyCalculator = new MoneyCalculator(baseMultiplier, logBase);
 
     addCustomCategoryComment(
         CAT_CALCULATION,

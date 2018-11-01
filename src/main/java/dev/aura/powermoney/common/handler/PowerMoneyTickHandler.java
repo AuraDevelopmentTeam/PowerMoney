@@ -1,10 +1,12 @@
 package dev.aura.powermoney.common.handler;
 
-import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,8 @@ import net.minecraftforge.fml.relauncher.Side;
 @NoArgsConstructor(staticName = "registrar")
 public class PowerMoneyTickHandler {
   private static final long TICKS_PER_SECOND = 20L;
+
+  private final Map<UUID, BigDecimal> payout = new HashMap<>();
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onServerTick(WorldTickEvent event) {
@@ -32,7 +36,33 @@ public class PowerMoneyTickHandler {
       return;
 
     for (Entry<UUID, BigInteger> entry : EnergyConsumer.getAndResetConsumedEnergy().entrySet()) {
-      PowerMoney.getLogger().info("Player {} collected {} enery", entry.getKey(), entry.getValue());
+      final UUID player = entry.getKey();
+      final BigDecimal earnedMoney =
+          PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(entry.getValue());
+      BigDecimal playerPayout;
+
+      if (payout.containsKey(player)) {
+        playerPayout = payout.get(player).add(earnedMoney);
+      } else {
+        playerPayout = earnedMoney;
+      }
+
+      payout.put(player, playerPayout);
     }
+
+    // Check if we can payout
+    if ((event.world.getTotalWorldTime()
+            % (TICKS_PER_SECOND * PowerMoneyConfigWrapper.getPayoutInterval()))
+        != 0L) return;
+
+    // Only actually pay when we can
+    if (SpongeMoneyInterface.canAcceptMoney()) {
+      for (Entry<UUID, BigDecimal> entry : payout.entrySet()) {
+        SpongeMoneyInterface.addMoneyToPlayer(entry.getKey(), entry.getValue());
+      }
+    }
+
+    // Always clear the payouts
+    payout.clear();
   }
 }
