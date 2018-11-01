@@ -1,4 +1,4 @@
-package dev.aura.powermoney.network.packet.clientbound;
+package dev.aura.powermoney.network.packet.serverbound;
 
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import io.netty.buffer.ByteBuf;
@@ -49,9 +49,9 @@ public class PacketChangeRequiresReceiverData implements IMessage {
   }
 
   public static class Handler
-      extends AbstractClientMessageHandler<PacketChangeRequiresReceiverData> {
+      extends AbstractServerMessageHandler<PacketChangeRequiresReceiverData> {
     @Override
-    public IMessage handleClientMessage(
+    public IMessage handleServerMessage(
         EntityPlayer player, PacketChangeRequiresReceiverData message, MessageContext ctx) {
       if (message.requiresData) {
         PowerMoneyTickHandler.addDataReceiver(player.getUniqueID(), message.blockOwner);

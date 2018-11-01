@@ -5,7 +5,7 @@ import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.PacketDispatcher;
-import dev.aura.powermoney.network.packet.serverbound.PacketSendReceiverData;
+import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;

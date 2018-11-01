@@ -1,4 +1,4 @@
-package dev.aura.powermoney.network.packet.serverbound;
+package dev.aura.powermoney.network.packet.clientbound;
 
 import dev.aura.powermoney.network.helper.SerializationHelper;
 import io.netty.buffer.ByteBuf;
@@ -31,10 +31,13 @@ public class PacketSendReceiverData implements IMessage {
     SerializationHelper.writeBigDecimal(buf, money);
   }
 
-  public static class Handler extends AbstractServerMessageHandler<PacketSendReceiverData> {
+  public static class Handler extends AbstractClientMessageHandler<PacketSendReceiverData> {
     @Override
-    public IMessage handleServerMessage(
+    public IMessage handleClientMessage(
         EntityPlayer player, PacketSendReceiverData message, MessageContext ctx) {
+      System.out.println("Energy: " + message.energy);
+      System.out.println("Money: " + message.money);
+
       // TODO
       return null;
     }

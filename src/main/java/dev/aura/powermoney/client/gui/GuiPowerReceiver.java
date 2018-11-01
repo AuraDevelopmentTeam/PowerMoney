@@ -4,7 +4,7 @@ import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.container.ContainerGeneric;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PacketDispatcher;
-import dev.aura.powermoney.network.packet.clientbound.PacketChangeRequiresReceiverData;
+import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
 import java.util.UUID;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;

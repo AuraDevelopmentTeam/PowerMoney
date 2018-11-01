@@ -1,8 +1,8 @@
 package dev.aura.powermoney.network;
 
 import dev.aura.powermoney.PowerMoney;
-import dev.aura.powermoney.network.packet.clientbound.PacketChangeRequiresReceiverData;
-import dev.aura.powermoney.network.packet.serverbound.PacketSendReceiverData;
+import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
+import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
