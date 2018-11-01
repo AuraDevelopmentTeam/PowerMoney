@@ -33,7 +33,8 @@ public class GuiPowerReceiver extends GuiContainer {
   public void initGui() {
     super.initGui();
 
-    PacketDispatcher.sendToServer(PacketChangeRequiresReceiverData.startData(player));
+    PacketDispatcher.sendToServer(
+        PacketChangeRequiresReceiverData.startData(tileEntity.getOwner()));
   }
 
   @Override

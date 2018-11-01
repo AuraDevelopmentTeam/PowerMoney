@@ -35,9 +35,6 @@ public class PacketSendReceiverData implements IMessage {
     @Override
     public IMessage handleClientMessage(
         EntityPlayer player, PacketSendReceiverData message, MessageContext ctx) {
-      System.out.println("Energy: " + message.energy);
-      System.out.println("Money: " + message.money);
-
       // TODO
       return null;
     }
