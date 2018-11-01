@@ -4,14 +4,16 @@ import com.google.common.collect.ImmutableMap;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
+import dev.aura.powermoney.network.PacketDispatcher;
+import dev.aura.powermoney.network.packet.serverbound.PacketSendReceiverData;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -22,10 +24,25 @@ import net.minecraftforge.fml.relauncher.Side;
 public class PowerMoneyTickHandler {
   private static final long TICKS_PER_SECOND = 20L;
 
-  @Getter private static ImmutableMap<UUID, BigInteger> consumedEnergy;
-  @Getter private static ImmutableMap<UUID, BigDecimal> generatedMoney;
+  private static final Map<UUID, UUID> dataReceivers = new HashMap<>();
+
+  private static ImmutableMap<UUID, BigInteger> consumedEnergy;
+  private static ImmutableMap<UUID, BigDecimal> generatedMoney;
 
   private final Map<UUID, BigDecimal> payout = new HashMap<>();
+
+  public static void addDataReceiver(UUID receiver, UUID blockOwner) {
+    dataReceivers.put(receiver, blockOwner);
+  }
+
+  public static void removeDataReceiver(UUID receiver) {
+    dataReceivers.remove(receiver);
+  }
+
+  public static PacketSendReceiverData getDataPacket(UUID blockOwner) {
+    return new PacketSendReceiverData(
+        consumedEnergy.get(blockOwner), generatedMoney.get(blockOwner));
+  }
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onServerTick(WorldTickEvent event) {
@@ -62,6 +79,13 @@ public class PowerMoneyTickHandler {
 
     consumedEnergy = tempConsumedEnergy;
     generatedMoney = generatedMoneyBuilder.build();
+
+    // Send update packets
+    for (Map.Entry<UUID, UUID> entry : dataReceivers.entrySet()) {
+      PacketDispatcher.sendTo(
+          getDataPacket(entry.getValue()),
+          (EntityPlayerMP) event.world.getPlayerEntityByUUID(entry.getKey()));
+    }
 
     // Check if we can payout
     if ((event.world.getTotalWorldTime()

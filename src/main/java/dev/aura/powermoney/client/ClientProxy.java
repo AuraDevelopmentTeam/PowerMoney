@@ -1,9 +1,12 @@
 package dev.aura.powermoney.client;
 
 import dev.aura.powermoney.common.CommonProxy;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class ClientProxy extends CommonProxy {
   private static final String INVENTORY = "inventory";
@@ -21,5 +24,10 @@ public class ClientProxy extends CommonProxy {
     final String prefix = item.getRegistryName().toString();
 
     registerModel(item, new ModelResourceLocation(prefix, INVENTORY));
+  }
+
+  @Override
+  public EntityPlayer getPlayerEntity(MessageContext ctx) {
+    return (ctx.side.isClient() ? Minecraft.getMinecraft().player : super.getPlayerEntity(ctx));
   }
 }

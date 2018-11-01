@@ -6,6 +6,7 @@ import dev.aura.powermoney.common.CommonProxy;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
+import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.PowerMoneyGuiHandler;
 import lombok.Getter;
 import net.minecraft.util.ResourceLocation;
@@ -62,6 +63,8 @@ public class PowerMoney {
   @EventHandler
   public void preInit(FMLPreInitializationEvent event) {
     if (logger == null) logger = event.getModLog();
+
+    PacketDispatcher.registerPackets();
 
     PowerMoneyConfigWrapper.loadConfig(new Configuration(event.getSuggestedConfigurationFile()));
 

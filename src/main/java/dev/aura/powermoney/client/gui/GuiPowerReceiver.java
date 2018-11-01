@@ -3,6 +3,8 @@ package dev.aura.powermoney.client.gui;
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.container.ContainerGeneric;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
+import dev.aura.powermoney.network.PacketDispatcher;
+import dev.aura.powermoney.network.packet.clientbound.PacketChangeRequiresReceiverData;
 import java.util.UUID;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -25,6 +27,20 @@ public class GuiPowerReceiver extends GuiContainer {
 
     xSize = 123;
     ySize = 123;
+  }
+
+  @Override
+  public void initGui() {
+    super.initGui();
+
+    PacketDispatcher.sendToServer(PacketChangeRequiresReceiverData.startData(player));
+  }
+
+  @Override
+  public void onGuiClosed() {
+    super.onGuiClosed();
+
+    PacketDispatcher.sendToServer(PacketChangeRequiresReceiverData.stopData());
   }
 
   @Override
