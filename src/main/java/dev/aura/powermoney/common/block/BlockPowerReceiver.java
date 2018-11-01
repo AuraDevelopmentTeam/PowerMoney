@@ -60,10 +60,16 @@ public class BlockPowerReceiver extends Block implements ITileEntityProvider {
   @Override
   public void onBlockPlacedBy(
       World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-    final TileEntity tileEntity = worldIn.getTileEntity(pos);
+    final TileEntity tempTileEntity = worldIn.getTileEntity(pos);
 
-    if ((tileEntity != null) && (tileEntity instanceof TileEntityPowerReceiver)) {
-      ((TileEntityPowerReceiver) tileEntity).setOwner(placer.getUniqueID());
+    if ((tempTileEntity != null) && (tempTileEntity instanceof TileEntityPowerReceiver)) {
+      final TileEntityPowerReceiver tileEntity = ((TileEntityPowerReceiver) tempTileEntity);
+
+      tileEntity.setOwner(placer.getUniqueID());
+
+      if (stack.hasDisplayName()) {
+        tileEntity.setCustomName(stack.getDisplayName());
+      }
     }
   }
 }

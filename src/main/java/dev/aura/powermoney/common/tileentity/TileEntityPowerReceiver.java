@@ -9,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 
@@ -16,6 +17,7 @@ public class TileEntityPowerReceiver extends TileEntity {
   @Getter private String customName;
 
   @Getter private UUID owner = null;
+  @Getter private String ownerName = null;
 
   @Getter private EnergyConsumer energyConsumer = new EnergyConsumer();
 
@@ -54,6 +56,15 @@ public class TileEntityPowerReceiver extends TileEntity {
     owner = newOwner;
     energyConsumer = new EnergyConsumer(owner);
 
+    if (owner == null) {
+      ownerName = null;
+    } else {
+      final String nameFromCache = UsernameCache.getLastKnownUsername(owner);
+      if (nameFromCache != null) {
+        ownerName = nameFromCache;
+      }
+    }
+
     markDirty();
   }
 
@@ -73,6 +84,24 @@ public class TileEntityPowerReceiver extends TileEntity {
 
     if (hasCustomName()) compound.setString("CustomName", getCustomName());
     else compound.removeTag("CustomName");
+
+    return compound;
+  }
+
+  @Override
+  public void handleUpdateTag(NBTTagCompound compound) {
+    readFromNBT(compound);
+
+    ownerName = compound.getString("OwnerName");
+  }
+
+  @Override
+  public NBTTagCompound getUpdateTag() {
+    NBTTagCompound compound = new NBTTagCompound();
+
+    compound.setString("OwnerName", ownerName);
+
+    compound = writeToNBT(compound);
 
     return compound;
   }

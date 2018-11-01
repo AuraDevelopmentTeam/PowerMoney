@@ -35,7 +35,7 @@ public class PowerMoneyGuiHandler implements IGuiHandler {
     switch (ID) {
       case ID_POWER_RECEIVER:
         if (entity instanceof TileEntityPowerReceiver)
-          return new GuiPowerReceiver((TileEntityPowerReceiver) entity);
+          return new GuiPowerReceiver(player, (TileEntityPowerReceiver) entity);
         else return null;
       default:
         return null;
