@@ -52,6 +52,12 @@ public class TileEntityPowerReceiver extends TileEntity {
         : new TextComponentTranslation("container.power_receiver");
   }
 
+  public void setOwner(UUID newOwner, String newOwnerName) {
+    setOwner(newOwner);
+
+    ownerName = newOwnerName;
+  }
+
   public void setOwner(UUID newOwner) {
     owner = newOwner;
     energyConsumer = new EnergyConsumer(owner);

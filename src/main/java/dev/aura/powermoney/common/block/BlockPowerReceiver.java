@@ -65,7 +65,7 @@ public class BlockPowerReceiver extends Block implements ITileEntityProvider {
     if ((tempTileEntity != null) && (tempTileEntity instanceof TileEntityPowerReceiver)) {
       final TileEntityPowerReceiver tileEntity = ((TileEntityPowerReceiver) tempTileEntity);
 
-      tileEntity.setOwner(placer.getUniqueID());
+      tileEntity.setOwner(placer.getUniqueID(), placer.getName());
 
       if (stack.hasDisplayName()) {
         tileEntity.setCustomName(stack.getDisplayName());
