@@ -1,6 +1,7 @@
 package dev.aura.powermoney.network;
 
 import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.network.packet.clientbound.PacketReceiverDisabled;
 import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
 import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +26,8 @@ public class PacketDispatcher {
         PacketChangeRequiresReceiverData.Handler.class,
         PacketChangeRequiresReceiverData.class,
         Side.SERVER);
+    registerMessage(
+        PacketReceiverDisabled.Handler.class, PacketReceiverDisabled.class, Side.CLIENT);
     registerMessage(
         PacketSendReceiverData.Handler.class, PacketSendReceiverData.class, Side.CLIENT);
   }

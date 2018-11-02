@@ -5,6 +5,7 @@ import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.PacketDispatcher;
+import dev.aura.powermoney.network.packet.clientbound.PacketReceiverDisabled;
 import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 
 @NoArgsConstructor(staticName = "registrar")
@@ -33,16 +35,26 @@ public class PowerMoneyTickHandler {
   private final Map<UUID, BigDecimal> payout = new HashMap<>();
 
   public static void addDataReceiver(UUID receiver, UUID blockOwner) {
-    dataReceivers.put(receiver, blockOwner);
+    if (canReceiveEnergy()) {
+      dataReceivers.put(receiver, blockOwner);
+    }
   }
 
   public static void removeDataReceiver(UUID receiver) {
     dataReceivers.remove(receiver);
   }
 
-  public static PacketSendReceiverData getDataPacket(UUID blockOwner) {
-    return new PacketSendReceiverData(
-        consumedEnergy.get(blockOwner), generatedMoney.get(blockOwner));
+  public static IMessage getDataPacket(UUID blockOwner) {
+    if (canReceiveEnergy()) {
+      return new PacketSendReceiverData(
+          consumedEnergy.get(blockOwner), generatedMoney.get(blockOwner));
+    } else {
+      return new PacketReceiverDisabled();
+    }
+  }
+
+  private static boolean canReceiveEnergy() {
+    return PowerMoneyConfigWrapper.getSimulate() || SpongeMoneyInterface.canAcceptMoney();
   }
 
   @SuppressFBWarnings(
@@ -59,8 +71,7 @@ public class PowerMoneyTickHandler {
     if ((event.phase != Phase.END)
         || (event.side != Side.SERVER)
         || ((event.world.getTotalWorldTime() % TICKS_PER_SECOND) != 0L)
-        || !(PowerMoneyConfigWrapper.getSimulate() || SpongeMoneyInterface.canAcceptMoney()))
-      return;
+        || !canReceiveEnergy()) return;
 
     final ImmutableMap<UUID, BigInteger> tempConsumedEnergy =
         EnergyConsumer.getAndResetConsumedEnergy();
