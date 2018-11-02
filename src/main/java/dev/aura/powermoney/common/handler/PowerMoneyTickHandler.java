@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import lombok.NoArgsConstructor;
+import net.minecraft.world.DimensionType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -69,6 +70,7 @@ public class PowerMoneyTickHandler {
     // - Able to accept money or simulating
     if ((event.phase != Phase.END)
         || (event.side != Side.SERVER)
+        || (event.world.provider.getDimensionType() != DimensionType.OVERWORLD)
         || ((event.world.getTotalWorldTime() % TICKS_PER_SECOND) != 0L)
         || !canReceiveEnergy()) return;
 
