@@ -6,6 +6,7 @@ import dev.aura.powermoney.common.container.ContainerGeneric;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.UUID;
@@ -44,6 +45,10 @@ public class GuiPowerReceiver extends GuiContainer {
     ySize = 123;
   }
 
+  @SuppressFBWarnings(
+    value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
+    justification = "Only one object exists at any one time."
+  )
   @Override
   public void initGui() {
     super.initGui();
