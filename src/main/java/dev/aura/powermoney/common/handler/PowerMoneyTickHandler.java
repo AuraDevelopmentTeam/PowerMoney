@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import lombok.NoArgsConstructor;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -100,7 +99,7 @@ public class PowerMoneyTickHandler {
     for (Map.Entry<UUID, UUID> entry : dataReceivers.entrySet()) {
       PacketDispatcher.sendTo(
           getDataPacket(entry.getValue()),
-          (EntityPlayerMP) event.world.getPlayerEntityByUUID(entry.getKey()));
+          event.world.getMinecraftServer().getPlayerList().getPlayerByUUID(entry.getKey()));
     }
 
     // Check if we can payout
