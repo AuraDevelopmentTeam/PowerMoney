@@ -4,6 +4,8 @@ container.power_receiver=Power Receiver
 
 itemGroup.powermoney=Power Money
 
+gui.powermoney.decimalseparator=.
+gui.powermoney.groupingseparator=,
 gui.powermoney.owner=Owner
 gui.powermoney.owner.notyou=Not you
 gui.powermoney.totalenergy=Total Energy

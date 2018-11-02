@@ -4,6 +4,8 @@ container.power_receiver=ɹǝʌᴉǝɔǝɹ ɹǝʍoԀ
 
 itemGroup.powermoney=ʎǝuoW ɹǝʍoԀ
 
+gui.powermoney.decimalseparator=.
+gui.powermoney.groupingseparator=,
 gui.powermoney.owner=ɹǝuʍO
 gui.powermoney.owner.notyou=noʎ ʇoN
 gui.powermoney.totalenergy=ʎƃɹǝuƎ lɐʇo┴

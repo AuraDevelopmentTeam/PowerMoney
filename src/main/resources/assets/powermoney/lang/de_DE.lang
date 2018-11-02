@@ -4,6 +4,8 @@ container.power_receiver=Stromabnehmer
 
 itemGroup.powermoney=Power Money
 
+gui.powermoney.decimalseparator=,
+gui.powermoney.groupingseparator=.
 gui.powermoney.owner=Besitzer
 gui.powermoney.owner.notyou=Nicht du
 gui.powermoney.totalenergy=Gesamte Energie
