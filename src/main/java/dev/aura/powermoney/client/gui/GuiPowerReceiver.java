@@ -7,6 +7,8 @@ import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.UUID;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,10 +21,16 @@ public class GuiPowerReceiver extends GuiContainer {
       new ResourceLocation(PowerMoney.RESOURCE_PACKAGE, "textures/gui/power_receiver.png");
   private static final int TEXT_COLOR = 0x404040;
 
+  // TODO: Refactor that into a class
   private static boolean waiting;
   private static boolean enabled;
   private static BigInteger energyPerSecond;
   private static BigDecimal moneyPerSecond;
+  private static String moneySymbol;
+
+  private static DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols();
+  private static DecimalFormat intFormat = new DecimalFormat();
+  private static DecimalFormat decimalFormat = new DecimalFormat();
 
   private final UUID player;
   private final TileEntityPowerReceiver tileEntity;
@@ -32,11 +40,27 @@ public class GuiPowerReceiver extends GuiContainer {
     enabled = false;
   }
 
-  public static void setReceiverData(BigInteger energy, BigDecimal money) {
+  public static void setReceiverData(
+      BigInteger energy, BigDecimal money, String moneySymbol, int defaultDigits) {
     waiting = false;
     enabled = true;
     energyPerSecond = energy;
     moneyPerSecond = money;
+    GuiPowerReceiver.moneySymbol = moneySymbol;
+
+    // Formatting stuff
+    formatSymbols.setDecimalSeparator('.');
+    formatSymbols.setGroupingSeparator(',');
+
+    intFormat.setMaximumFractionDigits(0);
+    intFormat.setMinimumFractionDigits(0);
+    intFormat.setGroupingUsed(true);
+    intFormat.setDecimalFormatSymbols(formatSymbols);
+
+    decimalFormat.setMaximumFractionDigits(defaultDigits);
+    decimalFormat.setMinimumFractionDigits(defaultDigits);
+    decimalFormat.setGroupingUsed(true);
+    decimalFormat.setDecimalFormatSymbols(formatSymbols);
   }
 
   public GuiPowerReceiver(EntityPlayer player, TileEntityPowerReceiver tileEntity) {
@@ -96,12 +120,15 @@ public class GuiPowerReceiver extends GuiContainer {
       final String totalEarning = I18n.format("gui.powermoney.totalearning") + ':';
 
       final String energy =
-          energyPerSecond.toString()
+          intFormat.format(energyPerSecond)
               + ' '
               + I18n.format("gui.powermoney.energyunit")
               + I18n.format("gui.powermoney.persecond");
       final String money =
-          moneyPerSecond.toString() + " $" + I18n.format("gui.powermoney.persecond");
+          decimalFormat.format(moneyPerSecond)
+              + ' '
+              + moneySymbol
+              + I18n.format("gui.powermoney.persecond");
 
       fontRenderer.drawString(
           totalEnergy, 50 - fontRenderer.getStringWidth(totalEnergy), 32, TEXT_COLOR);
