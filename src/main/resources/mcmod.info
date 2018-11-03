@@ -5,7 +5,8 @@
         "description": "${description}",
         "version": "${version}",
         "mcversion": "${minecraftVersion}",
-        "url": "",
+        "logoFile": "assets/${id}/textures/logo.png",
+        "url": "https://minecraft.curseforge.com/projects/powermoney",
         "authorList": [
             "The_BrainStone"
         ],
