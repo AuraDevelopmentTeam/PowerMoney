@@ -6,4 +6,6 @@ repositories {
 
 dependencies {
     compile "org.spongepowered:spongeapi:${sponge_version}"
+
+    testRuntime "org.slf4j:slf4j-simple:1.7.25"
 }

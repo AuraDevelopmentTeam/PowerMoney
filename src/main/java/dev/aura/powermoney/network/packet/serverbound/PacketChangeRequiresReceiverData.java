@@ -3,17 +3,19 @@ package dev.aura.powermoney.network.packet.serverbound;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import io.netty.buffer.ByteBuf;
 import java.util.UUID;
+import lombok.EqualsAndHashCode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+@EqualsAndHashCode
 public class PacketChangeRequiresReceiverData implements IMessage {
   private boolean requiresData;
   private UUID blockOwner;
 
   public PacketChangeRequiresReceiverData() {}
 
-  public PacketChangeRequiresReceiverData(boolean requiresData, UUID blockOwner) {
+  private PacketChangeRequiresReceiverData(boolean requiresData, UUID blockOwner) {
     this.requiresData = requiresData;
     this.blockOwner = blockOwner;
   }

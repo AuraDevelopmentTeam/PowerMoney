@@ -2,10 +2,12 @@ package dev.aura.powermoney.network.packet.clientbound;
 
 import dev.aura.powermoney.client.gui.GuiPowerReceiver;
 import io.netty.buffer.ByteBuf;
+import lombok.EqualsAndHashCode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+@EqualsAndHashCode
 public class PacketReceiverDisabled implements IMessage {
   public PacketReceiverDisabled() {}
 

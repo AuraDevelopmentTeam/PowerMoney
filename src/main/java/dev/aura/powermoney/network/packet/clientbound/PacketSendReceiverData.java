@@ -6,11 +6,13 @@ import dev.aura.powermoney.network.helper.SerializationHelper;
 import io.netty.buffer.ByteBuf;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import lombok.EqualsAndHashCode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+@EqualsAndHashCode
 public class PacketSendReceiverData implements IMessage {
   private BigInteger energy;
   private BigDecimal money;
