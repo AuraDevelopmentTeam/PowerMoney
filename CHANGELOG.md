@@ -1,3 +1,12 @@
+Version 1.0.0
+-------------
+
+\+ Added PowerReceiver with GUI, textures and recipe.  
+\+ Added energy consuming functionality to the PowerReceiver.  
+\+ Implemented interface to Sponge so that the generated money can be assigned to the player.  
+\+ Added basic config.  
+
+
 Version 0.0.0
 -------------
 
