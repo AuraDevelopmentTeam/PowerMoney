@@ -9,6 +9,8 @@ A mod/plugin that allows players to earn money with Energy
 
 You can download all builds from either:
 
+- Ore: https://ore.spongepowered.org/AuraDevelopmentTeam/Power-Money
+- Curse: https://minecraft.curseforge.com/projects/powermoney
 - Maven:
   - Releases: https://maven.project-creative.de/repository/auradev-releases/
   - Snapshots: https://maven.project-creative.de/repository/auradev-snapshots/
