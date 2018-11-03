@@ -20,6 +20,8 @@ public class GuiPowerReceiver extends GuiContainer {
   private static final ResourceLocation TEXTURE =
       new ResourceLocation(PowerMoney.RESOURCE_PACKAGE, "textures/gui/power_receiver.png");
   private static final int TEXT_COLOR = 0x404040;
+  private static final int INVERSE_TEXT_COLOR = TEXT_COLOR ^ 0xFFFFFF;
+  private static final int COLUMN_HEIGHT = 34;
 
   private static ReceiverData receiverData;
 
@@ -41,8 +43,8 @@ public class GuiPowerReceiver extends GuiContainer {
     this.player = player.getUniqueID();
     this.tileEntity = tileEntity;
 
-    xSize = 123;
-    ySize = 123;
+    xSize = 176;
+    ySize = 124;
   }
 
   @SuppressFBWarnings(
@@ -68,41 +70,64 @@ public class GuiPowerReceiver extends GuiContainer {
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    final ReceiverData receiverDataLocal = receiverData;
+
     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     mc.getTextureManager().bindTexture(TEXTURE);
+
     drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
+    if (receiverDataLocal.isWaiting() || !receiverDataLocal.isEnabled()) {
+      for (int i = 0; i < 3; ++i) {
+        drawTexturedModalRect(guiLeft + 7, guiTop + 30 + (i * COLUMN_HEIGHT), 0, ySize, 162, 19);
+      }
+    }
   }
 
   @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     final ReceiverData receiverDataLocal = receiverData;
 
-    String tileName = tileEntity.getDisplayName().getUnformattedText();
-    String ownerName = I18n.format("gui.powermoney.owner") + ": " + tileEntity.getOwnerName();
+    // Headings
+    final String tileName = tileEntity.getDisplayName().getUnformattedText();
+    final String headings[] =
+        new String[] {
+          I18n.format("gui.powermoney.owner"),
+          I18n.format("gui.powermoney.totalenergy"),
+          I18n.format("gui.powermoney.totalearning")
+        };
+
+    // Data
+    final String data[] = new String[3];
+
+    String ownerName = tileEntity.getOwnerName();
 
     if (!player.equals(tileEntity.getOwner())) {
       ownerName += " (" + I18n.format("gui.powermoney.owner.notyou") + ')';
     }
 
-    fontRenderer.drawString(
-        tileName, (xSize - fontRenderer.getStringWidth(tileName)) / 2, 8, TEXT_COLOR);
-    fontRenderer.drawString(
-        ownerName, (xSize - fontRenderer.getStringWidth(ownerName)) / 2, 16, TEXT_COLOR);
+    data[0] = ownerName;
 
-    if (receiverDataLocal.isWaiting()) {
-      fontRenderer.drawString("Waiting...", 4, 40, TEXT_COLOR);
-    } else if (!receiverDataLocal.isEnabled()) {
-      fontRenderer.drawString("Receiving is disabled server wide.", 4, 40, TEXT_COLOR);
+    if (receiverDataLocal.isWaiting() || !receiverDataLocal.isEnabled()) {
+      final String message =
+          receiverDataLocal.isWaiting()
+              ? I18n.format("gui.powermoney.waiting")
+              : I18n.format("gui.powermoney.disabled");
+
+      data[1] = data[2] = message;
     } else {
-      final String totalEnergy = I18n.format("gui.powermoney.totalenergy") + ':';
-      final String totalEarning = I18n.format("gui.powermoney.totalearning") + ':';
+      data[1] = receiverDataLocal.getEnergyFormatted();
+      data[2] = receiverDataLocal.getMoneyFormatted();
+    }
 
-      fontRenderer.drawString(
-          totalEnergy, 50 - fontRenderer.getStringWidth(totalEnergy), 32, TEXT_COLOR);
-      fontRenderer.drawString(receiverDataLocal.getEnergyFormatted(), 55, 32, TEXT_COLOR);
-      fontRenderer.drawString(
-          totalEarning, 50 - fontRenderer.getStringWidth(totalEarning), 40, TEXT_COLOR);
-      fontRenderer.drawString(receiverDataLocal.getMoneyFormatted(), 55, 40, TEXT_COLOR);
+    fontRenderer.drawString(
+        tileName, (xSize - fontRenderer.getStringWidth(tileName)) / 2, 7, TEXT_COLOR);
+
+    for (int i = 0; i < 3; ++i) {
+      int j = (i * COLUMN_HEIGHT);
+
+      fontRenderer.drawString(headings[i] + ':', 7, 20 + j, TEXT_COLOR);
+      fontRenderer.drawString(data[i], 11, 36 + j, INVERSE_TEXT_COLOR);
     }
   }
 }
