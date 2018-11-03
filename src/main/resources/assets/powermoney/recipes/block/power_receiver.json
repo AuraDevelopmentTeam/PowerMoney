@@ -1,0 +1,22 @@
+{
+    "result": {
+        "item": "powermoney:power_receiver"
+    },
+    "pattern": [
+        "IrI",
+        "rRr",
+        "IrI"
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "I": {
+            "item": "#INGOTIRON"
+        },
+        "r": {
+            "item": "#DUSTREDSTONE"
+        },
+        "R": {
+            "item": "#BLOCKREDSTONE"
+        }
+    }
+}
