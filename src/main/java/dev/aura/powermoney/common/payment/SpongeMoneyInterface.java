@@ -1,6 +1,7 @@
 package dev.aura.powermoney.common.payment;
 
 import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.common.compat.PowerMoneyCompats;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
@@ -9,7 +10,6 @@ import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
-import net.minecraftforge.fml.common.Loader;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
@@ -19,7 +19,7 @@ import org.spongepowered.api.service.economy.EconomyService;
 @UtilityClass
 public class SpongeMoneyInterface {
   private static final DirectInterface directInterface =
-      Loader.isModLoaded("sponge") ? new DirectInterface() : null;
+      PowerMoneyCompats.spongeAPI() ? new DirectInterface() : null;
 
   public static boolean isSpongeLoaded() {
     return directInterface != null;

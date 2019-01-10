@@ -3,6 +3,7 @@ package dev.aura.powermoney;
 import dev.aura.powermoney.client.gui.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.client.handler.ConfigChangedHandler;
 import dev.aura.powermoney.common.CommonProxy;
+import dev.aura.powermoney.common.compat.PowerMoneyCompats;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
@@ -27,7 +28,7 @@ import org.apache.logging.log4j.Logger;
   modid = PowerMoney.ID,
   name = PowerMoney.NAME,
   version = PowerMoney.VERSION,
-  dependencies = PowerMoney.DEPENDENCIES,
+  dependencies = PowerMoneyCompats.DEPENDENCIES,
   certificateFingerprint = PowerMoney.FINGERPRINT,
   guiFactory = PowerMoney.GUI_FACTORY
 )
@@ -40,7 +41,6 @@ public class PowerMoney {
   public static final String VERSION = "@version@";
   public static final String GROUP = "@group@";
   public static final String DESCRIPTION = "@description@";
-  public static final String DEPENDENCIES = "after:spongeapi";
   public static final String FINGERPRINT = "2238d4a92d81ab407741a2fdb741cebddfeacba6";
   public static final String GUI_FACTORY =
       "dev.aura.powermoney.client.gui.config.PowerMoneyGuiFactory";
