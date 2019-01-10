@@ -1,11 +1,16 @@
 apply from: "GradleCommon/common.gradle"
 
 repositories {
-    // Additional repositories
+    maven { // Tesla
+        name "Tesla"
+        url "http://maven.mcmoddev.com"
+    }
 }
 
 dependencies {
     compile "org.spongepowered:spongeapi:${sponge_version}"
+
+    deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
 
     testRuntime "org.slf4j:slf4j-simple:1.7.25"
 }
