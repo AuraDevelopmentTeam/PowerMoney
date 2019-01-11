@@ -11,7 +11,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.energy.CapabilityEnergy;
 
 public class TileEntityPowerReceiver extends TileEntity {
   @Getter private String customName;
@@ -23,14 +22,13 @@ public class TileEntityPowerReceiver extends TileEntity {
 
   @Override
   public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-    if (capability == CapabilityEnergy.ENERGY) return true;
-    else return false;
+    return energyConsumer.hasCapability(capability, facing);
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-    if (capability == CapabilityEnergy.ENERGY) return (T) energyConsumer;
+    if (hasCapability(capability, facing)) return (T) energyConsumer;
 
     return super.getCapability(capability, facing);
   }
