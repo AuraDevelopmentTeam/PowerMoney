@@ -1,6 +1,10 @@
 apply from: "GradleCommon/common.gradle"
 
 repositories {
+    maven { // ComputerCraft
+        name "ComputerCraft"
+        url "https://cc.crzd.me/maven/"
+    }
     maven { // Tesla
         name "Tesla"
         url "http://maven.mcmoddev.com"
@@ -10,6 +14,7 @@ repositories {
 dependencies {
     compile "org.spongepowered:spongeapi:${sponge_version}"
 
+    deobfProvided "dan200.computercraft:ComputerCraft:${computerCraft_version}"
     deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
 
     testRuntime "org.slf4j:slf4j-simple:1.7.25"
