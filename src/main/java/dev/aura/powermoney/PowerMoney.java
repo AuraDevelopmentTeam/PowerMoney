@@ -3,7 +3,7 @@ package dev.aura.powermoney;
 import dev.aura.powermoney.client.gui.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.client.handler.ConfigChangedHandler;
 import dev.aura.powermoney.common.CommonProxy;
-import dev.aura.powermoney.common.compat.PowerMoneyCompats;
+import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -28,7 +29,7 @@ import org.apache.logging.log4j.Logger;
   modid = PowerMoney.ID,
   name = PowerMoney.NAME,
   version = PowerMoney.VERSION,
-  dependencies = PowerMoneyCompats.DEPENDENCIES,
+  dependencies = PowerMoneyModules.DEPENDENCIES,
   certificateFingerprint = PowerMoney.FINGERPRINT,
   guiFactory = PowerMoney.GUI_FACTORY
 )
@@ -68,8 +69,12 @@ public class PowerMoney {
 
     PowerMoneyConfigWrapper.loadConfig(new Configuration(event.getSuggestedConfigurationFile()));
 
+    PowerMoneyModules.detectActiveModules();
+
     PowerMoneyBlocks.generateBlocks();
     PowerMoneyItems.generateItems();
+
+    PowerMoneyModules.preInit(event);
 
     // Event Handlers
     MinecraftForge.EVENT_BUS.register(PowerMoneyBlocks.registrar());
@@ -86,6 +91,13 @@ public class PowerMoney {
     NetworkRegistry.INSTANCE.registerGuiHandler(this, PowerMoneyGuiHandler.registrar());
 
     registerTileEntities(); // TileEntities
+
+    PowerMoneyModules.init(event);
+  }
+
+  @EventHandler
+  public void postInit(FMLPostInitializationEvent event) {
+    PowerMoneyModules.postInit(event);
   }
 
   private static final void registerTileEntities() {

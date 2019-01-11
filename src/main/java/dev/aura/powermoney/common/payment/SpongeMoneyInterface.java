@@ -1,7 +1,7 @@
 package dev.aura.powermoney.common.payment;
 
 import dev.aura.powermoney.PowerMoney;
-import dev.aura.powermoney.common.compat.PowerMoneyCompats;
+import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
@@ -19,7 +19,7 @@ import org.spongepowered.api.service.economy.EconomyService;
 @UtilityClass
 public class SpongeMoneyInterface {
   private static final DirectInterface directInterface =
-      PowerMoneyCompats.spongeAPI() ? new DirectInterface() : null;
+      PowerMoneyModules.spongeAPI() ? new DirectInterface() : null;
 
   public static boolean isSpongeLoaded() {
     return directInterface != null;

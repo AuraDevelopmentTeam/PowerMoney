@@ -1,7 +1,7 @@
 package dev.aura.powermoney.common.capability;
 
 import com.google.common.collect.ImmutableMap;
-import dev.aura.powermoney.common.compat.PowerMoneyCompats;
+import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.compat.tesla.TeslaCompat;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
@@ -53,7 +53,7 @@ public class EnergyConsumer
   @Override
   public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
     return (capability == CapabilityEnergy.ENERGY)
-        || (PowerMoneyCompats.tesla() && TeslaCompat.isTeslaCapabilityConsumer(capability));
+        || (PowerMoneyModules.tesla() && TeslaCompat.isTeslaCapabilityConsumer(capability));
   }
 
   @SuppressWarnings("unchecked")
