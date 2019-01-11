@@ -1,3 +1,9 @@
+Version 1.0.1
+-------------
+
+\+ Added Tesla support.  
+
+
 Version 1.0.0
 -------------
 
