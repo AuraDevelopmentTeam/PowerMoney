@@ -6,6 +6,11 @@ import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import lombok.NonNull;
@@ -20,6 +25,13 @@ public class PowerReceiverPeripheral implements IPeripheral {
   @NonNull private final World world;
   @NonNull private final BlockPos pos;
   @NonNull private final TileEntityPowerReceiver tileEntity;
+
+  private static final SortedMap<String, Method> peripheralMethods = findPeripheralMethods();
+
+  private static final String[] methodNames =
+      peripheralMethods.keySet().toArray(new String[peripheralMethods.size()]);
+  private static final Method[] methods =
+      peripheralMethods.values().toArray(new Method[peripheralMethods.size()]);
 
   /**
    * Should return a string that uniquely identifies this type of peripheral. This can be queried
@@ -44,8 +56,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
   @Override
   @Nonnull
   public String[] getMethodNames() {
-    // TODO Auto-generated method stub
-    return null;
+    return methodNames;
   }
 
   /**
@@ -90,8 +101,15 @@ public class PowerReceiverPeripheral implements IPeripheral {
       int method,
       @Nonnull Object[] arguments)
       throws LuaException, InterruptedException {
-    // TODO Auto-generated method stub
-    return null;
+    try {
+      return (Object[]) methods[method].invoke(this, computer, context, arguments);
+    } catch (RuntimeException | IllegalAccessException | InvocationTargetException e) {
+      throw new LuaException(
+          "An error occured while trying to run a method of the peripheral \""
+              + TYPE_ID
+              + "\": "
+              + e.getMessage());
+    }
   }
 
   /**
@@ -112,5 +130,50 @@ public class PowerReceiverPeripheral implements IPeripheral {
     return (world == otherConverted.world)
         && pos.equals(otherConverted.pos)
         && (tileEntity == otherConverted.tileEntity);
+  }
+
+  @PeripheralMethod
+  public Object[] getOwner(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {tileEntity.getOwnerName()};
+  }
+
+  @PeripheralMethod
+  public Object[] getOwnerUUID(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {tileEntity.getOwner().toString()};
+  }
+
+  /** This method solely exists so that the class can be initialized earlier. */
+  public static void init() {
+    // Do nothing
+  }
+
+  private static SortedMap<String, Method> findPeripheralMethods() {
+    final SortedMap<String, Method> peripheralMethods = new TreeMap<>();
+
+    final Class<?>[] methodParameterSignature =
+        new Class<?>[] {IComputerAccess.class, ILuaContext.class, Object[].class};
+    final Class<?> methodReturnSignature = Object[].class;
+
+    for (Method method : PowerReceiverPeripheral.class.getMethods()) {
+      // Check if the method has the annotation and if the method parameter signature and return
+      // signature is the correct one.
+      if ((method.getAnnotation(PeripheralMethod.class) != null)
+          && Arrays.equals(methodParameterSignature, method.getParameterTypes())
+          && methodReturnSignature.equals(method.getReturnType())) {
+        try {
+          peripheralMethods.put(method.getName(), method);
+        } catch (Exception e) {
+          PowerMoney.getLogger().error(e);
+        }
+      }
+    }
+
+    return peripheralMethods;
   }
 }
