@@ -13,8 +13,6 @@ import javax.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import net.darkhax.tesla.api.ITeslaConsumer;
-import net.darkhax.tesla.api.ITeslaHolder;
-import net.darkhax.tesla.api.ITeslaProducer;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -24,16 +22,11 @@ import net.minecraftforge.fml.common.Optional;
 
 @Value
 @RequiredArgsConstructor
-@Optional.InterfaceList({
-  @Optional.Interface(
-    iface = "net.darkhax.tesla.api.ITeslaConsumer",
-    modid = PowerMoneyCompats.TESLA_MODID
-  ),
-  @Optional.Interface(iface = "net.darkhax.tesla.api.ITeslaHolder", modid = "tesla"),
-  @Optional.Interface(iface = "net.darkhax.tesla.api.ITeslaProducer", modid = "tesla")
-})
-public class EnergyConsumer
-    implements IEnergyStorage, ITeslaHolder, ITeslaConsumer, ITeslaProducer, ICapabilityProvider {
+@Optional.Interface(
+  iface = "net.darkhax.tesla.api.ITeslaConsumer",
+  modid = PowerMoneyModules.TESLA_MODID
+)
+public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabilityProvider {
   private static final Map<UUID, BigInteger> consumedEnergy = new HashMap<>();
 
   private final UUID owner;
@@ -81,33 +74,18 @@ public class EnergyConsumer
   }
 
   @Override
-  public long takePower(long maxExtract, boolean simulate) {
-    return 0;
-  }
-
-  @Override
   public int extractEnergy(int maxExtract, boolean simulate) {
-    return (int) takePower(maxExtract, simulate);
-  }
-
-  @Override
-  public long getStoredPower() {
     return 0;
   }
 
   @Override
   public int getEnergyStored() {
-    return (int) getStoredPower();
-  }
-
-  @Override
-  public long getCapacity() {
     return 0;
   }
 
   @Override
   public int getMaxEnergyStored() {
-    return (int) getCapacity();
+    return 0;
   }
 
   @Override
