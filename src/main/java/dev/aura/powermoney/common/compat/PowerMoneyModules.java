@@ -1,6 +1,7 @@
 package dev.aura.powermoney.common.compat;
 
 import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.common.compat.computercraft.ComputerCraftCompat;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -45,7 +46,8 @@ public class PowerMoneyModules {
   @Module(
     modid = COMPUTERCRAFT_MODID,
     name = "ComputerCraft",
-    message = "Adding the PowerReceiver as a CC peripheral."
+    message = "Adding the PowerReceiver as a CC peripheral.",
+    integration = ComputerCraftCompat.class
   )
   public static boolean computerCraft() {
     return testMod(COMPUTERCRAFT_MODID, COMPUTERCRAFT);
