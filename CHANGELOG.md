@@ -1,3 +1,10 @@
+Version 1.1.1
+-------------
+
+\* Fixed automatic release.  
+\* Fixed several SpotBugs warnings.   
+
+
 Version 1.1.0
 -------------
 
