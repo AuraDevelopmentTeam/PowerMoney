@@ -12,7 +12,9 @@
         ],
         "dependencies": [
             "forge",
-            "spongeapi@7.1.0"
+            "spongeapi@7.1.0",
+            "computercraft",
+            "tesla"
         ],
         "requiredMods": [
             "forge"
