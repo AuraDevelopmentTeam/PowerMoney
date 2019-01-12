@@ -7,6 +7,7 @@ import lombok.Getter;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -118,5 +119,13 @@ public class TileEntityPowerReceiver extends TileEntity {
     compound = writeToNBT(compound);
 
     return compound;
+  }
+
+  public static TileEntityPowerReceiver getTileEntityAt(World world, BlockPos pos) {
+    final TileEntity tempTileEntity = world.getTileEntity(pos);
+
+    if ((tempTileEntity == null) || !(tempTileEntity instanceof TileEntityPowerReceiver))
+      return null;
+    else return (TileEntityPowerReceiver) tempTileEntity;
   }
 }

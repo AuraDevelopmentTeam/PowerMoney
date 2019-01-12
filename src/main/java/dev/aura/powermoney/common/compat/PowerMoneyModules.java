@@ -2,6 +2,7 @@ package dev.aura.powermoney.common.compat;
 
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.compat.computercraft.ComputerCraftCompat;
+import dev.aura.powermoney.common.compat.opencomputers.OpenComputersCompat;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -22,13 +23,22 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class PowerMoneyModules {
   public static final String SPONGEAPI_MODID = "spongeapi";
   public static final String COMPUTERCRAFT_MODID = "computercraft";
+  public static final String OPENCOMPUTERS_MODID = "opencomputers";
   public static final String TESLA_MODID = "tesla";
 
   public static final String DEPENDENCIES =
-      "after:" + SPONGEAPI_MODID + ";after:" + COMPUTERCRAFT_MODID + ";after:" + TESLA_MODID;
+      "after:"
+          + SPONGEAPI_MODID
+          + ";after:"
+          + COMPUTERCRAFT_MODID
+          + ";after:"
+          + OPENCOMPUTERS_MODID
+          + ";after:"
+          + TESLA_MODID;
 
   private static Boolean SPONGEAPI;
   private static Boolean COMPUTERCRAFT;
+  private static Boolean OPENCOMPUTERS;
   private static Boolean TESLA;
 
   @Getter private static final Set<ModuleInformation> allModules = detectAllModules();
@@ -51,6 +61,16 @@ public class PowerMoneyModules {
   )
   public static boolean computerCraft() {
     return testMod(COMPUTERCRAFT_MODID, COMPUTERCRAFT);
+  }
+
+  @Module(
+    modid = OPENCOMPUTERS_MODID,
+    name = "OpenComputers",
+    message = "Adding the PowerReceiver as a OC component.",
+    integration = OpenComputersCompat.class
+  )
+  public static boolean openComputers() {
+    return testMod(OPENCOMPUTERS_MODID, OPENCOMPUTERS);
   }
 
   @Module(modid = TESLA_MODID, name = "TESLA", message = "Enabling support for TESLA energy API.")

@@ -35,7 +35,7 @@ import net.minecraft.world.World;
 )
 @RequiredArgsConstructor
 public class PowerReceiverPeripheral implements IPeripheral {
-  public static final String TYPE_ID = PowerMoney.RESOURCE_PREFIX + "power_receiver";
+  public static final String TYPE_ID = "power_receiver";
 
   @NonNull private final World world;
   @NonNull private final BlockPos pos;

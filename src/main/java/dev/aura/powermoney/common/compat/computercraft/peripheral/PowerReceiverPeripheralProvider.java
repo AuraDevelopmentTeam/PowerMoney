@@ -4,7 +4,6 @@ import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.peripheral.IPeripheralProvider;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import javax.annotation.Nullable;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,12 +21,9 @@ public class PowerReceiverPeripheralProvider implements IPeripheralProvider {
   @Override
   @Nullable
   public IPeripheral getPeripheral(World world, BlockPos pos, EnumFacing side) {
-    final TileEntity tempTileEntity = world.getTileEntity(pos);
+    final TileEntityPowerReceiver tileEntity = TileEntityPowerReceiver.getTileEntityAt(world, pos);
 
-    if ((tempTileEntity == null) || !(tempTileEntity instanceof TileEntityPowerReceiver))
-      return null;
-
-    final TileEntityPowerReceiver tileEntity = ((TileEntityPowerReceiver) tempTileEntity);
+    if (tileEntity == null) return null;
 
     return new PowerReceiverPeripheral(world, pos, tileEntity);
   }
