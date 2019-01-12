@@ -146,6 +146,10 @@ public class PowerReceiverPeripheral implements IPeripheral {
    * @param other The peripheral to compare against. This may be {@code null}.
    * @return Whether these peripherals are equivalent.
    */
+  @SuppressFBWarnings(
+    value = "NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION",
+    justification = "It certainly does not tighten the nullness..."
+  )
   @Override
   public boolean equals(@Nullable IPeripheral other) {
     if (!(other instanceof PowerReceiverPeripheral)) return false;
