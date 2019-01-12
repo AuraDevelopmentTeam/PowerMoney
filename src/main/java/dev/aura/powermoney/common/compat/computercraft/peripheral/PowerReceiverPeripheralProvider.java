@@ -21,7 +21,7 @@ public class PowerReceiverPeripheralProvider implements IPeripheralProvider {
    */
   @Override
   @Nullable
-  public IPeripheral getPeripheral(World world, BlockPos pos, EnumFacing facing) {
+  public IPeripheral getPeripheral(World world, BlockPos pos, EnumFacing side) {
     final TileEntity tempTileEntity = world.getTileEntity(pos);
 
     if ((tempTileEntity == null) || !(tempTileEntity instanceof TileEntityPowerReceiver))
