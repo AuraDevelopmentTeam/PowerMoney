@@ -27,7 +27,7 @@ public class PacketSendReceiverDataTest {
 
   @Test
   public void nullTest() {
-    AssertHelper.testPacket(new PacketSendReceiverData(null, null));
+    AssertHelper.testPacket(new PacketSendReceiverData(null, null, null));
   }
 
   @Test
@@ -35,6 +35,7 @@ public class PacketSendReceiverDataTest {
     AssertHelper.testPacket(
         new PacketSendReceiverData(
             new BigInteger("1546654564544494414848496444165"),
+            new BigInteger("4975464198465446949161321341324654897464456"),
             new BigDecimal("45454545449848948949.48974874878979749")));
   }
 }
