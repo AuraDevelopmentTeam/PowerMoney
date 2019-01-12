@@ -47,10 +47,18 @@ public class PowerMoneyTickHandler {
   public static IMessage getDataPacket(UUID blockOwner) {
     if (canReceiveEnergy()) {
       return new PacketSendReceiverData(
-          consumedEnergy.get(blockOwner), generatedMoney.get(blockOwner));
+          getConsumedEnergy(blockOwner), getGeneratedMoney(blockOwner));
     } else {
       return new PacketReceiverDisabled();
     }
+  }
+
+  public static BigInteger getConsumedEnergy(UUID blockOwner) {
+    return consumedEnergy.get(blockOwner);
+  }
+
+  public static BigDecimal getGeneratedMoney(UUID blockOwner) {
+    return generatedMoney.get(blockOwner);
   }
 
   private static boolean canReceiveEnergy() {

@@ -5,14 +5,20 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
+import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.util.math.BlockPos;
@@ -25,6 +31,15 @@ public class PowerReceiverPeripheral implements IPeripheral {
   @NonNull private final World world;
   @NonNull private final BlockPos pos;
   @NonNull private final TileEntityPowerReceiver tileEntity;
+
+  private final String moneySymbol = SpongeMoneyInterface.getMoneySymbol();
+  private final int defaultDigits = SpongeMoneyInterface.getDefaultDigits();
+
+  @Getter(value = AccessLevel.PRIVATE, lazy = true)
+  private final DecimalFormatSymbols formatSymbols = generateFormatSymbols();
+
+  @Getter(value = AccessLevel.PRIVATE, lazy = true)
+  private final DecimalFormat decimalFormat = generateDecimalFormat();
 
   private static final SortedMap<String, Method> peripheralMethods = findPeripheralMethods();
 
@@ -146,6 +161,70 @@ public class PowerReceiverPeripheral implements IPeripheral {
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
     return new Object[] {tileEntity.getOwner().toString()};
+  }
+
+  @PeripheralMethod
+  public Object[] getEnergyPerSecond(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {
+      PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner()).doubleValue()
+    };
+  }
+
+  @PeripheralMethod
+  public Object[] getEnergyPerSecondString(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner()).toString()};
+  }
+
+  @PeripheralMethod
+  public Object[] getMoneyPerSecond(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {
+      PowerMoneyTickHandler.getGeneratedMoney(tileEntity.getOwner()).doubleValue()
+    };
+  }
+
+  @PeripheralMethod
+  public Object[] getMoneyPerSecondString(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {
+      getDecimalFormat().format(PowerMoneyTickHandler.getGeneratedMoney(tileEntity.getOwner()))
+    };
+  }
+
+  @PeripheralMethod
+  public Object[] getMoneySymbol(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {moneySymbol};
+  }
+
+  private DecimalFormatSymbols generateFormatSymbols() {
+    final DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols();
+    formatSymbols.setDecimalSeparator('.');
+    formatSymbols.setGroupingSeparator(',');
+
+    return formatSymbols;
+  }
+
+  private DecimalFormat generateDecimalFormat() {
+    final DecimalFormat decimalFormat = new DecimalFormat();
+    decimalFormat.setMaximumFractionDigits(defaultDigits);
+    decimalFormat.setMinimumFractionDigits(defaultDigits);
+    decimalFormat.setGroupingUsed(false);
+    decimalFormat.setDecimalFormatSymbols(getFormatSymbols());
+
+    return decimalFormat;
   }
 
   /** This method solely exists so that the class can be initialized earlier. */

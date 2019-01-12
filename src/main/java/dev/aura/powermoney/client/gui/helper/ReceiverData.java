@@ -79,7 +79,7 @@ public class ReceiverData {
   }
 
   private DecimalFormat generateIntFormat() {
-    DecimalFormat intFormat = new DecimalFormat();
+    final DecimalFormat intFormat = new DecimalFormat();
     intFormat.setMaximumFractionDigits(0);
     intFormat.setMinimumFractionDigits(0);
     intFormat.setGroupingUsed(true);
@@ -89,7 +89,7 @@ public class ReceiverData {
   }
 
   private DecimalFormat generateDecimalFormat() {
-    DecimalFormat decimalFormat = new DecimalFormat();
+    final DecimalFormat decimalFormat = new DecimalFormat();
     decimalFormat.setMaximumFractionDigits(defaultDigits);
     decimalFormat.setMinimumFractionDigits(defaultDigits);
     decimalFormat.setGroupingUsed(true);
