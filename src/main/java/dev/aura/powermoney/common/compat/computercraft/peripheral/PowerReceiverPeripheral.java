@@ -132,11 +132,33 @@ public class PowerReceiverPeripheral implements IPeripheral {
       throws LuaException, InterruptedException {
     try {
       return (Object[]) methods[method].invoke(this, computer, context, arguments);
-    } catch (RuntimeException | IllegalAccessException | InvocationTargetException e) {
+    } catch (InvocationTargetException e) {
+      final Throwable realException = e.getTargetException();
+      String message = null;
+
+      if (realException instanceof LuaException) {
+        throw (LuaException) realException;
+      } else if (realException instanceof NullPointerException) {
+        message = "bad argument (got nil)";
+      } else if (realException instanceof NumberFormatException) {
+        message =
+            "bad argument (expected string or number, got \""
+                + realException.getMessage().replaceAll("For input string: |\"", "")
+                + "\")";
+      } else if (realException instanceof ArrayIndexOutOfBoundsException) {
+        message = "bad argument (too few arguments)";
+      } else {
+        message = e.getClass().getName() + ": " + e.getMessage();
+      }
+
+      throw new LuaException(message);
+    } catch (RuntimeException | IllegalAccessException e) {
       throw new LuaException(
-          "An error occured while trying to run a method of the peripheral \""
+          "An unexpected error occured while trying to run a method of the peripheral \""
               + TYPE_ID
               + "\": "
+              + e.getClass().getName()
+              + ": "
               + e.getMessage());
     }
   }
