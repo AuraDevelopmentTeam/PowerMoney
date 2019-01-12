@@ -10,6 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.Capability;
 
@@ -20,6 +21,8 @@ public class TileEntityPowerReceiver extends TileEntity {
   @Getter private String ownerName = null;
 
   @Getter private EnergyConsumer energyConsumer = new EnergyConsumer();
+
+  private World createWorld;
 
   @Override
   public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -59,7 +62,8 @@ public class TileEntityPowerReceiver extends TileEntity {
 
   public void setOwner(UUID newOwner) {
     owner = newOwner;
-    energyConsumer = new EnergyConsumer(owner, new WorldBlockPos(world, pos));
+    energyConsumer =
+        new EnergyConsumer(owner, new WorldBlockPos((world == null) ? createWorld : world, pos));
 
     if (owner == null) {
       ownerName = null;
@@ -71,6 +75,11 @@ public class TileEntityPowerReceiver extends TileEntity {
     }
 
     markDirty();
+  }
+
+  @Override
+  protected void setWorldCreate(World worldIn) {
+    createWorld = worldIn;
   }
 
   @Override

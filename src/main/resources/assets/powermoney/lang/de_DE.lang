@@ -10,6 +10,7 @@ gui.powermoney.owner=Besitzer
 gui.powermoney.owner.notyou=Nicht du
 gui.powermoney.waiting=Warten...
 gui.powermoney.disabled=Auf Server deaktiviert
+gui.powermoney.localenergy=Blockenergie
 gui.powermoney.totalenergy=Gesamte Energie
 gui.powermoney.totalearning=Gesamte Einnahmen
 gui.powermoney.energyunit=FE

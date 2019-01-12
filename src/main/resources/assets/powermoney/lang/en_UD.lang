@@ -1,35 +1,36 @@
-tile.power_receiver.name=ɹǝʌᴉǝɔǝɹ ɹǝʍoԀ
+tile.power_receiver.name=ɹǝʌᴉǝɔǝᴚ ɹǝʍoԀ
 
-container.power_receiver=ɹǝʌᴉǝɔǝɹ ɹǝʍoԀ
+container.power_receiver=ɹǝʌᴉǝɔǝᴚ ɹǝʍoԀ
 
 itemGroup.powermoney=ʎǝuoW ɹǝʍoԀ
 
-gui.powermoney.decimalseparator=.
-gui.powermoney.groupingseparator=,
+gui.powermoney.decimalseparator=˙
+gui.powermoney.groupingseparator='
 gui.powermoney.owner=ɹǝuʍO
 gui.powermoney.owner.notyou=noʎ ʇoN
-gui.powermoney.waiting=˙˙˙ƃuᴉʇᴉɐM
-gui.powermoney.disabled=ɹǝʌɹǝS uo pǝlqɐsᴉp
-gui.powermoney.totalenergy=ʎƃɹǝuƎ lɐʇo┴
-gui.powermoney.totalearning=sƃuᴉuɹɐƎ lɐʇo┴
+gui.powermoney.waiting=˙˙˙ᵷuᴉʇᴉɐM
+gui.powermoney.disabled=ɹǝʌɹǝS uo pǝꞁqɐsᴉᗡ
+gui.powermoney.localenergy=ʎᵷɹǝuƎ ʞɔoꞁᗺ
+gui.powermoney.totalenergy=ʎᵷɹǝuƎ ꞁɐʇo⟘
+gui.powermoney.totalearning=sᵷuᴉuɹɐƎ ꞁɐʇo⟘
 gui.powermoney.energyunit=ƎℲ
 gui.powermoney.persecond=s/
 
-gui.powermoney.config.cat.calculation=uoᴉʇɐlnɔlɐƆ
-gui.powermoney.config.cat.calculation.tooltip=˙ʎǝuoɯ oʇuᴉ ʎƃɹǝuǝ sʇɹǝʌuoɔ ʇɐɥʇ suoᴉʇɐlnɔlɐɔ ǝɥʇ ʞɐǝʍʇ uɐɔ noʎ ǝɹǝH\\n\\n:sᴉɥʇ ǝʞᴉl pǝʇɐlnɔlɐɔ sᴉ ʎǝuoɯ ǝɥ┴\\n    (Ɩ + (puoɔǝSɹǝԀʎƃɹǝuƎ)ǝsɐqƃo˥‾ƃol) * ɹǝᴉldᴉʇlnWǝsɐq = puoɔǝSɹǝԀʎǝuoW
-gui.powermoney.config.cat.calculation.basemultiplier=ɹǝᴉldᴉʇlnW ǝsɐq
-gui.powermoney.config.cat.calculation.basemultiplier.tooltip=˙uoᴉʇɐlnɔlɐɔ ǝɥʇ uᴉ ɹǝᴉldᴉʇlnɯ ǝsɐq ǝɥ┴\\n˙ɥʇɹoʍ sᴉ puoɔǝs ɹǝd ʎƃɹǝuǝ ɟo ʇᴉun Ɩ ɥɔnɯ ʍoɥ ʎllɐᴉʇuǝssƎ
-gui.powermoney.config.cat.calculation.logbase=ǝsɐq ƃo˥
-gui.powermoney.config.cat.calculation.logbase.tooltip=˙uoᴉʇɐlnɔlɐɔ ǝɥʇ uᴉ ǝsɐq ɔᴉɯɥʇᴉɹɐƃol ǝɥ┴\\n˙ʇǝƃ sɹǝʎɐld ǝɥʇ ʎǝuoɯ ssǝl ǝɥʇ ǝnlɐʌ ǝɥʇ ɹǝɥƃᴉɥ ǝɥ┴
+gui.powermoney.config.cat.calculation=uoᴉʇɐꞁnɔꞁɐƆ
+gui.powermoney.config.cat.calculation.tooltip=(⥝ + (puoɔǝSɹǝԀʎᵷɹǝuƎ)ǝsɐᗺᵷoꞀ‾ᵷoꞁ) * ɹǝᴉꞁdᴉʇꞁnWǝsɐᗺ = puoɔǝSɹǝԀʎǝuoW    u\\:sᴉɥʇ ǝʞᴉꞁ pǝʇɐꞁnɔꞁɐɔ sᴉ ʎǝuoɯ ǝɥ⟘u\\u\\˙ʎǝuoɯ oʇuᴉ ʎᵷɹǝuǝ sʇɹǝʌuoɔ ʇɐɥʇ suoᴉʇɐꞁnɔꞁɐɔ ǝɥʇ ʞɐǝʍʇ uɐɔ noʎ ǝɹǝH
+gui.powermoney.config.cat.calculation.basemultiplier=ɹǝᴉꞁdᴉʇꞁnW ǝsɐᗺ
+gui.powermoney.config.cat.calculation.basemultiplier.tooltip=˙ɥʇɹoʍ sᴉ puoɔǝs ɹǝd ʎᵷɹǝuǝ ɟo ʇᴉun ⥝ ɥɔnɯ ʍoɥ ʎꞁꞁɐᴉʇuǝssƎu\\˙uoᴉʇɐꞁnɔꞁɐɔ ǝɥʇ uᴉ ɹǝᴉꞁdᴉʇꞁnɯ ǝsɐq ǝɥ⟘
+gui.powermoney.config.cat.calculation.logbase=ǝsɐᗺ ᵷoꞀ
+gui.powermoney.config.cat.calculation.logbase.tooltip=˙ʇǝᵷ sɹǝʎɐꞁd ǝɥʇ ʎǝuoɯ ssǝꞁ ǝɥʇ ǝnꞁɐʌ ǝɥʇ ɹǝɥᵷᴉɥ ǝɥ⟘u\\˙uoᴉʇɐꞁnɔꞁɐɔ ǝɥʇ uᴉ ǝsɐq ɔᴉɯɥʇᴉɹɐᵷoꞁ ǝɥ⟘
 
 gui.powermoney.config.cat.payment=ʇuǝɯʎɐԀ
-gui.powermoney.config.cat.payment.tooltip=˙sɹǝʎɐld ǝɥʇ oʇ ʇuǝɯʎɐd ǝɥʇ ƃuᴉpɹɐƃǝɹ sƃuᴉʇʇǝS
+gui.powermoney.config.cat.payment.tooltip=˙sɹǝʎɐꞁd ǝɥʇ oʇ ʇuǝɯʎɐd ǝɥʇ ᵷuᴉpɹɐᵷǝɹ sᵷuᴉʇʇǝS
 gui.powermoney.config.cat.payment.currency=ʎɔuǝɹɹnƆ
-gui.powermoney.config.cat.payment.currency.tooltip=˙sʇuǝɯʎɐd ǝɥʇ ǝʞɐɯ oʇ ʎɔuǝɹɹnɔ ǝɥ┴\\n˙ʎɔuǝɹɹnɔ ʇlnɐɟǝp ǝɥʇ oʇ ʞɔɐqllɐɟ llᴉʍ ɯǝʇsʎs ǝɥʇ uǝɥʇ 'ʎʇdɯǝ sᴉ ɹo ʇsᴉxǝ ʇ,usǝop ǝɹǝɥ pǝᴉɟᴉɔǝds ʎɔuǝɹɹnɔ ǝɥʇ ɟI\\n˙ʎɔuǝɹɹnɔ ǝuo uɐɥʇ ǝɹoɯ s,ǝɹǝɥʇ ɟᴉ ʇǝs ǝq oʇ spǝǝu ʎllɐǝɹ ʎluO
-gui.powermoney.config.cat.payment.payoutinterval=lɐʌɹǝʇuI ʇnoʎɐԀ
-gui.powermoney.config.cat.payment.payoutinterval.tooltip=˙sʇnoʎɐd uǝǝʍʇǝq spuoɔǝs uᴉ lɐʌɹǝʇuᴉ ǝɥ┴\\n˙(ǝsɐq puoɔǝs ɹǝd ɐ uo pǝʇɐlnɔlɐɔ sᴉ sʇǝƃ ɹǝʎɐld ǝɥʇ ʎǝuoɯ ǝɥʇ) sʇnoʎɐd ʇuɐʇsuᴉ suɐǝɯ Ɩ ǝnlɐʌ ǝɥ┴
+gui.powermoney.config.cat.payment.currency.tooltip=˙ʎɔuǝɹɹnɔ ǝuo uɐɥʇ ǝɹoɯ s,ǝɹǝɥʇ ɟᴉ ʇǝs ǝq oʇ spǝǝu ʎꞁꞁɐǝɹ ʎꞁuOu\\˙ʎɔuǝɹɹnɔ ʇꞁnɐɟǝp ǝɥʇ oʇ ʞɔɐqꞁꞁɐɟ ꞁꞁᴉʍ ɯǝʇsʎs ǝɥʇ uǝɥʇ 'ʎʇdɯǝ sᴉ ɹo ʇsᴉxǝ ʇ,usǝop ǝɹǝɥ pǝᴉɟᴉɔǝds ʎɔuǝɹɹnɔ ǝɥʇ ɟIu\\˙sʇuǝɯʎɐd ǝɥʇ ǝʞɐɯ oʇ ʎɔuǝɹɹnɔ ǝɥ⟘
+gui.powermoney.config.cat.payment.payoutinterval=ꞁɐʌɹǝʇuI ʇnoʎɐԀ
+gui.powermoney.config.cat.payment.payoutinterval.tooltip=˙(ǝsɐq puoɔǝs ɹǝd ɐ uo pǝʇɐꞁnɔꞁɐɔ sᴉ sʇǝᵷ ɹǝʎɐꞁd ǝɥʇ ʎǝuoɯ ǝɥʇ) sʇnoʎɐd ʇuɐʇsuᴉ suɐǝɯ ⥝ ǝnꞁɐʌ ǝɥ⟘u\\˙sʇnoʎɐd uǝǝʍʇǝq spuoɔǝs uᴉ ꞁɐʌɹǝʇuᴉ ǝɥ⟘
 
-gui.powermoney.config.cat.misc=snoǝuɐllǝɔsᴉW
-gui.powermoney.config.cat.misc.tooltip=˙ǝslǝ ǝɹǝɥʍʎuɐ ƃuolǝq ʇ,uop ʇɐɥʇ sƃuᴉʇʇǝS
-gui.powermoney.config.cat.misc.simulate=ǝʇɐlnɯᴉS
-gui.powermoney.config.cat.misc.simulate.tooltip=˙ɹǝʌɹǝs uoᴉʇɔnpoɹd ɐ uo pǝlqɐuǝ ǝq ʇ,uplnoɥs puɐ ƃuᴉʇsǝʇ ɹoɟ lnɟǝsn sᴉ sᴉɥ┴ ˙ʎǝuoɯ ʎuɐ ǝɔnpoɹd ʇou llᴉʍ ʇᴉ ʇnq ˙ʎƃɹǝuǝ ǝɯnsuoɔ ɯǝɥʇ ǝʞɐɯ llᴉʍ sᴉɥʇ ƃuᴉlqɐuƎ ˙ʎƃɹǝuǝ ǝɯnsuoɔ ʇou llᴉʍ sʞɔolq ǝɥʇ 'ƃuᴉssᴉɯ sᴉ uᴉƃnld ʎɯouoɔƎ uɐ ɹo ǝƃuodS ɟI\\n§4¡ʇɔǝɟɟǝ ou sɐɥ ƃuᴉʇʇǝs sᴉɥʇ 'pǝllɐʇsuᴉ sᴉ uᴉƃnld ʎɯouoɔƎ uɐ puɐ ǝƃuodS ɟI
+gui.powermoney.config.cat.misc=snoǝuɐꞁꞁǝɔsᴉW
+gui.powermoney.config.cat.misc.tooltip=˙ǝsꞁǝ ǝɹǝɥʍʎuɐ ᵷuoꞁǝq ʇ,uop ʇɐɥʇ sᵷuᴉʇʇǝS
+gui.powermoney.config.cat.misc.simulate=ǝʇɐꞁnɯᴉS
+gui.powermoney.config.cat.misc.simulate.tooltip=§4¡ʇɔǝɟɟǝ ou sɐɥ ᵷuᴉʇʇǝs sᴉɥʇ 'pǝꞁꞁɐʇsuᴉ sᴉ uᴉᵷnꞁd ʎɯouoɔƎ uɐ puɐ ǝᵷuodS ɟI§fu\\˙ɹǝʌɹǝs uoᴉʇɔnpoɹd ɐ uo pǝꞁqɐuǝ ǝq ʇ,upꞁnoɥs puɐ ᵷuᴉʇsǝʇ ɹoɟ ꞁnɟǝsn sᴉ sᴉɥ⟘ ˙ʎǝuoɯ ʎuɐ ǝɔnpoɹd ʇou ꞁꞁᴉʍ ʇᴉ ʇnᗺ ˙ʎᵷɹǝuǝ ǝɯnsuoɔ ɯǝɥʇ ǝʞɐɯ ꞁꞁᴉʍ sᴉɥʇ ᵷuᴉꞁqɐuƎ ˙ʎᵷɹǝuǝ ǝɯnsuoɔ ʇou ꞁꞁᴉʍ sʞɔoꞁq ǝɥʇ 'ᵷuᴉssᴉɯ sᴉ uᴉᵷnꞁd ʎɯouoɔƎ uɐ ɹo ǝᵷuodS ɟI
