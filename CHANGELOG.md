@@ -1,3 +1,11 @@
+Version 1.1.0
+-------------
+
+\+ Added ComputerCraft support.  
+\+ Added the PowerReceiver as an peripheral of ComputerCraft.  
+\* Fixed Tesla support.  
+
+
 Version 1.0.1
 -------------
 
