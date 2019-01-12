@@ -33,8 +33,13 @@ public class GuiPowerReceiver extends GuiContainer {
   }
 
   public static void setReceiverData(
-      BigInteger energy, BigDecimal money, String moneySymbol, int defaultDigits) {
-    receiverData = ReceiverData.setReceiverData(energy, money, moneySymbol, defaultDigits);
+      BigInteger localEnergy,
+      BigInteger totalEnergy,
+      BigDecimal money,
+      String moneySymbol,
+      int defaultDigits) {
+    receiverData =
+        ReceiverData.setReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
   }
 
   public GuiPowerReceiver(EntityPlayer player, TileEntityPowerReceiver tileEntity) {
@@ -44,7 +49,7 @@ public class GuiPowerReceiver extends GuiContainer {
     this.tileEntity = tileEntity;
 
     xSize = 176;
-    ySize = 124;
+    ySize = 158;
   }
 
   @SuppressFBWarnings(
@@ -58,7 +63,7 @@ public class GuiPowerReceiver extends GuiContainer {
     receiverData = ReceiverData.waiting();
 
     PacketDispatcher.sendToServer(
-        PacketChangeRequiresReceiverData.startData(tileEntity.getOwner()));
+        PacketChangeRequiresReceiverData.startData(tileEntity.getOwner(), tileEntity.getPos()));
   }
 
   @Override
@@ -78,7 +83,7 @@ public class GuiPowerReceiver extends GuiContainer {
     drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
     if (receiverDataLocal.isWaiting() || !receiverDataLocal.isEnabled()) {
-      for (int i = 0; i < 3; ++i) {
+      for (int i = 0; i < 4; ++i) {
         drawTexturedModalRect(guiLeft + 7, guiTop + 30 + (i * COLUMN_HEIGHT), 0, ySize, 162, 19);
       }
     }
@@ -93,12 +98,13 @@ public class GuiPowerReceiver extends GuiContainer {
     final String headings[] =
         new String[] {
           I18n.format("gui.powermoney.owner"),
+          I18n.format("gui.powermoney.localenergy"),
           I18n.format("gui.powermoney.totalenergy"),
           I18n.format("gui.powermoney.totalearning")
         };
 
     // Data
-    final String data[] = new String[3];
+    final String data[] = new String[4];
 
     String ownerName = tileEntity.getOwnerName();
 
@@ -114,16 +120,17 @@ public class GuiPowerReceiver extends GuiContainer {
               ? I18n.format("gui.powermoney.waiting")
               : I18n.format("gui.powermoney.disabled");
 
-      data[1] = data[2] = message;
+      data[1] = data[2] = data[3] = message;
     } else {
-      data[1] = receiverDataLocal.getEnergyFormatted();
-      data[2] = receiverDataLocal.getMoneyFormatted();
+      data[1] = receiverDataLocal.getLocalEnergyFormatted();
+      data[2] = receiverDataLocal.getTotalEnergyFormatted();
+      data[3] = receiverDataLocal.getMoneyFormatted();
     }
 
     fontRenderer.drawString(
         tileName, (xSize - fontRenderer.getStringWidth(tileName)) / 2, 7, TEXT_COLOR);
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 4; ++i) {
       int j = (i * COLUMN_HEIGHT);
 
       fontRenderer.drawString(headings[i] + ':', 7, 20 + j, TEXT_COLOR);

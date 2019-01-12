@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
+import dev.aura.powermoney.common.util.WorldBlockPos;
 import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.packet.clientbound.PacketReceiverDisabled;
 import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,16 +29,17 @@ import net.minecraftforge.fml.relauncher.Side;
 public class PowerMoneyTickHandler {
   private static final long TICKS_PER_SECOND = 20L;
 
-  private static final Map<UUID, UUID> dataReceivers = new HashMap<>();
+  private static final Map<UUID, ReceiverPostion> dataReceivers = new HashMap<>();
 
-  private static ImmutableMap<UUID, BigInteger> consumedEnergy;
+  private static ImmutableMap<WorldBlockPos, BigInteger> consumedLocalEnergy;
+  private static ImmutableMap<UUID, BigInteger> consumedTotalEnergy;
   private static ImmutableMap<UUID, BigDecimal> generatedMoney;
 
   private final Map<UUID, BigDecimal> payout = new HashMap<>();
 
-  public static void addDataReceiver(UUID receiver, UUID blockOwner) {
+  public static void addDataReceiver(UUID receiver, UUID blockOwner, WorldBlockPos worldPos) {
     if (canReceiveEnergy()) {
-      dataReceivers.put(receiver, blockOwner);
+      dataReceivers.put(receiver, new ReceiverPostion(blockOwner, worldPos));
     }
   }
 
@@ -44,17 +47,23 @@ public class PowerMoneyTickHandler {
     dataReceivers.remove(receiver);
   }
 
-  public static IMessage getDataPacket(UUID blockOwner) {
+  public static IMessage getDataPacket(UUID blockOwner, WorldBlockPos worldPos) {
     if (canReceiveEnergy()) {
       return new PacketSendReceiverData(
-          getConsumedEnergy(blockOwner), getGeneratedMoney(blockOwner));
+          getLocalConsumedEnergy(worldPos),
+          getConsumedEnergy(blockOwner),
+          getGeneratedMoney(blockOwner));
     } else {
       return new PacketReceiverDisabled();
     }
   }
 
+  public static BigInteger getLocalConsumedEnergy(WorldBlockPos worldPos) {
+    return consumedLocalEnergy.get(worldPos);
+  }
+
   public static BigInteger getConsumedEnergy(UUID blockOwner) {
-    return consumedEnergy.get(blockOwner);
+    return consumedTotalEnergy.get(blockOwner);
   }
 
   public static BigDecimal getGeneratedMoney(UUID blockOwner) {
@@ -82,11 +91,13 @@ public class PowerMoneyTickHandler {
         || ((event.world.getTotalWorldTime() % TICKS_PER_SECOND) != 0L)
         || !canReceiveEnergy()) return;
 
-    final ImmutableMap<UUID, BigInteger> tempConsumedEnergy =
-        EnergyConsumer.getAndResetConsumedEnergy();
+    final ImmutableMap<WorldBlockPos, BigInteger> tempConsumedLocalEnergy =
+        EnergyConsumer.getAndResetConsumedLocalEnergy();
+    final ImmutableMap<UUID, BigInteger> tempConsumedTotalEnergy =
+        EnergyConsumer.getAndResetConsumedTotalEnergy();
     final ImmutableMap.Builder<UUID, BigDecimal> generatedMoneyBuilder = ImmutableMap.builder();
 
-    for (Entry<UUID, BigInteger> entry : tempConsumedEnergy.entrySet()) {
+    for (Entry<UUID, BigInteger> entry : tempConsumedTotalEnergy.entrySet()) {
       final UUID player = entry.getKey();
       final BigDecimal earnedMoney =
           PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(entry.getValue());
@@ -102,13 +113,14 @@ public class PowerMoneyTickHandler {
       payout.put(player, playerPayout);
     }
 
-    consumedEnergy = tempConsumedEnergy;
+    consumedLocalEnergy = tempConsumedLocalEnergy;
+    consumedTotalEnergy = tempConsumedTotalEnergy;
     generatedMoney = generatedMoneyBuilder.build();
 
     // Send update packets
-    for (Map.Entry<UUID, UUID> entry : dataReceivers.entrySet()) {
+    for (Map.Entry<UUID, ReceiverPostion> entry : dataReceivers.entrySet()) {
       PacketDispatcher.sendTo(
-          getDataPacket(entry.getValue()),
+          getDataPacket(entry.getValue().getUuid(), entry.getValue().getWorldPos()),
           event.world.getMinecraftServer().getPlayerList().getPlayerByUUID(entry.getKey()));
     }
 
@@ -126,5 +138,11 @@ public class PowerMoneyTickHandler {
 
     // Always clear the payouts
     payout.clear();
+  }
+
+  @Value
+  private static class ReceiverPostion {
+    private final UUID uuid;
+    private final WorldBlockPos worldPos;
   }
 }

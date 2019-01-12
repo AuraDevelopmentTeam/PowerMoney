@@ -8,6 +8,7 @@ import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
+import dev.aura.powermoney.common.util.WorldBlockPos;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -183,12 +184,36 @@ public class PowerReceiverPeripheral implements IPeripheral {
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
     return new Object[] {
-      PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner()).doubleValue()
+      PowerMoneyTickHandler.getLocalConsumedEnergy(
+              new WorldBlockPos(tileEntity.getWorld(), tileEntity.getPos()))
+          .doubleValue()
     };
   }
 
   @PeripheralMethod
   public Object[] getEnergyPerSecondString(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {
+      PowerMoneyTickHandler.getLocalConsumedEnergy(
+              new WorldBlockPos(tileEntity.getWorld(), tileEntity.getPos()))
+          .toString()
+    };
+  }
+
+  @PeripheralMethod
+  public Object[] getTotalEnergyPerSecond(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {
+      PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner()).doubleValue()
+    };
+  }
+
+  @PeripheralMethod
+  public Object[] getTotalEnergyPerSecondString(
       @Nonnull IComputerAccess computer,
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {

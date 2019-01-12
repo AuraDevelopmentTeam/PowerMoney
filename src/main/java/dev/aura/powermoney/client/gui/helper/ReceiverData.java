@@ -19,7 +19,8 @@ import net.minecraft.client.resources.I18n;
 public class ReceiverData {
   @Getter private final boolean waiting;
   @Getter private final boolean enabled;
-  private final BigInteger energyPerSecond;
+  private final BigInteger localEnergyPerSecond;
+  private final BigInteger totalEnergyPerSecond;
   private final BigDecimal moneyPerSecond;
   private final String moneySymbol;
   private final int defaultDigits;
@@ -34,7 +35,10 @@ public class ReceiverData {
   private final DecimalFormat decimalFormat = generateDecimalFormat();
 
   @Getter(lazy = true)
-  private final String energyFormatted = generateEnergyFormatted();
+  private final String localEnergyFormatted = generateEnergyFormatted(localEnergyPerSecond);
+
+  @Getter(lazy = true)
+  private final String totalEnergyFormatted = generateEnergyFormatted(totalEnergyPerSecond);
 
   @Getter(lazy = true)
   private final String moneyFormatted = generateMoneyFormatted();
@@ -48,23 +52,34 @@ public class ReceiverData {
   }
 
   public static ReceiverData setReceiverData(
-      BigInteger energy, BigDecimal money, String moneySymbol, int defaultDigits) {
-    return new ReceiverData(energy, money, moneySymbol, defaultDigits);
+      BigInteger localEnergy,
+      BigInteger totalEnergy,
+      BigDecimal money,
+      String moneySymbol,
+      int defaultDigits) {
+    return new ReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
   }
 
   private ReceiverData(boolean waiting) {
     this.waiting = waiting;
     enabled = false;
-    energyPerSecond = null;
+    localEnergyPerSecond = null;
+    totalEnergyPerSecond = null;
     moneyPerSecond = null;
     moneySymbol = null;
     defaultDigits = 0;
   }
 
-  private ReceiverData(BigInteger energy, BigDecimal money, String moneySymbol, int defaultDigits) {
+  private ReceiverData(
+      BigInteger localEnergy,
+      BigInteger totalEnergy,
+      BigDecimal money,
+      String moneySymbol,
+      int defaultDigits) {
     waiting = false;
     enabled = true;
-    energyPerSecond = energy;
+    localEnergyPerSecond = localEnergy;
+    totalEnergyPerSecond = totalEnergy;
     moneyPerSecond = money;
     this.moneySymbol = moneySymbol;
     this.defaultDigits = defaultDigits;
@@ -98,8 +113,8 @@ public class ReceiverData {
     return decimalFormat;
   }
 
-  private String generateEnergyFormatted() {
-    return getIntFormat().format(energyPerSecond)
+  private String generateEnergyFormatted(BigInteger energy) {
+    return getIntFormat().format(energy)
         + ' '
         + I18n.format("gui.powermoney.energyunit")
         + I18n.format("gui.powermoney.persecond");

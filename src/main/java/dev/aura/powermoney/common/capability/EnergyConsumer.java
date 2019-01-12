@@ -5,6 +5,7 @@ import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.compat.tesla.TeslaCompat;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
+import dev.aura.powermoney.common.util.WorldBlockPos;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,20 +28,30 @@ import net.minecraftforge.fml.common.Optional;
   modid = PowerMoneyModules.TESLA_MODID
 )
 public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabilityProvider {
-  private static final Map<UUID, BigInteger> consumedEnergy = new HashMap<>();
+  private static final Map<WorldBlockPos, BigInteger> consumedLocalEnergy = new HashMap<>();
+  private static final Map<UUID, BigInteger> consumedTotalEnergy = new HashMap<>();
 
   private final UUID owner;
+  private final WorldBlockPos worldPos;
 
-  public static ImmutableMap<UUID, BigInteger> getAndResetConsumedEnergy() {
-    ImmutableMap<UUID, BigInteger> output = ImmutableMap.copyOf(consumedEnergy);
+  public static ImmutableMap<WorldBlockPos, BigInteger> getAndResetConsumedLocalEnergy() {
+    ImmutableMap<WorldBlockPos, BigInteger> output = ImmutableMap.copyOf(consumedLocalEnergy);
 
-    consumedEnergy.clear();
+    consumedLocalEnergy.clear();
+
+    return output;
+  }
+
+  public static ImmutableMap<UUID, BigInteger> getAndResetConsumedTotalEnergy() {
+    ImmutableMap<UUID, BigInteger> output = ImmutableMap.copyOf(consumedTotalEnergy);
+
+    consumedTotalEnergy.clear();
 
     return output;
   }
 
   public EnergyConsumer() {
-    this(null);
+    this(null, null);
   }
 
   @Override
@@ -100,13 +111,22 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
   }
 
   private void addEnergy(long energy) {
-    final BigInteger currentValue = consumedEnergy.get(owner);
     final BigInteger input = BigInteger.valueOf(energy);
-    BigInteger result;
 
-    if (currentValue == null) result = input;
-    else result = currentValue.add(input);
+    final BigInteger currentLocalValue = consumedLocalEnergy.get(worldPos);
+    BigInteger localResult;
 
-    consumedEnergy.put(owner, result);
+    if (currentLocalValue == null) localResult = input;
+    else localResult = currentLocalValue.add(input);
+
+    consumedLocalEnergy.put(worldPos, localResult);
+
+    final BigInteger currentTotalValue = consumedTotalEnergy.get(owner);
+    BigInteger totalResult;
+
+    if (currentTotalValue == null) totalResult = input;
+    else totalResult = currentTotalValue.add(input);
+
+    consumedTotalEnergy.put(owner, totalResult);
   }
 }

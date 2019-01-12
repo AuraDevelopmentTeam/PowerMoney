@@ -1,6 +1,7 @@
 package dev.aura.powermoney.common.tileentity;
 
 import dev.aura.powermoney.common.capability.EnergyConsumer;
+import dev.aura.powermoney.common.util.WorldBlockPos;
 import java.util.UUID;
 import lombok.Getter;
 import net.minecraft.nbt.NBTTagCompound;
@@ -58,7 +59,7 @@ public class TileEntityPowerReceiver extends TileEntity {
 
   public void setOwner(UUID newOwner) {
     owner = newOwner;
-    energyConsumer = new EnergyConsumer(owner);
+    energyConsumer = new EnergyConsumer(owner, new WorldBlockPos(world, pos));
 
     if (owner == null) {
       ownerName = null;

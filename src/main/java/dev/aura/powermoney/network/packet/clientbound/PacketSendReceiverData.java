@@ -14,15 +14,17 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 @EqualsAndHashCode
 public class PacketSendReceiverData implements IMessage {
-  private BigInteger energy;
+  private BigInteger localEnergy;
+  private BigInteger totalEnergy;
   private BigDecimal money;
   private String moneySymbol;
   private int defaultDigits;
 
   public PacketSendReceiverData() {}
 
-  public PacketSendReceiverData(BigInteger energy, BigDecimal money) {
-    this.energy = (energy == null) ? BigInteger.ZERO : energy;
+  public PacketSendReceiverData(BigInteger localEnergy, BigInteger totalEnergy, BigDecimal money) {
+    this.localEnergy = (localEnergy == null) ? BigInteger.ZERO : localEnergy;
+    this.totalEnergy = (totalEnergy == null) ? BigInteger.ZERO : totalEnergy;
     this.money = (money == null) ? BigDecimal.ZERO : money;
 
     moneySymbol = SpongeMoneyInterface.getMoneySymbol();
@@ -31,7 +33,8 @@ public class PacketSendReceiverData implements IMessage {
 
   @Override
   public void fromBytes(ByteBuf buf) {
-    energy = SerializationHelper.readBigInteger(buf);
+    localEnergy = SerializationHelper.readBigInteger(buf);
+    totalEnergy = SerializationHelper.readBigInteger(buf);
     money = SerializationHelper.readBigDecimal(buf);
     moneySymbol = ByteBufUtils.readUTF8String(buf);
     defaultDigits = buf.readInt();
@@ -39,7 +42,8 @@ public class PacketSendReceiverData implements IMessage {
 
   @Override
   public void toBytes(ByteBuf buf) {
-    SerializationHelper.writeBigInteger(buf, energy);
+    SerializationHelper.writeBigInteger(buf, localEnergy);
+    SerializationHelper.writeBigInteger(buf, totalEnergy);
     SerializationHelper.writeBigDecimal(buf, money);
     ByteBufUtils.writeUTF8String(buf, moneySymbol);
     buf.writeInt(defaultDigits);
@@ -50,7 +54,11 @@ public class PacketSendReceiverData implements IMessage {
     public IMessage handleClientMessage(
         EntityPlayer player, PacketSendReceiverData message, MessageContext ctx) {
       GuiPowerReceiver.setReceiverData(
-          message.energy, message.money, message.moneySymbol, message.defaultDigits);
+          message.localEnergy,
+          message.totalEnergy,
+          message.money,
+          message.moneySymbol,
+          message.defaultDigits);
 
       return null;
     }
