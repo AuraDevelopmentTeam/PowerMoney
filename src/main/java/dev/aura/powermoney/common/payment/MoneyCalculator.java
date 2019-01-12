@@ -41,8 +41,8 @@ public class MoneyCalculator {
             BigDecimal.valueOf(Math.log(logBase) / Math.log(2.0)), CALCULATION_PRECISION);
   }
 
-  public BigDecimal covertEnergyToMoney(BigInteger money) {
-    final int comparison = BigInteger.ZERO.compareTo(money);
+  public BigDecimal covertEnergyToMoney(BigInteger energy) {
+    final int comparison = BigInteger.ZERO.compareTo(energy);
 
     if (comparison > 0) throw new IllegalArgumentException("money must not be negative");
     else if (comparison == 0) return BigDecimal.ZERO;
@@ -53,7 +53,7 @@ public class MoneyCalculator {
     return roundResult(
         baseMultiplierBD.multiply(
             logHelper
-                .multiply(BigDecimal.valueOf(log2(money)), CALCULATION_PRECISION)
+                .multiply(BigDecimal.valueOf(log2(energy)), CALCULATION_PRECISION)
                 .add(BigDecimal.ONE, CALCULATION_PRECISION),
             CALCULATION_PRECISION));
   }

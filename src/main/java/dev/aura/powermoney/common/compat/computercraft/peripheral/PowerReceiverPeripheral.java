@@ -5,6 +5,7 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
@@ -12,6 +13,8 @@ import dev.aura.powermoney.common.util.WorldBlockPos;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
@@ -246,6 +249,30 @@ public class PowerReceiverPeripheral implements IPeripheral {
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
     return new Object[] {moneySymbol};
+  }
+
+  @PeripheralMethod
+  public Object[] calculateEarnings(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {calculateEarnings(arguments).doubleValue()};
+  }
+
+  @PeripheralMethod
+  public Object[] calculateEarningsString(
+      @Nonnull IComputerAccess computer,
+      @Nonnull ILuaContext context,
+      @Nonnull Object[] arguments) {
+    return new Object[] {calculateEarnings(arguments).toString()};
+  }
+
+  private BigDecimal calculateEarnings(Object[] arguments) {
+    // Throws out of bounds or number format if anything is wrong.
+    // Will be caught and handled in #callMethod
+    final BigInteger energy = new BigInteger(arguments[0].toString());
+
+    return PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(energy);
   }
 
   private DecimalFormatSymbols generateFormatSymbols() {
