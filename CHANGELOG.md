@@ -1,3 +1,12 @@
+Version 1.2.0
+-------------
+
+\+ Added a field for the energy consumption of the current block in the GUI.  
+\+ Made that value accessible through the CC peripheral.  
+\+ Added a method to simulate the earnings for any given energy value.  
+\* Fixed meta files.   
+
+
 Version 1.1.1
 -------------
 
