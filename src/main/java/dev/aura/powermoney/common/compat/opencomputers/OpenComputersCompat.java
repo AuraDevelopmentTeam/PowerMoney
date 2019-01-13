@@ -15,11 +15,11 @@ public class OpenComputersCompat implements IModIntegration {
 
   @Override
   public void init(FMLInitializationEvent event) {
-    // Do nothing
+    API.driver.add(new PowerReceiverDriver());
   }
 
   @Override
   public void postInit(FMLPostInitializationEvent event) {
-    API.driver.add(new PowerReceiverDriver());
+    // Do nothing
   }
 }
