@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.UUID;
 import lombok.NoArgsConstructor;
@@ -59,15 +60,15 @@ public class PowerMoneyTickHandler {
   }
 
   public static BigInteger getLocalConsumedEnergy(WorldBlockPos worldPos) {
-    return consumedLocalEnergy.get(worldPos);
+    return Optional.ofNullable(consumedLocalEnergy.get(worldPos)).orElse(BigInteger.ZERO);
   }
 
   public static BigInteger getConsumedEnergy(UUID blockOwner) {
-    return consumedTotalEnergy.get(blockOwner);
+    return Optional.ofNullable(consumedTotalEnergy.get(blockOwner)).orElse(BigInteger.ZERO);
   }
 
   public static BigDecimal getGeneratedMoney(UUID blockOwner) {
-    return generatedMoney.get(blockOwner);
+    return Optional.ofNullable(generatedMoney.get(blockOwner)).orElse(BigDecimal.ZERO);
   }
 
   private static boolean canReceiveEnergy() {

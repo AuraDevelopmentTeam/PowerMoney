@@ -50,7 +50,7 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
 
   @Override
   public int priority() {
-    return 0;
+    return 10;
   }
 
   @Callback(direct = true, doc = "Returns the name of the Owner of the block")
@@ -66,18 +66,14 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
   @Callback(direct = true, doc = "Returns the energy per seconds this block consumes as a number")
   public Object[] getEnergyPerSecond(Context context, Arguments args) {
     return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(
-              new WorldBlockPos(tileEntity.getWorld(), tileEntity.getPos()))
-          .doubleValue()
+      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos)).doubleValue()
     };
   }
 
   @Callback(direct = true, doc = "Returns the energy per seconds this block consumes as a string")
   public Object[] getEnergyPerSecondString(Context context, Arguments args) {
     return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(
-              new WorldBlockPos(tileEntity.getWorld(), tileEntity.getPos()))
-          .toString()
+      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos)).toString()
     };
   }
 

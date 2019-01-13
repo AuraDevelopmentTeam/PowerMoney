@@ -209,9 +209,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
     return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(
-              new WorldBlockPos(tileEntity.getWorld(), tileEntity.getPos()))
-          .doubleValue()
+      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos)).doubleValue()
     };
   }
 
@@ -221,9 +219,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
     return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(
-              new WorldBlockPos(tileEntity.getWorld(), tileEntity.getPos()))
-          .toString()
+      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos)).toString()
     };
   }
 
