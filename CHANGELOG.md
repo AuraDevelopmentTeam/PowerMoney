@@ -1,3 +1,12 @@
+Version 1.3.0
+-------------
+
+\+ Added OpenComputers support.  
+\* Fixed issues with CC and OC integration that when the energy was 0 the methods would just return an error.  
+\* Fixed an issue where the CC and OC method `calculateEarnings` would only accept a string instead of a string and an integer.  
+\* Slight improvements to CC and OC errors messages.  
+
+
 Version 1.2.0
 -------------
 
