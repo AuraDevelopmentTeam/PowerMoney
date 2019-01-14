@@ -19,7 +19,7 @@ dependencies {
     compile "org.spongepowered:spongeapi:${sponge_version}"
 
     deobfProvided "dan200.computercraft:ComputerCraft:${computerCraft_version}"
-    provided "li.cil.oc:OpenComputers:MC${minecraft_version}-${openComputers_version}:api"
+    deobfProvided "li.cil.oc:OpenComputers:MC${minecraft_version}-${openComputers_version}"
     deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
 
     testRuntime "org.slf4j:slf4j-simple:1.7.25"
