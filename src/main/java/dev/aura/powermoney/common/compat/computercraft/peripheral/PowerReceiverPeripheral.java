@@ -20,6 +20,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import lombok.AccessLevel;
@@ -36,6 +37,8 @@ import net.minecraft.world.World;
 @RequiredArgsConstructor
 public class PowerReceiverPeripheral implements IPeripheral {
   public static final String TYPE_ID = "power_receiver";
+
+  private static final Pattern DECIMAL_REMOVER = Pattern.compile("\\.\\d*");
 
   @NonNull private final World world;
   @NonNull private final BlockPos pos;
@@ -288,7 +291,9 @@ public class PowerReceiverPeripheral implements IPeripheral {
   private BigDecimal calculateEarnings(Object[] arguments) {
     // Throws out of bounds or number format if anything is wrong.
     // Will be caught and handled in #callMethod
-    final BigInteger energy = new BigInteger(arguments[0].toString());
+    final String energyStr = DECIMAL_REMOVER.matcher(arguments[0].toString()).replaceFirst("");
+
+    final BigInteger energy = new BigInteger(energyStr);
 
     return PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(energy);
   }

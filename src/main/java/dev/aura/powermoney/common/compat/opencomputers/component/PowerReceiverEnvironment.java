@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.regex.Pattern;
 import li.cil.oc.api.driver.NamedBlock;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -29,6 +30,8 @@ import net.minecraft.world.World;
 @RequiredArgsConstructor
 public class PowerReceiverEnvironment extends AbstractManagedEnvironment implements NamedBlock {
   public static final String TYPE_ID = "power_receiver";
+
+  private static final Pattern DECIMAL_REMOVER = Pattern.compile("\\.\\d*");
 
   @NonNull private final World world;
   @NonNull private final BlockPos pos;
@@ -137,7 +140,7 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
   @Callback(
     direct = true,
     doc =
-        "Returns the money per seconf that would be earned with a energy input per second of the first parameter as a string"
+        "Returns the money per second that would be earned with a energy input per second of the first parameter as a string"
   )
   public Object[] calculateEarningsString(Context context, Arguments args) {
     return new Object[] {calculateEarnings(args).toString()};
@@ -145,7 +148,18 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
 
   private BigDecimal calculateEarnings(Arguments args) {
     try {
-      final BigInteger energy = new BigInteger(args.checkAny(0).toString());
+      final int index = 0;
+      String energyStr;
+
+      if (args.isDouble(index)) {
+        energyStr = Double.toString(args.checkDouble(index));
+      } else if (args.isString(index)) {
+        energyStr = args.checkString(index);
+      } else {
+        throw new IllegalArgumentException("First argument needs to be a string or an integer");
+      }
+
+      final BigInteger energy = new BigInteger(DECIMAL_REMOVER.matcher(energyStr).replaceFirst(""));
 
       return PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(energy);
     } catch (NumberFormatException e) {
