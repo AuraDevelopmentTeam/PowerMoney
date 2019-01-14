@@ -1,0 +1,36 @@
+tile.power_receiver.name=电力变现
+
+container.power_receiver=电力变现
+
+itemGroup.powermoney=电力变现
+
+gui.powermoney.decimalseparator=.
+gui.powermoney.groupingseparator=,
+gui.powermoney.owner=所有者
+gui.powermoney.owner.notyou=不是你
+gui.powermoney.waiting=等待...
+gui.powermoney.disabled=在服务器上禁用
+gui.powermoney.localenergy=单个能量
+gui.powermoney.totalenergy=总能量
+gui.powermoney.totalearning=总收益
+gui.powermoney.energyunit=FE
+gui.powermoney.persecond=/s
+
+gui.powermoney.config.cat.calculation=Calculation
+gui.powermoney.config.cat.calculation.tooltip=Here you can tweak the calculations that converts energy into money.\n\nThe money is calculated like this:\n    MoneyPerSecond = BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)
+gui.powermoney.config.cat.calculation.basemultiplier=Base Multiplier
+gui.powermoney.config.cat.calculation.basemultiplier.tooltip=The base multiplier in the calculation.\nEssentially how much 1 unit of energy per second is worth.
+gui.powermoney.config.cat.calculation.logbase=Log Base
+gui.powermoney.config.cat.calculation.logbase.tooltip=The logarithmic base in the calculation.\nThe higher the value the less money the players get.
+
+gui.powermoney.config.cat.payment=Payment
+gui.powermoney.config.cat.payment.tooltip=Settings regarding the payment to the players.
+gui.powermoney.config.cat.payment.currency=Currency
+gui.powermoney.config.cat.payment.currency.tooltip=The currency to make the payments.\nIf the currency specified here doesn't exist or is empty, then the system will fallback to the default currency.\nOnly really needs to be set if there's more than one currency.
+gui.powermoney.config.cat.payment.payoutinterval=Payout Interval
+gui.powermoney.config.cat.payment.payoutinterval.tooltip=The interval in seconds between payouts.\nThe value 1 means instant payouts (the money the player gets is calculated on a per second base).
+
+gui.powermoney.config.cat.misc=Miscellaneous
+gui.powermoney.config.cat.misc.tooltip=Settings that don't belong anywhere else.
+gui.powermoney.config.cat.misc.simulate=Simulate
+gui.powermoney.config.cat.misc.simulate.tooltip=If Sponge or an Economy plugin is missing, the blocks will not consume energy. Enabling this will make them consume energy. But it will not produce any money. This is useful for testing and shouldn't be enabled on a production server.\n§4If Sponge and an Economy plugin is installed, this setting has no effect!
