@@ -1,3 +1,10 @@
+Version 1.3.1
+-------------
+
+\+ cdcp998: Added zh_CN.lang.  
+\* Fixed some missing metadata.  
+
+
 Version 1.3.0
 -------------
 
