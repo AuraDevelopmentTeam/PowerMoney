@@ -44,7 +44,7 @@ public class MoneyCalculator {
   public BigDecimal covertEnergyToMoney(BigInteger energy) {
     final int comparison = BigInteger.ZERO.compareTo(energy);
 
-    if (comparison > 0) throw new IllegalArgumentException("money must not be negative");
+    if (comparison > 0) throw new IllegalArgumentException("energy must not be negative");
     else if (comparison == 0) return BigDecimal.ZERO;
 
     // baseMultiplier * ((logHelper * log2(money)) + 1)
