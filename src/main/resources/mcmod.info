@@ -14,6 +14,7 @@
             "forge",
             "spongeapi@7.1.0",
             "computercraft",
+            "opencomputers",
             "tesla"
         ],
         "requiredMods": [
