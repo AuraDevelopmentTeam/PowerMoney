@@ -150,8 +150,10 @@ public class PowerReceiverPeripheral implements IPeripheral {
                 + "\")";
       } else if (realException instanceof ArrayIndexOutOfBoundsException) {
         message = "bad argument (too few arguments)";
+      } else if (realException instanceof IllegalArgumentException) {
+        message = "bad argument (" + realException.getMessage() + ')';
       } else {
-        message = e.getClass().getName() + ": " + e.getMessage();
+        message = realException.getClass().getName() + ": " + realException.getMessage();
       }
 
       throw new LuaException(message);
