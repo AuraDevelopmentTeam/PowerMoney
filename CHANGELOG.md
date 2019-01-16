@@ -1,3 +1,11 @@
+Version 1.4.0
+-------------
+
+\* Internal improvements that should significantly improve performance (Changed `BigInteger` to `long`).  
+\* Removed all `...String` methods from the CC and OC interface, since they are no longer needed.  
+\* PowerReceiver now has a limit of 9,223,372,036,854,775,807 FE/s/player.  
+
+
 Version 1.3.2
 -------------
 
