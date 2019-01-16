@@ -10,7 +10,6 @@ import dev.aura.powermoney.network.packet.clientbound.PacketReceiverDisabled;
 import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -32,8 +31,8 @@ public class PowerMoneyTickHandler {
 
   private static final Map<UUID, ReceiverPostion> dataReceivers = new HashMap<>();
 
-  private static ImmutableMap<WorldBlockPos, BigInteger> consumedLocalEnergy;
-  private static ImmutableMap<UUID, BigInteger> consumedTotalEnergy;
+  private static ImmutableMap<WorldBlockPos, Long> consumedLocalEnergy;
+  private static ImmutableMap<UUID, Long> consumedTotalEnergy;
   private static ImmutableMap<UUID, BigDecimal> generatedMoney;
 
   private final Map<UUID, BigDecimal> payout = new HashMap<>();
@@ -59,12 +58,12 @@ public class PowerMoneyTickHandler {
     }
   }
 
-  public static BigInteger getLocalConsumedEnergy(WorldBlockPos worldPos) {
-    return Optional.ofNullable(consumedLocalEnergy.get(worldPos)).orElse(BigInteger.ZERO);
+  public static long getLocalConsumedEnergy(WorldBlockPos worldPos) {
+    return Optional.ofNullable(consumedLocalEnergy.get(worldPos)).orElse(0L);
   }
 
-  public static BigInteger getConsumedEnergy(UUID blockOwner) {
-    return Optional.ofNullable(consumedTotalEnergy.get(blockOwner)).orElse(BigInteger.ZERO);
+  public static long getConsumedEnergy(UUID blockOwner) {
+    return Optional.ofNullable(consumedTotalEnergy.get(blockOwner)).orElse(0L);
   }
 
   public static BigDecimal getGeneratedMoney(UUID blockOwner) {
@@ -92,13 +91,13 @@ public class PowerMoneyTickHandler {
         || ((event.world.getTotalWorldTime() % TICKS_PER_SECOND) != 0L)
         || !canReceiveEnergy()) return;
 
-    final ImmutableMap<WorldBlockPos, BigInteger> tempConsumedLocalEnergy =
+    final ImmutableMap<WorldBlockPos, Long> tempConsumedLocalEnergy =
         EnergyConsumer.getAndResetConsumedLocalEnergy();
-    final ImmutableMap<UUID, BigInteger> tempConsumedTotalEnergy =
+    final ImmutableMap<UUID, Long> tempConsumedTotalEnergy =
         EnergyConsumer.getAndResetConsumedTotalEnergy();
     final ImmutableMap.Builder<UUID, BigDecimal> generatedMoneyBuilder = ImmutableMap.builder();
 
-    for (Entry<UUID, BigInteger> entry : tempConsumedTotalEnergy.entrySet()) {
+    for (Entry<UUID, Long> entry : tempConsumedTotalEnergy.entrySet()) {
       final UUID player = entry.getKey();
       final BigDecimal earnedMoney =
           PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(entry.getValue());

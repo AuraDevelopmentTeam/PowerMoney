@@ -6,7 +6,6 @@ import dev.aura.powermoney.common.compat.tesla.TeslaCompat;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.common.util.WorldBlockPos;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -28,22 +27,22 @@ import net.minecraftforge.fml.common.Optional;
   modid = PowerMoneyModules.TESLA_MODID
 )
 public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabilityProvider {
-  private static final Map<WorldBlockPos, BigInteger> consumedLocalEnergy = new HashMap<>();
-  private static final Map<UUID, BigInteger> consumedTotalEnergy = new HashMap<>();
+  private static final Map<WorldBlockPos, Long> consumedLocalEnergy = new HashMap<>();
+  private static final Map<UUID, Long> consumedTotalEnergy = new HashMap<>();
 
   private final UUID owner;
   private final WorldBlockPos worldPos;
 
-  public static ImmutableMap<WorldBlockPos, BigInteger> getAndResetConsumedLocalEnergy() {
-    ImmutableMap<WorldBlockPos, BigInteger> output = ImmutableMap.copyOf(consumedLocalEnergy);
+  public static ImmutableMap<WorldBlockPos, Long> getAndResetConsumedLocalEnergy() {
+    ImmutableMap<WorldBlockPos, Long> output = ImmutableMap.copyOf(consumedLocalEnergy);
 
     consumedLocalEnergy.clear();
 
     return output;
   }
 
-  public static ImmutableMap<UUID, BigInteger> getAndResetConsumedTotalEnergy() {
-    ImmutableMap<UUID, BigInteger> output = ImmutableMap.copyOf(consumedTotalEnergy);
+  public static ImmutableMap<UUID, Long> getAndResetConsumedTotalEnergy() {
+    ImmutableMap<UUID, Long> output = ImmutableMap.copyOf(consumedTotalEnergy);
 
     consumedTotalEnergy.clear();
 
@@ -111,14 +110,11 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
   }
 
   private void addEnergy(long energy) {
-    final BigInteger input = BigInteger.valueOf(energy);
-
-    final BigInteger localResult =
-        consumedLocalEnergy.computeIfAbsent(worldPos, (world) -> BigInteger.ZERO).add(input);
+    // TODO: Synchronize and calculate max
+    final long localResult = consumedLocalEnergy.computeIfAbsent(worldPos, (world) -> 0L) + energy;
     consumedLocalEnergy.put(worldPos, localResult);
 
-    final BigInteger totalResult =
-        consumedTotalEnergy.computeIfAbsent(owner, (world) -> BigInteger.ZERO).add(input);
+    final long totalResult = consumedTotalEnergy.computeIfAbsent(owner, (world) -> 0L) + energy;
     consumedTotalEnergy.put(owner, totalResult);
   }
 }

@@ -5,7 +5,6 @@ import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.helper.SerializationHelper;
 import io.netty.buffer.ByteBuf;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import lombok.EqualsAndHashCode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -14,17 +13,17 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 @EqualsAndHashCode
 public class PacketSendReceiverData implements IMessage {
-  private BigInteger localEnergy;
-  private BigInteger totalEnergy;
+  private long localEnergy;
+  private long totalEnergy;
   private BigDecimal money;
   private String moneySymbol;
   private int defaultDigits;
 
   public PacketSendReceiverData() {}
 
-  public PacketSendReceiverData(BigInteger localEnergy, BigInteger totalEnergy, BigDecimal money) {
-    this.localEnergy = (localEnergy == null) ? BigInteger.ZERO : localEnergy;
-    this.totalEnergy = (totalEnergy == null) ? BigInteger.ZERO : totalEnergy;
+  public PacketSendReceiverData(Long localEnergy, Long totalEnergy, BigDecimal money) {
+    this.localEnergy = (localEnergy == null) ? 0L : localEnergy;
+    this.totalEnergy = (totalEnergy == null) ? 0L : totalEnergy;
     this.money = (money == null) ? BigDecimal.ZERO : money;
 
     moneySymbol = SpongeMoneyInterface.getMoneySymbol();
@@ -33,8 +32,8 @@ public class PacketSendReceiverData implements IMessage {
 
   @Override
   public void fromBytes(ByteBuf buf) {
-    localEnergy = SerializationHelper.readBigInteger(buf);
-    totalEnergy = SerializationHelper.readBigInteger(buf);
+    localEnergy = buf.readLong();
+    totalEnergy = buf.readLong();
     money = SerializationHelper.readBigDecimal(buf);
     moneySymbol = ByteBufUtils.readUTF8String(buf);
     defaultDigits = buf.readInt();
@@ -42,8 +41,8 @@ public class PacketSendReceiverData implements IMessage {
 
   @Override
   public void toBytes(ByteBuf buf) {
-    SerializationHelper.writeBigInteger(buf, localEnergy);
-    SerializationHelper.writeBigInteger(buf, totalEnergy);
+    buf.writeLong(localEnergy);
+    buf.writeLong(totalEnergy);
     SerializationHelper.writeBigDecimal(buf, money);
     ByteBufUtils.writeUTF8String(buf, moneySymbol);
     buf.writeInt(defaultDigits);

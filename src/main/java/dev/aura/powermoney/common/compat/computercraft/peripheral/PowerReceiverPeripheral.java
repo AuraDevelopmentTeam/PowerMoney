@@ -14,7 +14,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
@@ -214,17 +213,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
     return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos)).doubleValue()
-    };
-  }
-
-  @PeripheralMethod
-  public Object[] getEnergyPerSecondString(
-      @Nonnull IComputerAccess computer,
-      @Nonnull ILuaContext context,
-      @Nonnull Object[] arguments) {
-    return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos)).toString()
+      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos))
     };
   }
 
@@ -233,17 +222,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
       @Nonnull IComputerAccess computer,
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
-    return new Object[] {
-      PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner()).doubleValue()
-    };
-  }
-
-  @PeripheralMethod
-  public Object[] getTotalEnergyPerSecondString(
-      @Nonnull IComputerAccess computer,
-      @Nonnull ILuaContext context,
-      @Nonnull Object[] arguments) {
-    return new Object[] {PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner()).toString()};
+    return new Object[] {PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner())};
   }
 
   @PeripheralMethod
@@ -257,7 +236,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
   }
 
   @PeripheralMethod
-  public Object[] getMoneyPerSecondString(
+  public Object[] getMoneyPerSecondFormatted(
       @Nonnull IComputerAccess computer,
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
@@ -294,8 +273,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
     // Throws out of bounds or number format if anything is wrong.
     // Will be caught and handled in #callMethod
     final String energyStr = DECIMAL_REMOVER.matcher(arguments[0].toString()).replaceFirst("");
-
-    final BigInteger energy = new BigInteger(energyStr);
+    final long energy = Long.parseLong(energyStr);
 
     return PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(energy);
   }

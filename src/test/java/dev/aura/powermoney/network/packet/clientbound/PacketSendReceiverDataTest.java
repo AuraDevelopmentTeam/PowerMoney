@@ -3,7 +3,6 @@ package dev.aura.powermoney.network.packet.clientbound;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.helper.AssertHelper;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,8 +33,8 @@ public class PacketSendReceiverDataTest {
   public void valueTest() {
     AssertHelper.testPacket(
         new PacketSendReceiverData(
-            new BigInteger("1546654564544494414848496444165"),
-            new BigInteger("4975464198465446949161321341324654897464456"),
+            4414848415L,
+            9161321324489746456L,
             new BigDecimal("45454545449848948949.48974874878979749")));
   }
 }

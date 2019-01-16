@@ -8,7 +8,6 @@ import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.UUID;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -33,11 +32,7 @@ public class GuiPowerReceiver extends GuiContainer {
   }
 
   public static void setReceiverData(
-      BigInteger localEnergy,
-      BigInteger totalEnergy,
-      BigDecimal money,
-      String moneySymbol,
-      int defaultDigits) {
+      long localEnergy, long totalEnergy, BigDecimal money, String moneySymbol, int defaultDigits) {
     receiverData =
         ReceiverData.setReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
   }

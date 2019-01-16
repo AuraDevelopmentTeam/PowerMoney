@@ -7,7 +7,6 @@ import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.common.util.WorldBlockPos;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.regex.Pattern;
@@ -69,14 +68,7 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
   @Callback(direct = true, doc = "Returns the energy per seconds this block consumes as a number")
   public Object[] getEnergyPerSecond(Context context, Arguments args) {
     return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos)).doubleValue()
-    };
-  }
-
-  @Callback(direct = true, doc = "Returns the energy per seconds this block consumes as a string")
-  public Object[] getEnergyPerSecondString(Context context, Arguments args) {
-    return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos)).toString()
+      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos))
     };
   }
 
@@ -85,17 +77,7 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
     doc = "Returns the energy per seconds all blocks of the owner of this block consume as a number"
   )
   public Object[] getTotalEnergyPerSecond(Context context, Arguments args) {
-    return new Object[] {
-      PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner()).doubleValue()
-    };
-  }
-
-  @Callback(
-    direct = true,
-    doc = "Returns the energy per seconds all blocks of the owner of this block consume as a string"
-  )
-  public Object[] getTotalEnergyPerSecondString(Context context, Arguments args) {
-    return new Object[] {PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner()).toString()};
+    return new Object[] {PowerMoneyTickHandler.getConsumedEnergy(tileEntity.getOwner())};
   }
 
   @Callback(
@@ -112,9 +94,9 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
   @Callback(
     direct = true,
     doc =
-        "Returns the money generate per sencond by all blocks of the owner of this block as a strings"
+        "Returns the money generate per sencond by all blocks of the owner of this block as a string"
   )
-  public Object[] getMoneyPerSecondString(Context context, Arguments args) {
+  public Object[] getMoneyPerSecondFormatted(Context context, Arguments args) {
     return new Object[] {
       getDecimalFormat().format(PowerMoneyTickHandler.getGeneratedMoney(tileEntity.getOwner()))
     };
@@ -159,7 +141,8 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
         throw new IllegalArgumentException("First argument needs to be a string or an integer");
       }
 
-      final BigInteger energy = new BigInteger(DECIMAL_REMOVER.matcher(energyStr).replaceFirst(""));
+      energyStr = DECIMAL_REMOVER.matcher(energyStr).replaceFirst("");
+      final long energy = Long.parseLong(energyStr);
 
       return PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(energy);
     } catch (NumberFormatException e) {

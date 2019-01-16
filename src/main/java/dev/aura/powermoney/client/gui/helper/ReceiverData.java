@@ -2,7 +2,6 @@ package dev.aura.powermoney.client.gui.helper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import lombok.AccessLevel;
@@ -19,8 +18,8 @@ import net.minecraft.client.resources.I18n;
 public class ReceiverData {
   @Getter private final boolean waiting;
   @Getter private final boolean enabled;
-  private final BigInteger localEnergyPerSecond;
-  private final BigInteger totalEnergyPerSecond;
+  private final long localEnergyPerSecond;
+  private final long totalEnergyPerSecond;
   private final BigDecimal moneyPerSecond;
   private final String moneySymbol;
   private final int defaultDigits;
@@ -52,30 +51,22 @@ public class ReceiverData {
   }
 
   public static ReceiverData setReceiverData(
-      BigInteger localEnergy,
-      BigInteger totalEnergy,
-      BigDecimal money,
-      String moneySymbol,
-      int defaultDigits) {
+      long localEnergy, long totalEnergy, BigDecimal money, String moneySymbol, int defaultDigits) {
     return new ReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
   }
 
   private ReceiverData(boolean waiting) {
     this.waiting = waiting;
     enabled = false;
-    localEnergyPerSecond = null;
-    totalEnergyPerSecond = null;
+    localEnergyPerSecond = 0L;
+    totalEnergyPerSecond = 0L;
     moneyPerSecond = null;
     moneySymbol = null;
     defaultDigits = 0;
   }
 
   private ReceiverData(
-      BigInteger localEnergy,
-      BigInteger totalEnergy,
-      BigDecimal money,
-      String moneySymbol,
-      int defaultDigits) {
+      long localEnergy, long totalEnergy, BigDecimal money, String moneySymbol, int defaultDigits) {
     waiting = false;
     enabled = true;
     localEnergyPerSecond = localEnergy;
@@ -113,7 +104,7 @@ public class ReceiverData {
     return decimalFormat;
   }
 
-  private String generateEnergyFormatted(BigInteger energy) {
+  private String generateEnergyFormatted(long energy) {
     return getIntFormat().format(energy)
         + ' '
         + I18n.format("gui.powermoney.energyunit")
