@@ -33,20 +33,26 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
   private final UUID owner;
   private final WorldBlockPos worldPos;
 
+  private static final Object mapLock = new Object();
+
   public static ImmutableMap<WorldBlockPos, Long> getAndResetConsumedLocalEnergy() {
-    ImmutableMap<WorldBlockPos, Long> output = ImmutableMap.copyOf(consumedLocalEnergy);
+    synchronized (mapLock) {
+      ImmutableMap<WorldBlockPos, Long> output = ImmutableMap.copyOf(consumedLocalEnergy);
 
-    consumedLocalEnergy.clear();
+      consumedLocalEnergy.clear();
 
-    return output;
+      return output;
+    }
   }
 
   public static ImmutableMap<UUID, Long> getAndResetConsumedTotalEnergy() {
-    ImmutableMap<UUID, Long> output = ImmutableMap.copyOf(consumedTotalEnergy);
+    synchronized (mapLock) {
+      ImmutableMap<UUID, Long> output = ImmutableMap.copyOf(consumedTotalEnergy);
 
-    consumedTotalEnergy.clear();
+      consumedTotalEnergy.clear();
 
-    return output;
+      return output;
+    }
   }
 
   public EnergyConsumer() {
@@ -71,11 +77,7 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
   public long givePower(long maxReceive, boolean simulate) {
     if (!canReceive()) return 0;
 
-    if (!simulate) {
-      addEnergy(maxReceive);
-    }
-
-    return maxReceive;
+    return addEnergy(maxReceive, simulate);
   }
 
   @Override
@@ -109,12 +111,21 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
         && (PowerMoneyConfigWrapper.getSimulate() || SpongeMoneyInterface.canAcceptMoney());
   }
 
-  private void addEnergy(long energy) {
-    // TODO: Synchronize and calculate max
-    final long localResult = consumedLocalEnergy.computeIfAbsent(worldPos, (world) -> 0L) + energy;
-    consumedLocalEnergy.put(worldPos, localResult);
+  private long addEnergy(long energy, boolean simulate) {
+    synchronized (mapLock) {
+      final long localEnergy = consumedLocalEnergy.computeIfAbsent(worldPos, (x) -> 0L) + energy;
+      final long totalResult = consumedTotalEnergy.computeIfAbsent(owner, (x) -> 0L) + energy;
 
-    final long totalResult = consumedTotalEnergy.computeIfAbsent(owner, (world) -> 0L) + energy;
-    consumedTotalEnergy.put(owner, totalResult);
+      // Prevent overflow
+      final long maxEnergy =
+          Math.min(energy, Math.min(Long.MAX_VALUE - localEnergy, Long.MAX_VALUE - totalResult));
+
+      if (!simulate) {
+        consumedLocalEnergy.put(worldPos, localEnergy + maxEnergy);
+        consumedTotalEnergy.put(owner, totalResult + maxEnergy);
+      }
+
+      return maxEnergy;
+    }
   }
 }
