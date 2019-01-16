@@ -113,20 +113,12 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
   private void addEnergy(long energy) {
     final BigInteger input = BigInteger.valueOf(energy);
 
-    final BigInteger currentLocalValue = consumedLocalEnergy.get(worldPos);
-    BigInteger localResult;
-
-    if (currentLocalValue == null) localResult = input;
-    else localResult = currentLocalValue.add(input);
-
+    final BigInteger localResult =
+        consumedLocalEnergy.computeIfAbsent(worldPos, (world) -> BigInteger.ZERO).add(input);
     consumedLocalEnergy.put(worldPos, localResult);
 
-    final BigInteger currentTotalValue = consumedTotalEnergy.get(owner);
-    BigInteger totalResult;
-
-    if (currentTotalValue == null) totalResult = input;
-    else totalResult = currentTotalValue.add(input);
-
+    final BigInteger totalResult =
+        consumedTotalEnergy.computeIfAbsent(owner, (world) -> BigInteger.ZERO).add(input);
     consumedTotalEnergy.put(owner, totalResult);
   }
 }
