@@ -131,18 +131,22 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
   private BigDecimal calculateEarnings(Arguments args) {
     try {
       final int index = 0;
-      String energyStr;
+      long energy;
 
       if (args.isDouble(index)) {
-        energyStr = Double.toString(args.checkDouble(index));
+        final double energyDouble = args.checkDouble(index);
+
+        if (energyDouble > Long.MAX_VALUE)
+          throw new IllegalArgumentException(
+              "First argument needs to be less than " + Long.MAX_VALUE);
+
+        energy = (long) energyDouble;
       } else if (args.isString(index)) {
-        energyStr = args.checkString(index);
+        final String energyStr = DECIMAL_REMOVER.matcher(args.checkString(index)).replaceFirst("");
+        energy = Long.parseLong(energyStr);
       } else {
         throw new IllegalArgumentException("First argument needs to be a string or an integer");
       }
-
-      energyStr = DECIMAL_REMOVER.matcher(energyStr).replaceFirst("");
-      final long energy = Long.parseLong(energyStr);
 
       return PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(energy);
     } catch (NumberFormatException e) {

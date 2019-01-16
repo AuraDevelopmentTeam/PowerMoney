@@ -272,8 +272,21 @@ public class PowerReceiverPeripheral implements IPeripheral {
   private BigDecimal calculateEarnings(Object[] arguments) {
     // Throws out of bounds or number format if anything is wrong.
     // Will be caught and handled in #callMethod
-    final String energyStr = DECIMAL_REMOVER.matcher(arguments[0].toString()).replaceFirst("");
-    final long energy = Long.parseLong(energyStr);
+    final Object argument = arguments[0];
+    long energy;
+
+    if (argument instanceof Double) {
+      final double energyDouble = (double) argument;
+
+      if (energyDouble > Long.MAX_VALUE)
+        throw new IllegalArgumentException(
+            "First argument needs to be less than " + Long.MAX_VALUE);
+
+      energy = (long) energyDouble;
+    } else {
+      final String energyStr = DECIMAL_REMOVER.matcher(arguments[0].toString()).replaceFirst("");
+      energy = Long.parseLong(energyStr);
+    }
 
     return PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(energy);
   }
