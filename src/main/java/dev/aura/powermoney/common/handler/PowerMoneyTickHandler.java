@@ -101,13 +101,8 @@ public class PowerMoneyTickHandler {
       final UUID player = entry.getKey();
       final BigDecimal earnedMoney =
           PowerMoneyConfigWrapper.getMoneyCalculator().covertEnergyToMoney(entry.getValue());
-      BigDecimal playerPayout;
-
-      if (payout.containsKey(player)) {
-        playerPayout = payout.get(player).add(earnedMoney);
-      } else {
-        playerPayout = earnedMoney;
-      }
+      final BigDecimal playerPayout =
+          payout.computeIfAbsent(player, uuid -> BigDecimal.ZERO).add(earnedMoney);
 
       generatedMoneyBuilder.put(player, earnedMoney);
       payout.put(player, playerPayout);
