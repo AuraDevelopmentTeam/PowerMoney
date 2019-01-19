@@ -4,6 +4,11 @@ container.power_receiver=Power Receiver
 
 itemGroup.powermoney=Power Money
 
+advancements.powermoney.root.title=Power Money
+advancements.powermoney.root.description=Power is money!
+advancements.powermoney.easterEgg.title=Easter Egg
+advancements.powermoney.easterEgg.description=Find the Easter Egg
+
 gui.powermoney.decimalseparator=.
 gui.powermoney.groupingseparator=,
 gui.powermoney.owner=Owner

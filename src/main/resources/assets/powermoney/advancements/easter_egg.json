@@ -1,0 +1,25 @@
+{
+    "display": {
+        "icon": {
+            "item": "powermoney:power_receiver",
+            "nbt": "{ench:[{id:0,lvl:0}]}"
+        },
+        "title": {
+            "translate": "advancements.powermoney.easterEgg.title"
+        },
+        "description": {
+            "translate": "advancements.powermoney.easterEgg.description"
+        },
+        "frame": "challenge",
+        "hidden": true
+    },
+    "parent": "powermoney:root",
+    "criteria": {
+        "find_easter_egg": {
+            "trigger": "powermoney:easter_egg"
+        }
+    },
+    "rewards": {
+        "experience": 5000
+    }
+}

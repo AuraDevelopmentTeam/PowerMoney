@@ -4,6 +4,7 @@ import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.network.packet.clientbound.PacketReceiverDisabled;
 import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
 import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
+import dev.aura.powermoney.network.packet.serverbound.PacketEasterEgg;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -30,6 +31,7 @@ public class PacketDispatcher {
         PacketReceiverDisabled.Handler.class, PacketReceiverDisabled.class, Side.CLIENT);
     registerMessage(
         PacketSendReceiverData.Handler.class, PacketSendReceiverData.class, Side.CLIENT);
+    registerMessage(PacketEasterEgg.Handler.class, PacketEasterEgg.class, Side.SERVER);
   }
 
   /**

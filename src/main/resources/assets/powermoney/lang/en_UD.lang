@@ -4,6 +4,11 @@ container.power_receiver=ɹǝʌᴉǝɔǝᴚ ɹǝʍoԀ
 
 itemGroup.powermoney=ʎǝuoW ɹǝʍoԀ
 
+advancements.powermoney.root.title=ʎǝuoW ɹǝʍoԀ
+advancements.powermoney.root.description=¡ʎǝuoɯ sᴉ ɹǝʍoԀ
+advancements.powermoney.easterEgg.title=ᵷᵷƎ ɹǝʇsɐƎ
+advancements.powermoney.easterEgg.description=ᵷᵷƎ ɹǝʇsɐƎ ǝɥʇ puᴉℲ
+
 gui.powermoney.decimalseparator=˙
 gui.powermoney.groupingseparator='
 gui.powermoney.owner=ɹǝuʍO

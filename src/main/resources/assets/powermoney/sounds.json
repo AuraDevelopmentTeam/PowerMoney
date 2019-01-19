@@ -1,0 +1,20 @@
+{
+    "nyan.intro": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "powermoney:nyan/intro",
+                "stream": true
+            }
+        ]
+    },
+    "nyan.loop": {
+        "category": "master",
+        "sounds": [
+            {
+                "name": "powermoney:nyan/loop",
+                "stream": true
+            }
+        ]
+    }
+}

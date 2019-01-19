@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "item": "powermoney:power_receiver"
+        },
+        "title": {
+            "translate": "advancements.powermoney.root.title"
+        },
+        "description": {
+            "translate": "advancements.powermoney.root.description"
+        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+    },
+    "criteria": {
+        "craft_power_receiver": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "powermoney:power_receiver"
+                    }
+                ]
+            }
+        }
+    }
+}

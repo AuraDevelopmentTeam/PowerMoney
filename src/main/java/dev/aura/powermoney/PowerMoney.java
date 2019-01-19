@@ -3,6 +3,7 @@ package dev.aura.powermoney;
 import dev.aura.powermoney.client.gui.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.client.handler.ConfigChangedHandler;
 import dev.aura.powermoney.common.CommonProxy;
+import dev.aura.powermoney.common.advancement.CriterionRegistry;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
@@ -80,6 +81,7 @@ public class PowerMoney {
     MinecraftForge.EVENT_BUS.register(PowerMoneyBlocks.registrar());
     MinecraftForge.EVENT_BUS.register(PowerMoneyItems.registrar());
     MinecraftForge.EVENT_BUS.register(PowerMoneyTickHandler.registrar());
+    MinecraftForge.EVENT_BUS.register(PowerMoneySounds.registrar());
 
     if (event.getSide() == Side.CLIENT) {
       MinecraftForge.EVENT_BUS.register(ConfigChangedHandler.registrar());
@@ -91,6 +93,9 @@ public class PowerMoney {
     NetworkRegistry.INSTANCE.registerGuiHandler(this, PowerMoneyGuiHandler.registrar());
 
     registerTileEntities(); // TileEntities
+
+    // Advancement stuff
+    CriterionRegistry.init();
 
     PowerMoneyModules.init(event);
   }
