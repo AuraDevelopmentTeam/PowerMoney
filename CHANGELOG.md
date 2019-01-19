@@ -1,3 +1,10 @@
+Version 1.4.1
+-------------
+
+\+ No Easter Eggs added.  
+\* Internal optimizations.  
+
+
 Version 1.4.0
 -------------
 
