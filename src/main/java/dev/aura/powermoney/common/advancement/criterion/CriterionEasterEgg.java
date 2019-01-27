@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 
@@ -66,6 +67,14 @@ public class CriterionEasterEgg implements ICriterionTrigger<CriterionEasterEgg.
   }
 
   public void trigger(EntityPlayerMP parPlayer) {
+    final Minecraft minecraft = Minecraft.getMinecraft();
+
+    if (!minecraft.isCallingFromMinecraftThread()) {
+      minecraft.addScheduledTask(() -> trigger(parPlayer));
+
+      return;
+    }
+
     CriterionEasterEgg.Listeners easterEgg$listeners = listeners.get(parPlayer.getAdvancements());
 
     if (easterEgg$listeners != null) {
