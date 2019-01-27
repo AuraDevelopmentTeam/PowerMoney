@@ -7,6 +7,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +21,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockPowerReceiver extends Block implements ITileEntityProvider {
+  public static final PropertyBool RECEIVING = PropertyBool.create("receiving");
+  public static final int RECEIVING_ON = 0;
+  public static final int RECEIVING_OFF = 1;
+
   public BlockPowerReceiver() {
     super(Material.IRON);
 
@@ -26,6 +33,7 @@ public class BlockPowerReceiver extends Block implements ITileEntityProvider {
     setHarvestLevel("pickaxe", 2);
     setResistance(20.0f);
     setSoundType(SoundType.METAL);
+    setDefaultState(blockState.getBaseState().withProperty(RECEIVING, true));
   }
 
   @Override
@@ -71,5 +79,26 @@ public class BlockPowerReceiver extends Block implements ITileEntityProvider {
         tileEntity.setCustomName(stack.getDisplayName());
       }
     }
+  }
+
+  @Override
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, new IProperty[] {RECEIVING});
+  }
+
+  @Override
+  @Deprecated
+  public IBlockState getStateFromMeta(int meta) {
+    return getDefaultState().withProperty(RECEIVING, meta == RECEIVING_ON);
+  }
+
+  @Override
+  public int getMetaFromState(IBlockState state) {
+    return state.getValue(RECEIVING) ? RECEIVING_ON : RECEIVING_OFF;
+  }
+
+  @Override
+  public int damageDropped(IBlockState state) {
+    return RECEIVING_ON;
   }
 }

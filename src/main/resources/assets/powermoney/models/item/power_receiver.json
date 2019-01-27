@@ -1,5 +1,5 @@
 {
-    "parent": "powermoney:block/power_receiver",
+    "parent": "powermoney:block/power_receiver_on",
     "display": {
         "thirdperson": {
             "rotation": [

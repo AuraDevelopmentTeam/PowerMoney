@@ -1,7 +1,10 @@
 {
     "variants": {
-        "normal": {
-            "model": "powermoney:power_receiver"
+        "receiving=true": {
+            "model": "powermoney:power_receiver_on"
+        },
+        "receiving=false": {
+            "model": "powermoney:power_receiver_off"
         }
     }
 }

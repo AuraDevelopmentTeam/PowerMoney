@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "powermoney:blocks/power_receiver_off"
+    }
+}
