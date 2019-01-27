@@ -14,9 +14,10 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.server.FMLServerHandler;
 
 public class CriterionEasterEgg implements ICriterionTrigger<CriterionEasterEgg.Instance> {
   @Getter private final ResourceLocation id;
@@ -67,10 +68,10 @@ public class CriterionEasterEgg implements ICriterionTrigger<CriterionEasterEgg.
   }
 
   public void trigger(EntityPlayerMP parPlayer) {
-    final Minecraft minecraft = Minecraft.getMinecraft();
+    final MinecraftServer server = FMLServerHandler.instance().getServer();
 
-    if (!minecraft.isCallingFromMinecraftThread()) {
-      minecraft.addScheduledTask(() -> trigger(parPlayer));
+    if (!server.isCallingFromMinecraftThread()) {
+      server.addScheduledTask(() -> trigger(parPlayer));
 
       return;
     }
