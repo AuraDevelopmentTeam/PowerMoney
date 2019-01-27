@@ -1,7 +1,14 @@
+Version 1.4.3
+-------------
+
+\* Fixed opening the Easter Egg crashing the server for real this time (Fixes [#5](https://github.com/AuraDevelopmentTeam/PowerMoney/issues/5) and
+  [#6](https://github.com/AuraDevelopmentTeam/PowerMoney/issues/6)).  
+
+
 Version 1.4.2
 -------------
 
-\* Fixed opening the Easter Egg crashing the server (Fixes [#5](https://github.com/AuraDevelopmentTeam/PowerMoney/issues/5)).  
+\* ~~Fixed opening the Easter Egg crashing the server (Fixes [#5](https://github.com/AuraDevelopmentTeam/PowerMoney/issues/5)).~~  
 
 
 Version 1.4.1
