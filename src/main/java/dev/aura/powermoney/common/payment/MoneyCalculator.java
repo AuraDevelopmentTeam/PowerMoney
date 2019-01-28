@@ -31,18 +31,18 @@ public class MoneyCalculator {
   @Getter(AccessLevel.NONE)
   private final BigDecimal CalcHelper;
   
-  public MoneyCalculator(boolean useLog, double baseMultiplier, double shift, double base) {
+  public MoneyCalculator(boolean useLog, double calcBase, double baseMultiplier, double shift) {
     this.useLog = useLog;
     shiftBD = BigDecimal.valueOf(shift);
     baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
+    
     if(useLog){
       CalcHelper =
         BigDecimal.ONE.divide(
-            BigDecimal.valueOf(Math.log(base) / Math.log(2.0)), CALCULATION_PRECISION);
-    }else{
-      CalcHelper =                                                                      //изменить на подсчет помощника для корня
-        BigDecimal.ONE.divide(                                                          //изменить на подсчет помощника для корня
-            BigDecimal.valueOf(Math.log(base) / Math.log(2.0)), CALCULATION_PRECISION); //изменить на подсчет помощника для корня
+            BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
+    }
+    else{
+      CalcHelper = BigDecimal.valueOf(calcBase);
     }
   }
 
@@ -50,7 +50,7 @@ public class MoneyCalculator {
     if (energy < 0) throw new IllegalArgumentException("energy must not be negative");
     else if (energy == 0) return BigDecimal.ZERO;
 
-    if(useLog){
+  if(useLog){
     // baseMultiplier * ((CalcHelper * log2(money)) + 1)
     // which is also
     // baseMultiplier * (log_logBase(money) + 1)
@@ -60,14 +60,23 @@ public class MoneyCalculator {
             CalcHelper
                 .multiply(BigDecimal.valueOf(log2(energy)), CALCULATION_PRECISION)
                 .add(BigDecimal.ONE, CALCULATION_PRECISION),
-            CALCULATION_PRECISION)));
-    }else{
+            CALCULATION_PRECISION),
+        CALCULATION_PRECISION));
+    }
+    else{
       return roundResult(
         shiftBD.add(
-          baseMultiplierBD.multiply(   //добавить подсчет денег по формуле корня по основанию n
+          baseMultiplierBD.multiply(
+            root(energy, CalcHelper),
+          CALCULATION_PRECISION),
+        CALCULATION_PRECISION));
     }
   }
 
+  private static double root( long val, BigDecimal base ) {
+    return Math.pow(val, 1.0 / base );
+  }
+            
   private static double log2(long val) {
     return Math.log(val) / Math.log(2.0);
   }
