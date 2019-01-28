@@ -73,8 +73,8 @@ public class MoneyCalculator {
     }
   }
 
-  private static double root( long val, double base ) {
-    return Math.pow(val, 1.0 / base );
+  private static BigDecimal root(long val, double base) {
+    return BigDecimal.valueOf(Math.pow(val, 1.0 / base));
   }
             
   private static double log2(long val) {
