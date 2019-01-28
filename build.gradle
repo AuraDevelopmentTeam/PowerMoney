@@ -1,6 +1,14 @@
 apply from: "GradleCommon/common.gradle"
 
 repositories {
+    maven { // Tesla
+        name "MCModDev"
+        url "http://maven.mcmoddev.com"
+    }
+    maven { // HWYLA
+        name "TehNut"
+        url "http://tehnut.info/maven"
+    }
     maven { // ComputerCraft
         name "ComputerCraft"
         url "https://cc.crzd.me/maven/"
@@ -9,18 +17,20 @@ repositories {
         name "OpenComputers"
         url "http://maven.cil.li/"
     }
-    maven { // Tesla
-        name "Tesla"
-        url "http://maven.mcmoddev.com"
-    }
 }
 
 dependencies {
     compile "org.spongepowered:spongeapi:${sponge_version}"
 
+    // Energy
+    deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
+
+    // Info-Mods
+    deobfCompile "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
+
+    // Computers
     deobfProvided "dan200.computercraft:ComputerCraft:${computerCraft_version}"
     deobfProvided "li.cil.oc:OpenComputers:MC${minecraft_version}-${openComputers_version}"
-    deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
 
     testRuntime "org.slf4j:slf4j-simple:1.7.25"
 }
