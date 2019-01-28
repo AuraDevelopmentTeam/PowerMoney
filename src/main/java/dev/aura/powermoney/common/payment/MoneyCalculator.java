@@ -67,13 +67,13 @@ public class MoneyCalculator {
       return roundResult(
         shiftBD.add(
           baseMultiplierBD.multiply(
-            root(energy, CalcHelper),
+            root(energy, CalcHelper.doubleValue()),
           CALCULATION_PRECISION),
         CALCULATION_PRECISION));
     }
   }
 
-  private static double root( long val, BigDecimal base ) {
+  private static double root( long val, double base ) {
     return Math.pow(val, 1.0 / base );
   }
             
