@@ -1,9 +1,11 @@
 package dev.aura.powermoney.common.tileentity;
 
+import dev.aura.powermoney.PowerMoneyBlocks;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.util.WorldBlockPos;
 import java.util.UUID;
 import lombok.Getter;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -16,10 +18,13 @@ import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class TileEntityPowerReceiver extends TileEntity {
+  public static final UUID UUID_NOBODY = new UUID(0, 0);
+  public static final String NAME_NOBODY = "<nobody>";
+
   @Getter private String customName;
 
-  @Getter private UUID owner = null;
-  @Getter private String ownerName = null;
+  @Getter private UUID owner = UUID_NOBODY;
+  @Getter private String ownerName = NAME_NOBODY;
 
   @Getter private EnergyConsumer energyConsumer = new EnergyConsumer();
 
@@ -119,6 +124,13 @@ public class TileEntityPowerReceiver extends TileEntity {
     compound = writeToNBT(compound);
 
     return compound;
+  }
+
+  @Override
+  public boolean shouldRefresh(
+      World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+    // false means to keep the TE
+    return newState.getBlock() != PowerMoneyBlocks.powerReceiver();
   }
 
   public static TileEntityPowerReceiver getTileEntityAt(World world, BlockPos pos) {

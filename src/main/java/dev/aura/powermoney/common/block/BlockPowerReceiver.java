@@ -82,6 +82,64 @@ public class BlockPowerReceiver extends Block implements ITileEntityProvider {
   }
 
   @Override
+  public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+    updatePowerBasedBlockState(world, pos, state);
+  }
+
+  @Override
+  public void neighborChanged(
+      IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+    updatePowerBasedBlockState(worldIn, pos, worldIn.getBlockState(pos));
+  }
+
+  // Using that because it's the more generic one
+  @Override
+  @Deprecated
+  public IBlockState getStateForPlacement(
+      World world,
+      BlockPos pos,
+      EnumFacing facing,
+      float hitX,
+      float hitY,
+      float hitZ,
+      int meta,
+      EntityLivingBase placer) {
+    return getPowerBasedBlockState(world, pos, getStateFromMeta(meta));
+  }
+
+  private IBlockState getPowerBasedBlockState(World world, BlockPos pos, IBlockState state) {
+    final boolean receiving = state.getValue(RECEIVING);
+    final boolean blockPowered = world.isBlockPowered(pos);
+
+    if (receiving && blockPowered) {
+      return state.withProperty(RECEIVING, false);
+    } else if (!receiving && !blockPowered) {
+      return state.withProperty(RECEIVING, true);
+    }
+
+    return state;
+  }
+
+  private void updatePowerBasedBlockState(World world, BlockPos pos, IBlockState state) {
+    if (!world.isRemote) {
+      final IBlockState newState = getPowerBasedBlockState(world, pos, state);
+
+      if (newState != state) {
+        world.setBlockState(pos, newState);
+      }
+    }
+  }
+
+  // TODO: Allowing to connect it to redstone requires active checking if the neighboring blocks are
+  // redstone dust to get it working properly.
+
+  //  @Override
+  //  public boolean canConnectRedstone(
+  //      IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+  //    return true;
+  //  }
+
+  @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] {RECEIVING});
   }
