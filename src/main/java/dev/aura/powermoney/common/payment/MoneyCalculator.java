@@ -32,13 +32,7 @@ public class MoneyCalculator {
   private final BigDecimal CalcHelper;
   
   public MoneyCalculator(double baseMultiplier, double calcBase) { //for compatibility with old versions
-    this.useLog = true;
-    shiftBD = BigDecimal.ZERO;
-    baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
-    
-    CalcHelper =
-      BigDecimal.ONE.divide(
-          BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
+    MoneyCalculator(true, calcBase, baseMultiplier, BigDecimal.ZERO);
   }
   
   public MoneyCalculator(boolean useLog, double calcBase, double baseMultiplier, double shift) {
