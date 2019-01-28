@@ -87,6 +87,7 @@ public class BlockPowerReceiver extends Block implements ITileEntityProvider {
   }
 
   @Override
+  @Deprecated
   public void neighborChanged(
       IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
     updatePowerBasedBlockState(worldIn, pos, worldIn.getBlockState(pos));
