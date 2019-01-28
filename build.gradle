@@ -9,6 +9,10 @@ repositories {
         name "TehNut"
         url "http://tehnut.info/maven"
     }
+    maven { // TOP
+        name "tterrag"
+        url "http://maven.tterrag.com/"
+    }
     maven { // ComputerCraft
         name "ComputerCraft"
         url "https://cc.crzd.me/maven/"
@@ -27,6 +31,7 @@ dependencies {
 
     // Info-Mods
     deobfCompile "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
+    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${theOneProbe_version}"
 
     // Computers
     deobfProvided "dan200.computercraft:ComputerCraft:${computerCraft_version}"
