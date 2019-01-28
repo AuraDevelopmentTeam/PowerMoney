@@ -25,6 +25,6 @@ public class PowerReceiverPeripheralProvider implements IPeripheralProvider {
 
     if (tileEntity == null) return null;
 
-    return new PowerReceiverPeripheral(world, pos, tileEntity);
+    return new PowerReceiverPeripheral(tileEntity);
   }
 }

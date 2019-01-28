@@ -19,6 +19,6 @@ public class PowerReceiverDriver implements DriverBlock {
 
     if (tileEntity == null) return null;
 
-    return new PowerReceiverEnvironment(world, pos, tileEntity);
+    return new PowerReceiverEnvironment(tileEntity);
   }
 }

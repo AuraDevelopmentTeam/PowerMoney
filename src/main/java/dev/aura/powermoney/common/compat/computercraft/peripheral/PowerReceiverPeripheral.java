@@ -9,7 +9,6 @@ import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
-import dev.aura.powermoney.common.util.WorldBlockPos;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,8 +25,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 @SuppressFBWarnings(
   value = {"JLM_JSR166_UTILCONCURRENT_MONITORENTER", "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"},
@@ -39,8 +36,6 @@ public class PowerReceiverPeripheral implements IPeripheral {
 
   private static final Pattern DECIMAL_REMOVER = Pattern.compile("\\.\\d*");
 
-  @NonNull private final World world;
-  @NonNull private final BlockPos pos;
   @NonNull private final TileEntityPowerReceiver tileEntity;
 
   private final String moneySymbol = SpongeMoneyInterface.getMoneySymbol();
@@ -186,9 +181,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
 
     final PowerReceiverPeripheral otherConverted = (PowerReceiverPeripheral) other;
 
-    return (world == otherConverted.world)
-        && pos.equals(otherConverted.pos)
-        && (tileEntity == otherConverted.tileEntity);
+    return tileEntity == otherConverted.tileEntity;
   }
 
   @PeripheralMethod
@@ -213,7 +206,7 @@ public class PowerReceiverPeripheral implements IPeripheral {
       @Nonnull ILuaContext context,
       @Nonnull Object[] arguments) {
     return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos))
+      PowerMoneyTickHandler.getLocalConsumedEnergy(tileEntity.getEnergyConsumer().getWorldPos())
     };
   }
 

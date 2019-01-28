@@ -4,7 +4,6 @@ import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
-import dev.aura.powermoney.common.util.WorldBlockPos;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -19,8 +18,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 @SuppressFBWarnings(
   value = {"JLM_JSR166_UTILCONCURRENT_MONITORENTER", "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"},
@@ -32,8 +29,6 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
 
   private static final Pattern DECIMAL_REMOVER = Pattern.compile("\\.\\d*");
 
-  @NonNull private final World world;
-  @NonNull private final BlockPos pos;
   @NonNull private final TileEntityPowerReceiver tileEntity;
 
   private final String moneySymbol = SpongeMoneyInterface.getMoneySymbol();
@@ -68,7 +63,7 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
   @Callback(direct = true, doc = "Returns the energy per seconds this block consumes as a number")
   public Object[] getEnergyPerSecond(Context context, Arguments args) {
     return new Object[] {
-      PowerMoneyTickHandler.getLocalConsumedEnergy(new WorldBlockPos(world, pos))
+      PowerMoneyTickHandler.getLocalConsumedEnergy(tileEntity.getEnergyConsumer().getWorldPos())
     };
   }
 
