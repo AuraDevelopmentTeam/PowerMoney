@@ -1,3 +1,10 @@
+Version 1.5.0
+-------------
+
+\+ PowerReceiver can now be turned off with redstone.  
+\* Fixed Discord link in [README.md](README.md).  
+
+
 Version 1.4.3
 -------------
 
