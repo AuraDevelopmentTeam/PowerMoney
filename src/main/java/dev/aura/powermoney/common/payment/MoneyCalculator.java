@@ -14,9 +14,8 @@ public class MoneyCalculator {
   private static final int RESULT_DIGITS = 4;
   private static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
-  private final double baseMultiplier;
-  private final double logBase;
-
+  private final useLog;
+  
   @Getter(AccessLevel.NONE)
   private final BigDecimal baseMultiplierBD;
   /**
@@ -28,31 +27,45 @@ public class MoneyCalculator {
    * division we calculate the inverse too, so we just need to multiply it later.
    */
   @Getter(AccessLevel.NONE)
-  private final BigDecimal logHelper;
-
-  public MoneyCalculator(double baseMultiplier, double logBase) {
-    this.baseMultiplier = baseMultiplier;
-    this.logBase = logBase;
-
+  private final BigDecimal shiftBD;
+  @Getter(AccessLevel.NONE)
+  private final BigDecimal CalcHelper;
+  
+  public MoneyCalculator(boolean useLog, double baseMultiplier, double shift, double Base) {
+    this.useLog = useLog;
+    shiftBD = BigDecimal.valueOf(shift);
     baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
-    logHelper =
+    if(useLog){
+      CalcHelper =
         BigDecimal.ONE.divide(
-            BigDecimal.valueOf(Math.log(logBase) / Math.log(2.0)), CALCULATION_PRECISION);
+            BigDecimal.valueOf(Math.log(Base) / Math.log(2.0)), CALCULATION_PRECISION);
+    }else{
+      CalcHelper =                                                                      //изменить на подсчет помощника для корня
+        BigDecimal.ONE.divide(                                                          //изменить на подсчет помощника для корня
+            BigDecimal.valueOf(Math.log(Base) / Math.log(2.0)), CALCULATION_PRECISION); //изменить на подсчет помощника для корня
+    }
   }
 
   public BigDecimal covertEnergyToMoney(long energy) {
     if (energy < 0) throw new IllegalArgumentException("energy must not be negative");
     else if (energy == 0) return BigDecimal.ZERO;
 
-    // baseMultiplier * ((logHelper * log2(money)) + 1)
+    if(useLog){
+    // baseMultiplier * ((CalcHelper * log2(money)) + 1)
     // which is also
     // baseMultiplier * (log_logBase(money) + 1)
     return roundResult(
+      shiftBD.add(
         baseMultiplierBD.multiply(
-            logHelper
+            CalcHelper
                 .multiply(BigDecimal.valueOf(log2(energy)), CALCULATION_PRECISION)
                 .add(BigDecimal.ONE, CALCULATION_PRECISION),
-            CALCULATION_PRECISION));
+            CALCULATION_PRECISION)));
+    }else{
+      return roundResult(
+        shiftBD.add(
+          baseMultiplierBD.multiply(   //добавить подсчет денег по формуле корня по основанию n
+    }
   }
 
   private static double log2(long val) {
