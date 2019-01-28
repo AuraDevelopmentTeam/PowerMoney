@@ -32,7 +32,7 @@ public class MoneyCalculator {
   private final BigDecimal CalcHelper;
   
   public MoneyCalculator(double baseMultiplier, double calcBase) { //for compatibility with old versions
-    MoneyCalculator(true, calcBase, baseMultiplier, BigDecimal.ZERO);
+    MoneyCalculator(true, calcBase, baseMultiplier, 0.0);
   }
   
   public MoneyCalculator(boolean useLog, double calcBase, double baseMultiplier, double shift) {
