@@ -49,44 +49,4 @@ public class MoneyCalculator {
       CalcHelper = BigDecimal.valueOf(calcBase);
     }
   }
-
-  public BigDecimal covertEnergyToMoney(long energy) {
-    if (energy < 0) throw new IllegalArgumentException("energy must not be negative");
-    else if (energy == 0) return BigDecimal.ZERO;
-
-  if(useLog){
-    // baseMultiplier * ((CalcHelper * log2(money)) + 1)
-    // which is also
-    // baseMultiplier * (log_logBase(money) + 1)
-    return roundResult(
-      shiftBD.add(
-        baseMultiplierBD.multiply(
-            CalcHelper
-                .multiply(BigDecimal.valueOf(log2(energy)), CALCULATION_PRECISION)
-                .add(BigDecimal.ONE, CALCULATION_PRECISION),
-            CALCULATION_PRECISION),
-        CALCULATION_PRECISION));
-    }
-    else{
-      return roundResult(
-        shiftBD.add(
-          baseMultiplierBD.multiply(
-            root(energy, CalcHelper.doubleValue()),
-          CALCULATION_PRECISION),
-        CALCULATION_PRECISION));
-    }
-  }
-
-  private static BigDecimal root(long val, double base) {
-    return BigDecimal.valueOf(Math.pow(val, 1.0 / base));
-  }
-            
-  private static double log2(long val) {
-    return Math.log(val) / Math.log(2.0);
-  }
-
-  @VisibleForTesting
-  static BigDecimal roundResult(BigDecimal val) {
-    return val.setScale(RESULT_DIGITS, RESULT_ROUNDING_MODE);
-  }
 }
