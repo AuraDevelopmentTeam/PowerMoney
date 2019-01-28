@@ -17,8 +17,10 @@ public class PowerMoneyConfigWrapper {
 
   private static Configuration configStorage;
 
+  @Getter private static boolean useLog;
+  @Getter private static double base;
   @Getter private static double baseMultiplier;
-  @Getter private static double logBase;
+  @Getter private static double shift;
   @Getter private static MoneyCalculator moneyCalculator;
 
   @Getter private static String currency;
@@ -42,6 +44,24 @@ public class PowerMoneyConfigWrapper {
   }
 
   private static void loadCalculationSettings() {
+    useLog =
+        getBoolean(
+            CAT_CALCULATION,
+            "UseLog",
+            true,
+            "Choose the type of calculation."
+                + "true - logarithm [Shift + BaseMultiplier * (log_CalcBase(EnergyPerSecond) + 1)]"
+                + "false - root [Shift + BaseMultiplier * root_CalcBase(EnergyPerSecond)");
+    base =
+        getDouble(
+            CAT_CALCULATION,
+            "CalcBase",
+            2,
+            Math.nextUp(1.0),
+            1E6,
+            "The logarithmic or root base in the calculation.\n"
+                + "Depends on which type of calculation is chosen."
+                + "The higher the value the less money the players get.");
     baseMultiplier =
         getDouble(
             CAT_CALCULATION,
@@ -51,15 +71,14 @@ public class PowerMoneyConfigWrapper {
             1E6,
             "The base multiplier in the calculation.\n"
                 + "Essentially how much 1 unit of energy per second is worth.");
-    logBase =
+    shift =
         getDouble(
             CAT_CALCULATION,
-            "LogBase",
-            2,
-            Math.nextUp(1.0),
-            1E6,
-            "The logarithmic base in the calculation.\n"
-                + "The higher the value the less money the players get.");
+            "Shift",
+            0,
+            -1E10,
+            1E10,
+            "Еhe value that will be added each time to the final result.");
 
     moneyCalculator = new MoneyCalculator(baseMultiplier, logBase);
 
@@ -67,8 +86,13 @@ public class PowerMoneyConfigWrapper {
         CAT_CALCULATION,
         "Here you can tweak the calculations that converts energy into money.\n"
             + "\n"
-            + "The money is calculated like this:\n"
-            + "    MoneyPerSecond = BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)");
+            + "You can choose one of two formulas for calculating the energy price.\n"
+            + "\n"
+            + "Logarithmic formula:\n"
+            + "    MoneyPerSecond = Shift + BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)\n");
+            + "\n"
+            + "Root formula:\n"
+            + "    MoneyPerSecond = Shift + BaseMultiplier * root_RootBase(EnergyPerSecond)");
   }
 
   private static void loadPaymentSettings() {
