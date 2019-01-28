@@ -14,7 +14,7 @@ public class MoneyCalculator {
   private static final int RESULT_DIGITS = 4;
   private static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
-  private final useLog;
+  private final boolean useLog;
   
   @Getter(AccessLevel.NONE)
   private final BigDecimal baseMultiplierBD;
@@ -31,18 +31,18 @@ public class MoneyCalculator {
   @Getter(AccessLevel.NONE)
   private final BigDecimal CalcHelper;
   
-  public MoneyCalculator(boolean useLog, double baseMultiplier, double shift, double Base) {
+  public MoneyCalculator(boolean useLog, double baseMultiplier, double shift, double base) {
     this.useLog = useLog;
     shiftBD = BigDecimal.valueOf(shift);
     baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
     if(useLog){
       CalcHelper =
         BigDecimal.ONE.divide(
-            BigDecimal.valueOf(Math.log(Base) / Math.log(2.0)), CALCULATION_PRECISION);
+            BigDecimal.valueOf(Math.log(base) / Math.log(2.0)), CALCULATION_PRECISION);
     }else{
       CalcHelper =                                                                      //изменить на подсчет помощника для корня
         BigDecimal.ONE.divide(                                                          //изменить на подсчет помощника для корня
-            BigDecimal.valueOf(Math.log(Base) / Math.log(2.0)), CALCULATION_PRECISION); //изменить на подсчет помощника для корня
+            BigDecimal.valueOf(Math.log(base) / Math.log(2.0)), CALCULATION_PRECISION); //изменить на подсчет помощника для корня
     }
   }
 
