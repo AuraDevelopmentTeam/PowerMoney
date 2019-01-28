@@ -80,7 +80,7 @@ public class PowerMoneyConfigWrapper {
             1E10,
             "Еhe value that will be added each time to the final result.");
 
-    moneyCalculator = new MoneyCalculator(baseMultiplier, logBase);
+    moneyCalculator = new MoneyCalculator(useLog, calcBase, baseMultiplier, shift);
 
     addCustomCategoryComment(
         CAT_CALCULATION,
