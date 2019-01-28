@@ -89,7 +89,7 @@ public class PowerMoneyConfigWrapper {
             + "You can choose one of two formulas for calculating the energy price.\n"
             + "\n"
             + "Logarithmic formula:\n"
-            + "    MoneyPerSecond = Shift + BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)\n");
+            + "    MoneyPerSecond = Shift + BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)\n"
             + "\n"
             + "Root formula:\n"
             + "    MoneyPerSecond = Shift + BaseMultiplier * root_RootBase(EnergyPerSecond)");
