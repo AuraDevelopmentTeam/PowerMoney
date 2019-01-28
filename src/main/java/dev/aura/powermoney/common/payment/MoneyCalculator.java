@@ -33,7 +33,7 @@ public class MoneyCalculator {
   
   public MoneyCalculator(double baseMultiplier, double calcBase) { //for compatibility with old versions
     this.useLog = true;
-    shiftBD = 0;
+    shiftBD = BigDecimal.ZERO;
     baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
     
     CalcHelper =
