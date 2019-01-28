@@ -18,7 +18,7 @@ public class PowerMoneyConfigWrapper {
   private static Configuration configStorage;
 
   @Getter private static boolean useLog;
-  @Getter private static double base;
+  @Getter private static double calcBase;
   @Getter private static double baseMultiplier;
   @Getter private static double shift;
   @Getter private static MoneyCalculator moneyCalculator;
@@ -52,7 +52,7 @@ public class PowerMoneyConfigWrapper {
             "Choose the type of calculation."
                 + "true - logarithm [Shift + BaseMultiplier * (log_CalcBase(EnergyPerSecond) + 1)]"
                 + "false - root [Shift + BaseMultiplier * root_CalcBase(EnergyPerSecond)");
-    base =
+    calcBase =
         getDouble(
             CAT_CALCULATION,
             "CalcBase",
