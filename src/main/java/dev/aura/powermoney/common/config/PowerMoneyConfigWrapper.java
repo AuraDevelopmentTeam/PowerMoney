@@ -56,8 +56,8 @@ public class PowerMoneyConfigWrapper {
             CAT_CALCULATION,
             "CalcType",
             0,
-			0,
-			1,
+						0,
+						1,
             "Choose the type of calculation."
                 + "0 - logarithm [Shift + BaseMultiplier * (log_CalcBase(EnergyPerSecond) + 1)]"
                 + "1 - root [Shift + BaseMultiplier * root_CalcBase(EnergyPerSecond)");
@@ -69,10 +69,10 @@ public class PowerMoneyConfigWrapper {
             2,
             Math.nextUp(1.0),
             1E6,
-			"LOGARITHMIC CALCULATION\n"
-				+ "#######################\n"
-				+ "The logarithmic base in the calculation.\n"
-                + "The higher the value the less money the players get.");
+						"LOGARITHMIC CALCULATION\n"
+							+ "#######################\n"
+							+ "The logarithmic base in the calculation.\n"
+							+ "The higher the value the less money the players get.");
     logBaseMultiplier =
         getDouble(
             CAT_CALCULATION,
@@ -90,7 +90,7 @@ public class PowerMoneyConfigWrapper {
             -1E10,
             1E10,
             "The value that will be added each time to the final log calculation result."
-				+ "Helps to adjust the energy price.");
+							+ "Helps to adjust the energy price.");
 
     rootBase =
         getDouble(
@@ -99,10 +99,10 @@ public class PowerMoneyConfigWrapper {
             2,
             Math.nextUp(1.0),
             1E6,
-			"ROOT CALCULATION\n"
-				+ "################\n"
-				+ "The root base in the calculation.\n"
-                + "The higher the value the less money the players get.");
+						"ROOT CALCULATION\n"
+							+ "################\n"
+							+ "The root base in the calculation.\n"
+							+ "The higher the value the less money the players get.");
     rootBaseMultiplier =
         getDouble(
             CAT_CALCULATION,
@@ -120,18 +120,18 @@ public class PowerMoneyConfigWrapper {
             -1E10,
             1E10,
             "The value that will be added each time to the final root calculation result."
-				+ "Helps to adjust the energy price.");
+							+ "Helps to adjust the energy price.");
 
-	switch (calcType) {
-           case  (0):
-               moneyCalculator = new MoneyCalculatorLog(logBase, logBaseMultiplier, logShift);
-               break;
-           case (1):
-               moneyCalculator = new MoneyCalculatorRoot(rootBase, rootBaseMultiplier, rootShift);
-               break;
-           default:
-               throw new IllegalArgumentException("Unknown calculation type.");
-    }
+		switch (calcType) {
+			case (0):
+				 moneyCalculator = new MoneyCalculatorLog(logBase, logBaseMultiplier, logShift);
+				 break;
+			case (1):
+				 moneyCalculator = new MoneyCalculatorRoot(rootBase, rootBaseMultiplier, rootShift);
+				 break;
+			default:
+				 throw new IllegalArgumentException("Unknown calculation type.");
+		}
 
     addCustomCategoryComment(
         CAT_CALCULATION,
