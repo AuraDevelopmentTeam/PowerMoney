@@ -130,8 +130,7 @@ public class PowerMoneyConfigWrapper {
                moneyCalculator = new MoneyCalculatorRoot(rootBase, rootBaseMultiplier, rootShift);
                break;
            default:
-               throw new IllegalArgumentException("Unknown calculation type.");;
-               break;
+               throw new IllegalArgumentException("Unknown calculation type.");
     }
 
     addCustomCategoryComment(
