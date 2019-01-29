@@ -2,15 +2,13 @@ package dev.aura.powermoney.client.gui;
 
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.PowerMoneySounds;
-import dev.aura.powermoney.client.gui.helper.ReceiverData;
+import dev.aura.powermoney.client.helper.ReceiverData;
 import dev.aura.powermoney.common.container.ContainerGeneric;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PacketDispatcher;
-import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
 import dev.aura.powermoney.network.packet.serverbound.PacketEasterEgg;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Random;
 import java.util.UUID;
 import net.minecraft.client.Minecraft;
@@ -33,8 +31,6 @@ public class GuiPowerReceiver extends GuiContainer {
   private static final int INVERSE_TEXT_COLOR = TEXT_COLOR ^ 0xFFFFFF;
   private static final int COLUMN_HEIGHT = 34;
 
-  private static ReceiverData receiverData;
-
   private final UUID player;
   private final TileEntityPowerReceiver tileEntity;
 
@@ -54,16 +50,6 @@ public class GuiPowerReceiver extends GuiContainer {
   private int numberStars;
   private StarAnimation[] stars;
   private final Random nyanrand = new Random();
-
-  public static void receiverDisabled() {
-    receiverData = ReceiverData.receiverDisabled();
-  }
-
-  public static void setReceiverData(
-      long localEnergy, long totalEnergy, BigDecimal money, String moneySymbol, int defaultDigits) {
-    receiverData =
-        ReceiverData.setReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
-  }
 
   public GuiPowerReceiver(EntityPlayer player, TileEntityPowerReceiver tileEntity) {
     super(new ContainerGeneric());
@@ -88,22 +74,19 @@ public class GuiPowerReceiver extends GuiContainer {
   public void initGui() {
     super.initGui();
 
-    receiverData = ReceiverData.waiting();
-
-    PacketDispatcher.sendToServer(
-        PacketChangeRequiresReceiverData.startData(tileEntity.getOwner(), tileEntity.getPos()));
+    ReceiverData.waiting(tileEntity);
   }
 
   @Override
   public void onGuiClosed() {
-    super.onGuiClosed();
+    ReceiverData.stopSending();
 
-    PacketDispatcher.sendToServer(PacketChangeRequiresReceiverData.stopData());
+    super.onGuiClosed();
   }
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    final ReceiverData receiverDataLocal = receiverData;
+    final ReceiverData receiverDataLocal = ReceiverData.getInstance();
 
     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     mc.getTextureManager().bindTexture(TEXTURE);
@@ -119,10 +102,10 @@ public class GuiPowerReceiver extends GuiContainer {
 
   @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    final ReceiverData receiverDataLocal = receiverData;
+    final ReceiverData receiverDataLocal = ReceiverData.getInstance();
 
     // Headings
-    final String tileName = tileEntity.getDisplayName().getUnformattedText();
+    final String tileName = tileEntity.getDisplayName().getFormattedText();
     final String headings[] =
         new String[] {
           I18n.format("gui.powermoney.owner"),

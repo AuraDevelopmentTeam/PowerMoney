@@ -1,4 +1,4 @@
-package dev.aura.powermoney.client.gui.helper;
+package dev.aura.powermoney.client.helper;
 
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.PowerMoneyBlocks;

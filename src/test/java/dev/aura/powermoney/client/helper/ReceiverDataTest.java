@@ -1,4 +1,4 @@
-package dev.aura.powermoney.client.gui.helper;
+package dev.aura.powermoney.client.helper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -37,15 +37,15 @@ public class ReceiverDataTest {
 
   @Test
   public void isWaitingTest() {
-    final ReceiverData receiverData = ReceiverData.waiting();
+    final ReceiverData receiverData = ReceiverData.createWaiting();
 
     assertTrue(receiverData.isWaiting());
   }
 
   @Test
   public void isEnabledTest() {
-    final ReceiverData receiverData1 = ReceiverData.receiverDisabled();
-    final ReceiverData receiverData2 = ReceiverData.setReceiverData(0L, 0L, null, null, 0);
+    final ReceiverData receiverData1 = ReceiverData.createReceiverDisabled();
+    final ReceiverData receiverData2 = ReceiverData.createReceiverData(0L, 0L, null, null, 0);
 
     assertFalse(receiverData1.isWaiting());
     assertFalse(receiverData1.isEnabled());
@@ -58,7 +58,7 @@ public class ReceiverDataTest {
     englishFormatting();
 
     ReceiverData receiverData =
-        ReceiverData.setReceiverData(987654321987654321L, 123456789123456789L, null, null, 0);
+        ReceiverData.createReceiverData(987654321987654321L, 123456789123456789L, null, null, 0);
 
     assertEquals("987,654,321,987,654,321 FE/s", receiverData.getLocalEnergyFormatted());
     assertEquals("123,456,789,123,456,789 FE/s", receiverData.getTotalEnergyFormatted());
@@ -69,7 +69,7 @@ public class ReceiverDataTest {
     germanFormatting();
 
     ReceiverData receiverData =
-        ReceiverData.setReceiverData(987654321987654321L, 123456789123456789L, null, null, 0);
+        ReceiverData.createReceiverData(987654321987654321L, 123456789123456789L, null, null, 0);
 
     assertEquals("987.654.321.987.654.321 FE/s", receiverData.getLocalEnergyFormatted());
     assertEquals("123.456.789.123.456.789 FE/s", receiverData.getTotalEnergyFormatted());
@@ -80,7 +80,7 @@ public class ReceiverDataTest {
     englishFormatting();
 
     ReceiverData receiverData =
-        ReceiverData.setReceiverData(0L, 0L, new BigDecimal("123456789123456789.4567"), "$", 3);
+        ReceiverData.createReceiverData(0L, 0L, new BigDecimal("123456789123456789.4567"), "$", 3);
 
     assertEquals("123,456,789,123,456,789.457 $/s", receiverData.getMoneyFormatted());
   }
@@ -90,7 +90,7 @@ public class ReceiverDataTest {
     germanFormatting();
 
     ReceiverData receiverData =
-        ReceiverData.setReceiverData(0L, 0L, new BigDecimal("123456789123456789.4567"), "€", 3);
+        ReceiverData.createReceiverData(0L, 0L, new BigDecimal("123456789123456789.4567"), "€", 3);
 
     assertEquals("123.456.789.123.456.789,457 €/s", receiverData.getMoneyFormatted());
   }

@@ -1,5 +1,9 @@
-package dev.aura.powermoney.client.gui.helper;
+package dev.aura.powermoney.client.helper;
 
+import com.google.common.annotations.VisibleForTesting;
+import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
+import dev.aura.powermoney.network.PacketDispatcher;
+import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -16,6 +20,8 @@ import net.minecraft.client.resources.I18n;
 @Value
 @Getter(AccessLevel.NONE)
 public class ReceiverData {
+  @Getter private static ReceiverData instance;
+
   @Getter private final boolean waiting;
   @Getter private final boolean enabled;
   private final long localEnergyPerSecond;
@@ -42,17 +48,40 @@ public class ReceiverData {
   @Getter(lazy = true)
   private final String moneyFormatted = generateMoneyFormatted();
 
-  public static ReceiverData waiting() {
+  @VisibleForTesting
+  static ReceiverData createWaiting() {
     return new ReceiverData(true);
   }
 
-  public static ReceiverData receiverDisabled() {
+  public static void waiting(TileEntityPowerReceiver tileEntity) {
+    instance = createWaiting();
+
+    PacketDispatcher.sendToServer(
+        PacketChangeRequiresReceiverData.startData(tileEntity.getOwner(), tileEntity.getPos()));
+  }
+
+  @VisibleForTesting
+  static ReceiverData createReceiverDisabled() {
     return new ReceiverData(false);
   }
 
-  public static ReceiverData setReceiverData(
+  public static void receiverDisabled() {
+    instance = createReceiverDisabled();
+  }
+
+  @VisibleForTesting
+  public static ReceiverData createReceiverData(
       long localEnergy, long totalEnergy, BigDecimal money, String moneySymbol, int defaultDigits) {
     return new ReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
+  }
+
+  public static void setReceiverData(
+      long localEnergy, long totalEnergy, BigDecimal money, String moneySymbol, int defaultDigits) {
+    instance = createReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
+  }
+
+  public static void stopSending() {
+    PacketDispatcher.sendToServer(PacketChangeRequiresReceiverData.stopData());
   }
 
   private ReceiverData(boolean waiting) {

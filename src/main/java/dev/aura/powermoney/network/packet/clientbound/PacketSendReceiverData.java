@@ -1,6 +1,6 @@
 package dev.aura.powermoney.network.packet.clientbound;
 
-import dev.aura.powermoney.client.gui.GuiPowerReceiver;
+import dev.aura.powermoney.client.helper.ReceiverData;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.helper.SerializationHelper;
 import io.netty.buffer.ByteBuf;
@@ -52,7 +52,7 @@ public class PacketSendReceiverData implements IMessage {
     @Override
     public IMessage handleClientMessage(
         EntityPlayer player, PacketSendReceiverData message, MessageContext ctx) {
-      GuiPowerReceiver.setReceiverData(
+      ReceiverData.setReceiverData(
           message.localEnergy,
           message.totalEnergy,
           message.money,

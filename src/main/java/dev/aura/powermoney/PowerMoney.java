@@ -1,7 +1,7 @@
 package dev.aura.powermoney;
 
-import dev.aura.powermoney.client.gui.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.client.handler.ConfigChangedHandler;
+import dev.aura.powermoney.client.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.common.CommonProxy;
 import dev.aura.powermoney.common.advancement.CriterionRegistry;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
