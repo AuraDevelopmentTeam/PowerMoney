@@ -8,7 +8,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Value;
 
-@Value
 public abstract class MoneyCalculator {
   private static final MathContext CALCULATION_PRECISION = MathContext.DECIMAL128;
   private static final int RESULT_DIGITS = 4;
