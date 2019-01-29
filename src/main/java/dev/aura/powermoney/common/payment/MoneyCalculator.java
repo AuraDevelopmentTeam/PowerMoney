@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Value;
 
 @Value
-public class MoneyCalculator {
+public abstract class MoneyCalculator {
   private static final MathContext CALCULATION_PRECISION = MathContext.DECIMAL128;
   private static final int RESULT_DIGITS = 4;
   private static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
