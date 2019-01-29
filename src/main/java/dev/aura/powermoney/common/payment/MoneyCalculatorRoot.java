@@ -30,9 +30,4 @@ public class MoneyCalculatorRoot extends MoneyCalculator {
   private static BigDecimal root(long val, double base) {
     return BigDecimal.valueOf(Math.pow(val, 1.0 / base));
   }
-
-  @VisibleForTesting
-  static BigDecimal roundResult(BigDecimal val) {
-    return val.setScale(RESULT_DIGITS, RESULT_ROUNDING_MODE);
-  }
 }
