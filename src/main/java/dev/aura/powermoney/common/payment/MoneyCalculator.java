@@ -9,14 +9,14 @@ import lombok.Getter;
 import lombok.Value;
 
 public abstract class MoneyCalculator {
-  private static final MathContext CALCULATION_PRECISION = MathContext.DECIMAL128;
-  private static final int RESULT_DIGITS = 4;
-  private static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
+  protected static final MathContext CALCULATION_PRECISION = MathContext.DECIMAL128;
+  protected static final int RESULT_DIGITS = 4;
+  protected static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
-  private final int calcType;
+  protected final int calcType;
   
   @Getter(AccessLevel.NONE)
-  private final BigDecimal baseMultiplierBD;
+  protected final BigDecimal baseMultiplierBD;
   /**
    * = 1 / log2(logBase)<br>
    * <br>
@@ -26,9 +26,9 @@ public abstract class MoneyCalculator {
    * division we calculate the inverse too, so we just need to multiply it later.
    */
   @Getter(AccessLevel.NONE)
-  private final BigDecimal shiftBD;
+  protected final BigDecimal shiftBD;
   @Getter(AccessLevel.NONE)
-  private final BigDecimal CalcHelper;
+  protected final BigDecimal CalcHelper;
   
   public MoneyCalculator(int calcType, double calcBase, double baseMultiplier, double shift) {
     this.calcType = calcType;
@@ -42,6 +42,8 @@ public abstract class MoneyCalculator {
             BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
     }
   }
+  
+  public abstract BigDecimal covertEnergyToMoney(long energy);
   
   @VisibleForTesting
   static BigDecimal roundResult(BigDecimal val) {
