@@ -43,6 +43,8 @@ public abstract class MoneyCalculator {
 			CalcHelper =
 			 BigDecimal.ONE.divide(
 				 BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
+		}else{
+			CalcHelper=BigDecimal.ZERO;
 		}
   }
   
