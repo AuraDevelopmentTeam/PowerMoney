@@ -17,7 +17,6 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -106,32 +105,15 @@ public class GuiPowerReceiver extends GuiContainer {
 
     // Headings
     final String tileName = tileEntity.getDisplayName().getFormattedText();
-    final String headings[] =
-        new String[] {
-          I18n.format("gui.powermoney.owner"),
-          I18n.format("gui.powermoney.localenergy"),
-          I18n.format("gui.powermoney.totalenergy"),
-          I18n.format("gui.powermoney.totalearning")
-        };
+    final String[] headings = receiverDataLocal.getHeadings();
 
     // Data
     final String data[] = new String[4];
 
-    String ownerName = tileEntity.getOwnerName();
-
-    if (!player.equals(tileEntity.getOwner())) {
-      ownerName += " (" + I18n.format("gui.powermoney.owner.notyou") + ')';
-    }
-
-    data[0] = ownerName;
+    data[0] = receiverDataLocal.formatOwnerName(tileEntity, player);
 
     if (receiverDataLocal.isWaiting() || !receiverDataLocal.isEnabled()) {
-      final String message =
-          receiverDataLocal.isWaiting()
-              ? I18n.format("gui.powermoney.waiting")
-              : I18n.format("gui.powermoney.disabled");
-
-      data[1] = data[2] = data[3] = message;
+      data[1] = data[2] = data[3] = receiverDataLocal.getMessage();
     } else {
       data[1] = receiverDataLocal.getLocalEnergyFormatted();
       data[2] = receiverDataLocal.getTotalEnergyFormatted();

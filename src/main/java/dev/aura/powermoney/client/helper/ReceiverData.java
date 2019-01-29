@@ -8,10 +8,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Value;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 
 @SuppressFBWarnings(
   value = {"JLM_JSR166_UTILCONCURRENT_MONITORENTER", "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"},
@@ -48,6 +50,15 @@ public class ReceiverData {
   @Getter(lazy = true)
   private final String moneyFormatted = generateMoneyFormatted();
 
+  @Getter(lazy = true)
+  private final String[] headings = generateHeadings();
+
+  @Getter(lazy = true)
+  private final String message = generateMessage();
+
+  @Getter(lazy = true)
+  private final String notYouMessage = generateNotYouMessage();
+
   @VisibleForTesting
   static ReceiverData createWaiting() {
     return new ReceiverData(true);
@@ -82,6 +93,20 @@ public class ReceiverData {
 
   public static void stopSending() {
     PacketDispatcher.sendToServer(PacketChangeRequiresReceiverData.stopData());
+  }
+
+  public String formatOwnerName(TileEntityPowerReceiver tileEntity, EntityPlayer player) {
+    return formatOwnerName(tileEntity, player.getUniqueID());
+  }
+
+  public String formatOwnerName(TileEntityPowerReceiver tileEntity, UUID player) {
+    final String ownerName = tileEntity.getOwnerName();
+
+    if (player.equals(tileEntity.getOwner())) {
+      return ownerName;
+    } else {
+      return ownerName + getNotYouMessage();
+    }
   }
 
   private ReceiverData(boolean waiting) {
@@ -145,5 +170,22 @@ public class ReceiverData {
         + ' '
         + moneySymbol
         + I18n.format("gui.powermoney.persecond");
+  }
+
+  private String[] generateHeadings() {
+    return new String[] {
+      I18n.format("gui.powermoney.owner"),
+      I18n.format("gui.powermoney.localenergy"),
+      I18n.format("gui.powermoney.totalenergy"),
+      I18n.format("gui.powermoney.totalearning")
+    };
+  }
+
+  private String generateMessage() {
+    return waiting ? I18n.format("gui.powermoney.waiting") : I18n.format("gui.powermoney.disabled");
+  }
+
+  private String generateNotYouMessage() {
+    return " (" + I18n.format("gui.powermoney.owner.notyou") + ')';
   }
 }
