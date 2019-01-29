@@ -14,7 +14,7 @@ public class MoneyCalculator {
   private static final int RESULT_DIGITS = 4;
   private static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
-  private final boolean useLog;
+  private final int calcType;
   
   @Getter(AccessLevel.NONE)
   private final BigDecimal baseMultiplierBD;
@@ -31,22 +31,16 @@ public class MoneyCalculator {
   @Getter(AccessLevel.NONE)
   private final BigDecimal CalcHelper;
   
-  public MoneyCalculator(double baseMultiplier, double calcBase) { //for compatibility with old versions
-    this(true, calcBase, baseMultiplier, 0.0);
-  }
-  
-  public MoneyCalculator(boolean useLog, double calcBase, double baseMultiplier, double shift) {
-    this.useLog = useLog;
+  public MoneyCalculator(int calcType, double calcBase, double baseMultiplier, double shift) {
+    this.calcType = calcType;
     shiftBD = BigDecimal.valueOf(shift);
     baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
+    CalcHelper = BigDecimal.valueOf(calcBase);
     
-    if(useLog){
+    if(calcType==0){
       CalcHelper =
         BigDecimal.ONE.divide(
             BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
-    }
-    else{
-      CalcHelper = BigDecimal.valueOf(calcBase);
     }
   }
 }
