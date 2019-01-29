@@ -24,7 +24,7 @@ public class MoneyCalculatorRoot extends MoneyCalculator {
     return roundResult(
       shiftBD.add(
         baseMultiplierBD.multiply(
-          root(energy, CalcHelper.doubleValue()),
+          root(energy, baseMultiplier),
         CALCULATION_PRECISION),
       CALCULATION_PRECISION));
   }
