@@ -35,9 +35,4 @@ public class MoneyCalculatorLog extends MoneyCalculator {
   private static double log2(long val) {
     return Math.log(val) / Math.log(2.0);
   }
-
-  @VisibleForTesting
-  static BigDecimal roundResult(BigDecimal val) {
-    return val.setScale(RESULT_DIGITS, RESULT_ROUNDING_MODE);
-  }
 }
