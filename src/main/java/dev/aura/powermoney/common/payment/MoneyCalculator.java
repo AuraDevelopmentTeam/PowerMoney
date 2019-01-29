@@ -14,6 +14,9 @@ public abstract class MoneyCalculator {
   protected static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
   protected final int calcType;
+	
+	@Getter
+	protected final double baseMultiplier;
   
   @Getter(AccessLevel.NONE)
   protected final BigDecimal baseMultiplierBD;
@@ -31,21 +34,15 @@ public abstract class MoneyCalculator {
   protected final BigDecimal CalcHelper;
   
   public MoneyCalculator(int calcType, double calcBase, double baseMultiplier, double shift) {
+		this.baseMultiplier = baseMultiplier;
     this.calcType = calcType;
     shiftBD = BigDecimal.valueOf(shift);
     baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
     
-    switch (calcType) {
-			case (0):
-				 CalcHelper =
-           BigDecimal.ONE.divide(
-             BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
-				 break;
-			case (1):
-				 CalcHelper = BigDecimal.valueOf(calcBase);
-				 break;
-			default:
-				 throw new IllegalArgumentException("Unknown calculation type.");
+    if (calcType==0) {
+			CalcHelper =
+			 BigDecimal.ONE.divide(
+				 BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
 		}
   }
   
