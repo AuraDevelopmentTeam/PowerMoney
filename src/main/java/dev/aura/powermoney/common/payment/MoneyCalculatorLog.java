@@ -11,6 +11,10 @@ import lombok.Value;
 @Value
 public class MoneyCalculatorLog extends MoneyCalculator {
   
+  public MoneyCalculatorLog(double calcBase, double baseMultiplier, double shift) {
+    super(0, calcBase, baseMultiplier, shift);
+  }
+  
   public BigDecimal covertEnergyToMoney(long energy) {
     if (energy < 0) throw new IllegalArgumentException("energy must not be negative");
     else if (energy == 0) return BigDecimal.ZERO;
