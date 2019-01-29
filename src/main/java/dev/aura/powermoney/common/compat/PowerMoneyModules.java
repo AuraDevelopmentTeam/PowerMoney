@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class PowerMoneyModules {
   public static final String SPONGEAPI_MODID = "spongeapi";
   public static final String COMPUTERCRAFT_MODID = "computercraft";
+  public static final String HWYLA_MODID = "waila";
   public static final String OPENCOMPUTERS_MODID = "opencomputers";
   public static final String TESLA_MODID = "tesla";
 
@@ -32,12 +33,15 @@ public class PowerMoneyModules {
           + ";after:"
           + COMPUTERCRAFT_MODID
           + ";after:"
+          + HWYLA_MODID
+          + ";after:"
           + OPENCOMPUTERS_MODID
           + ";after:"
           + TESLA_MODID;
 
   private static Boolean SPONGEAPI;
   private static Boolean COMPUTERCRAFT;
+  private static Boolean HWYLA;
   private static Boolean OPENCOMPUTERS;
   private static Boolean TESLA;
 
@@ -61,6 +65,11 @@ public class PowerMoneyModules {
   )
   public static boolean computerCraft() {
     return testMod(COMPUTERCRAFT_MODID, COMPUTERCRAFT);
+  }
+
+  @Module(modid = HWYLA_MODID, name = "Hwyla", message = "Adding PowerReceiver stats to Hwyla")
+  public static boolean hwyla() {
+    return testMod(HWYLA_MODID, HWYLA);
   }
 
   @Module(
