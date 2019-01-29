@@ -43,4 +43,9 @@ public class MoneyCalculator {
             BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
     }
   }
+  
+  @VisibleForTesting
+  static BigDecimal roundResult(BigDecimal val) {
+    return val.setScale(RESULT_DIGITS, RESULT_ROUNDING_MODE);
+  }
 }
