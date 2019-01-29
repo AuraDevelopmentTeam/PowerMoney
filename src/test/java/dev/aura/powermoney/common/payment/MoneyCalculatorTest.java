@@ -42,7 +42,7 @@ public class MoneyCalculatorTest {
     for (MoneyCalculatorLog calculator : defaultMoneyCalculatorsLog) {
       assertEquals(
           "Case: " + calculator.toString(),
-          new BigDecimal(calculator.getBaseMultiplier()),
+          calculator.getBaseMultiplierBD(),
           calculator.covertEnergyToMoney(1L));
     }
   }
@@ -52,7 +52,7 @@ public class MoneyCalculatorTest {
     for (MoneyCalculatorLog calculator : defaultMoneyCalculatorsLog) {
       assertEquals(
           "Case: " + calculator.toString(),
-          new BigDecimal(calculator.getBaseMultiplier() * 2.0),
+          new BigDecimal(calculator.getBaseMultiplierBD() * 2.0),
           calculator.covertEnergyToMoney(2L));
     }
   }
@@ -75,7 +75,7 @@ public class MoneyCalculatorTest {
     for (MoneyCalculatorLog calculator : calculatorsLog) {
       assertEquals(
           "Case: " + calculator.toString(),
-          new BigDecimal(calculator.getBaseMultiplier() * 2.0),
+          new BigDecimal(calculator.getBaseMultiplierBD() * 2.0),
           calculator.covertEnergyToMoney(10L));
     }
   }
