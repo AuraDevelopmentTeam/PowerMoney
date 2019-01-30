@@ -6,7 +6,6 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Value;
 
 public abstract class MoneyCalculator {
   protected static final MathContext CALCULATION_PRECISION = MathContext.DECIMAL128;
@@ -14,10 +13,9 @@ public abstract class MoneyCalculator {
   protected static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
   protected final int calcType;
-	
-	@Getter
-	protected final double baseMultiplier;
-  
+
+  @Getter protected final double baseMultiplier;
+
   @Getter(AccessLevel.NONE)
   protected final BigDecimal baseMultiplierBD;
   /**
@@ -30,26 +28,27 @@ public abstract class MoneyCalculator {
    */
   @Getter(AccessLevel.NONE)
   protected final BigDecimal shiftBD;
+
   @Getter(AccessLevel.NONE)
   protected final BigDecimal CalcHelper;
-  
+
   public MoneyCalculator(int calcType, double calcBase, double baseMultiplier, double shift) {
-		this.baseMultiplier = baseMultiplier;
+    this.baseMultiplier = baseMultiplier;
     this.calcType = calcType;
     shiftBD = BigDecimal.valueOf(shift);
     baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
-    
-    if (calcType==0) {
-			CalcHelper =
-			 BigDecimal.ONE.divide(
-				 BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
-		}else{
-			CalcHelper=BigDecimal.ZERO;
-		}
+
+    if (calcType == 0) {
+      CalcHelper =
+          BigDecimal.ONE.divide(
+              BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
+    } else {
+      CalcHelper = BigDecimal.valueOf(calcBase);
+    }
   }
-  
+
   public abstract BigDecimal covertEnergyToMoney(long energy);
-  
+
   @VisibleForTesting
   static BigDecimal roundResult(BigDecimal val) {
     return val.setScale(RESULT_DIGITS, RESULT_ROUNDING_MODE);
