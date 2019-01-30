@@ -58,9 +58,9 @@ public class PowerMoneyConfigWrapper {
             0,
             0,
             1,
-            "Choose the type of calculation."
-                + "0 - logarithm [Shift + BaseMultiplier * (log_CalcBase(EnergyPerSecond) + 1)]"
-                + "1 - root [Shift + BaseMultiplier * root_CalcBase(EnergyPerSecond)");
+            "Choose the type of calculation.\n"
+                + "0 - logarithm [LogShift + LogBaseMultiplier * (log_CalcBase(EnergyPerSecond) + 1)]\n"
+                + "1 - root [RootShift + RootBaseMultiplier * root_CalcBase(EnergyPerSecond)");
 
     logBase =
         getDouble(
@@ -89,7 +89,7 @@ public class PowerMoneyConfigWrapper {
             0,
             -1E10,
             1E10,
-            "The value that will be added each time to the final log calculation result."
+            "The value that will be added each time to the final log calculation result.\n"
                 + "Helps to adjust the energy price.");
 
     rootBase =
@@ -119,7 +119,7 @@ public class PowerMoneyConfigWrapper {
             0,
             -1E10,
             1E10,
-            "The value that will be added each time to the final root calculation result."
+            "The value that will be added each time to the final root calculation result.\n"
                 + "Helps to adjust the energy price.");
 
     switch (calcType) {
