@@ -97,7 +97,7 @@ public class PowerMoneyConfigWrapper {
             CAT_CALCULATION,
             "RootBase",
             2,
-            1,
+            Math.nextUp(0.0),
             1E6,
             "ROOT CALCULATION\n"
                 + "################\n"
