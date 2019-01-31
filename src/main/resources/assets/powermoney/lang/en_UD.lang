@@ -1,4 +1,4 @@
-﻿tile.power_receiver.name=ɹǝʌᴉǝɔǝᴚ ɹǝʍoԀ
+tile.power_receiver.name=ɹǝʌᴉǝɔǝᴚ ɹǝʍoԀ
 
 container.power_receiver=ɹǝʌᴉǝɔǝᴚ ɹǝʍoԀ
 
@@ -21,22 +21,33 @@ gui.powermoney.totalearning=sᵷuᴉuɹɐƎ ꞁɐʇo⟘
 gui.powermoney.energyunit=ƎℲ
 gui.powermoney.persecond=s/
 
-gui.powermoney.config.cat.calculation=uoᴉʇɐlnɔlɐƆ
-gui.powermoney.config.cat.calculation.tooltip=(puoɔǝSɹǝԀʎƃɹǝuƎ)ǝsɐBʇooɹ‾ʇooɹ * ɹǝᴉldᴉʇlnWǝsɐBʇooɹ + ʇɟᴉɥSʇooɹ = puoɔǝSɹǝԀʎǝuoW    u\\:ɐlnɯɹoɟ ʇooɹu\\u\\(Ɩ + (puoɔǝSɹǝԀʎƃɹǝuƎ)ǝsɐBƃ o˥‾ƃol) * ɹǝᴉldᴉʇlnWǝsɐBƃ o˥ + ʇɟᴉɥSƃ o˥ = puoɔǝSɹǝԀʎǝuoW    u\\:ɐlnɯɹoɟ ɔᴉɯɥʇᴉɹɐƃ o˥u\\u\\˙ǝɔᴉɹd ʎƃɹǝuǝ ǝɥʇ ƃuᴉʇɐlnɔlɐɔ ɹoɟ sɐlnɯɹoɟ oʍʇ ɟo ǝuo ǝsooɥɔ uɐɔ no⅄u\\˙ʎǝuoɯ oʇuᴉ ʎƃɹǝuǝ sʇɹǝʌuoɔ ʇɐɥʇ suoᴉʇɐlnɔlɐɔ ǝɥʇ ʞɐǝʍʇ uɐɔ noʎ ǝɹǝH
-gui.powermoney.config.cat.calculation.calctype=ǝdʎʇ uoᴉʇɐlnɔlɐƆ
-gui.powermoney.config.cat.calculation.calctype.tooltip=(puoɔǝSɹǝԀʎƃɹǝuƎ)ǝsɐBɔlɐƆ‾ʇooɹ * ɹǝᴉldᴉʇlnWǝsɐB + ʇɟᴉɥS] ʇooɹ - Ɩu\\[(Ɩ + (puoɔǝSɹǝԀʎƃɹǝuƎ)ǝsɐBɔlɐƆ‾ƃol) * ɹǝᴉldᴉʇlnWǝsɐB + ʇɟᴉɥS] ɯɥʇᴉɹɐƃol - 0u\\˙uoᴉʇɐlnɔlɐɔ ɟo ǝdʎʇ ǝɥʇ ǝsooɥƆ
-gui.powermoney.config.cat.calculation.logbase=ǝsɐB ƃ o˥
-gui.powermoney.config.cat.calculation.logbase.tooltip=˙ʇǝƃ sɹǝʎɐld ǝɥʇ ʎǝuoɯ ssǝl ǝɥʇ ǝnlɐʌ ǝɥʇ ɹǝɥƃᴉɥ ǝɥ┴u\\˙uoᴉʇɐlnɔlɐɔ ǝɥʇ uᴉ ǝsɐq ɔᴉɯɥʇᴉɹɐƃol ǝɥ┴
-gui.powermoney.config.cat.calculation.logbasemultiplier=ɹǝᴉldᴉʇlnW ǝsɐB ƃ o˥
-gui.powermoney.config.cat.calculation.logbasemultiplier.tooltip=˙ɥʇɹoʍ sᴉ puoɔǝs ɹǝd ʎƃɹǝuǝ ɟo ʇᴉun Ɩ ɥɔnɯ ʍoɥ ʎllɐᴉʇuǝssƎu\\˙uoᴉʇɐlnɔlɐɔ ƃol ǝɥʇ uᴉ ɹǝᴉldᴉʇlnɯ ǝsɐq ǝɥ┴
-gui.powermoney.config.cat.calculation.logshift=ʇɟᴉɥS ƃ o˥
-gui.powermoney.config.cat.calculation.logshift.tooltip=˙ǝɔᴉɹd ʎƃɹǝuǝ ǝɥʇ ʇsnɾpɐ oʇ sdlǝHu\\˙ʇlnsǝɹ uoᴉʇɐlnɔlɐɔ ƃol lɐuᴉɟ ǝɥʇ oʇ ǝɯᴉʇ ɥɔɐǝ pǝppɐ ǝq llᴉʍ ʇɐɥʇ ǝnlɐʌ ǝɥ┴
-gui.powermoney.config.cat.calculation.rootbase=ǝsɐB ʇooɹ
-gui.powermoney.config.cat.calculation.rootbase.tooltip=˙ʇǝƃ sɹǝʎɐld ǝɥʇ ʎǝuoɯ ssǝl ǝɥʇ ǝnlɐʌ ǝɥʇ ɹǝɥƃᴉɥ ǝɥ┴u\\˙uoᴉʇɐlnɔlɐɔ ǝɥʇ uᴉ ǝsɐq ʇooɹ ǝɥ┴
-gui.powermoney.config.cat.calculation.rootbasemultiplier=ɹǝᴉldᴉʇlnW ǝsɐB ʇooɹ
-gui.powermoney.config.cat.calculation.rootbasemultiplier.tooltip=˙ɥʇɹoʍ sᴉ puoɔǝs ɹǝd ʎƃɹǝuǝ ɟo ʇᴉun Ɩ ɥɔnɯ ʍoɥ ʎllɐᴉʇuǝssƎu\\˙uoᴉʇɐlnɔlɐɔ ʇooɹ ǝɥʇ uᴉ ɹǝᴉldᴉʇlnɯ ǝsɐq ǝɥ┴
-gui.powermoney.config.cat.calculation.rootshift=ʇɟᴉɥS ʇooɹ
-gui.powermoney.config.cat.calculation.rootshift.tooltip=˙ǝɔᴉɹd ʎƃɹǝuǝ ǝɥʇ ʇsnɾpɐ oʇ sdlǝHu\\˙ʇlnsǝɹ uoᴉʇɐlnɔlɐɔ ʇooɹ lɐuᴉɟ ǝɥʇ oʇ ǝɯᴉʇ ɥɔɐǝ pǝppɐ ǝq llᴉʍ ʇɐɥʇ ǝnlɐʌ ǝɥ┴
+gui.powermoney.config.cat.calculation=uoᴉʇɐꞁnɔꞁɐƆ
+gui.powermoney.config.cat.calculation.tooltip=(puoɔǝSɹǝԀʎᵷɹǝuƎ)ǝsɐᗺʇooᴚ‾ʇooɹ * ɹǝᴉꞁdᴉʇꞁnWǝsɐᗺʇooᴚ + ʇɟᴉɥSʇooᴚ = puoɔǝSɹǝԀʎǝuoW    u\\:ɐꞁnɯɹoɟ ʇooᴚu\\u\\(⥝ + (puoɔǝSɹǝԀʎᵷɹǝuƎ)ǝsɐᗺᵷoꞀ‾ᵷoꞁ) * ɹǝᴉꞁdᴉʇꞁnWǝsɐᗺᵷoꞀ + ʇɟᴉɥSᵷoꞀ = puoɔǝSɹǝԀʎǝuoW    u\\:ɐꞁnɯɹoɟ ɔᴉɯɥʇᴉɹɐᵷoꞀu\\u\\˙ǝɔᴉɹd ʎᵷɹǝuǝ ǝɥʇ ᵷuᴉʇɐꞁnɔꞁɐɔ ɹoɟ sɐꞁnɯɹoɟ oʍʇ ɟo ǝuo ǝsooɥɔ uɐɔ no⅄u\\˙ʎǝuoɯ oʇuᴉ ʎᵷɹǝuǝ sʇɹǝʌuoɔ ʇɐɥʇ suoᴉʇɐꞁnɔꞁɐɔ ǝɥʇ ʞɐǝʍʇ uɐɔ noʎ ǝɹǝH
+gui.powermoney.config.cat.calculation.logarithm=ɯɥʇᴉɹɐᵷoꞀ
+gui.powermoney.config.cat.calculation.logarithm.tooltip=(⥝ + (puoɔǝSɹǝԀʎᵷɹǝuƎ)ǝsɐᗺᵷoꞀ‾ᵷoꞁ) * ɹǝᴉꞁdᴉʇꞁnWǝsɐᗺᵷoꞀ + ʇɟᴉɥSᵷoꞀ = puoɔǝSɹǝԀʎǝuoW    u\\:sᴉɥʇ ǝʞᴉꞁ pǝʇɐnɔꞁɐɔ sᴉ ʎǝuoɯ ǝɥ⟘u\\u\\˙uoᴉʇɐꞁnɔꞁɐɔ ʎǝuoɯ ɔᴉɯɥʇᴉɹɐᵷoꞀ
+gui.powermoney.config.cat.calculation.logarithm.logbasemultiplier=ɹǝᴉꞁdᴉʇꞁnW ǝsɐᗺ ᵷoꞀ
+gui.powermoney.config.cat.calculation.logarithm.logbasemultiplier.tooltip=˙ɥʇɹoʍ sᴉ puoɔǝs ɹǝd ʎᵷɹǝuǝ ɟo ʇᴉun ⥝ ɥɔnɯ ʍoɥ ʎꞁꞁɐᴉʇuǝssƎu\\˙uoᴉʇɐꞁnɔꞁɐɔ ᵷoꞁ ǝɥʇ uᴉ ɹǝᴉꞁdᴉʇꞁnɯ ǝsɐq ǝɥ⟘
+gui.powermoney.config.cat.calculation.logarithm.logbase=ǝsɐᗺ ᵷoꞀ
+gui.powermoney.config.cat.calculation.logarithm.logbase.tooltip=˙ʇǝᵷ sɹǝʎɐꞁd ǝɥʇ ʎǝuoɯ ssǝꞁ ǝɥʇ ǝnꞁɐʌ ǝɥʇ ɹǝɥᵷᴉɥ ǝɥ⟘u\\˙uoᴉʇɐꞁnɔꞁɐɔ ǝɥʇ uᴉ ǝsɐq ɔᴉɯɥʇᴉɹɐᵷoꞁ ǝɥ⟘
+gui.powermoney.config.cat.calculation.logarithm.logshift=ʇɟᴉɥS ᵷoꞀ
+gui.powermoney.config.cat.calculation.logarithm.logshift.tooltip=˙ǝɔᴉɹd ʎᵷɹǝuǝ ǝɥʇ ʇsnɾpɐ oʇ sdꞁǝHu\\˙ʇꞁnsǝɹ uoᴉʇɐꞁnɔꞁɐɔ ᵷoꞁ ꞁɐuᴉɟ ǝɥʇ oʇ ǝɯᴉʇ ɥɔɐǝ pǝppɐ ǝq ꞁꞁᴉʍ ʇɐɥʇ ǝnꞁɐʌ ǝɥ⟘
+gui.powermoney.config.cat.calculation.root=ʇooᴚ
+gui.powermoney.config.cat.calculation.root.tooltip=(puoɔǝSɹǝԀʎᵷɹǝuƎ)ǝsɐᗺʇooᴚ‾ʇooɹ * ɹǝᴉꞁdᴉʇꞁnWǝsɐᗺʇooᴚ + ʇɟᴉɥSʇooᴚ = puoɔǝSɹǝԀʎǝuoW    u\\:sᴉɥʇ ǝʞᴉꞁ pǝʇɐnɔꞁɐɔ sᴉ ʎǝuoɯ ǝɥ⟘u\\u\\˙uoᴉʇɐꞁnɔꞁɐɔ ʎǝuoɯ ʇooᴚ
+gui.powermoney.config.cat.calculation.root.rootbasemultiplier=ɹǝᴉꞁdᴉʇꞁnW ǝsɐᗺ ʇooᴚ
+gui.powermoney.config.cat.calculation.root.rootbasemultiplier.tooltip=˙ɥʇɹoʍ sᴉ puoɔǝs ɹǝd ʎᵷɹǝuǝ ɟo ʇᴉun ⥝ ɥɔnɯ ʍoɥ ʎꞁꞁɐᴉʇuǝssƎu\\˙uoᴉʇɐꞁnɔꞁɐɔ ʇooɹ ǝɥʇ uᴉ ɹǝᴉꞁdᴉʇꞁnɯ ǝsɐq ǝɥ⟘
+gui.powermoney.config.cat.calculation.root.rootbase=ǝsɐᗺ ʇooᴚ
+gui.powermoney.config.cat.calculation.root.rootbase.tooltip=˙ʇǝᵷ sɹǝʎɐꞁd ǝɥʇ ʎǝuoɯ ssǝꞁ ǝɥʇ ǝnꞁɐʌ ǝɥʇ ɹǝɥᵷᴉɥ ǝɥ⟘u\\˙uoᴉʇɐꞁnɔꞁɐɔ ǝɥʇ uᴉ ǝsɐq ʇooɹ ǝɥ⟘
+gui.powermoney.config.cat.calculation.root.rootshift=ʇɟᴉɥS ʇooᴚ
+gui.powermoney.config.cat.calculation.root.rootshift.tooltip=˙ǝɔᴉɹd ʎᵷɹǝuǝ ǝɥʇ ʇsnɾpɐ oʇ sdꞁǝHu\\˙ʇꞁnsǝɹ uoᴉʇɐꞁnɔꞁɐɔ ʇooɹ ꞁɐuᴉɟ ǝɥʇ oʇ ǝɯᴉʇ ɥɔɐǝ pǝppɐ ǝq ꞁꞁᴉʍ ʇɐɥʇ ǝnꞁɐʌ ǝɥ⟘
+gui.powermoney.config.cat.calculation.calctype=ǝdʎ⟘ uoᴉʇɐꞁnɔꞁɐƆ
+gui.powermoney.config.cat.calculation.calctype.tooltip=ʇooɹ :⥝ - u\\ɯɥʇᴉɹɐᵷoꞁ :0 - u\\˙uoᴉʇɐꞁnɔꞁɐɔ ɟo ǝdʎʇ ǝɥʇ ǝsooɥƆ
+
+gui.powermoney.config.cat.payment=ʇuǝɯʎɐԀ
+gui.powermoney.config.cat.payment.tooltip=˙sɹǝʎɐꞁd ǝɥʇ oʇ ʇuǝɯʎɐd ǝɥʇ ᵷuᴉpɹɐᵷǝɹ sᵷuᴉʇʇǝS
+gui.powermoney.config.cat.payment.currency=ʎɔuǝɹɹnƆ
+gui.powermoney.config.cat.payment.currency.tooltip=˙ʎɔuǝɹɹnɔ ǝuo uɐɥʇ ǝɹoɯ s,ǝɹǝɥʇ ɟᴉ ʇǝs ǝq oʇ spǝǝu ʎꞁꞁɐǝɹ ʎꞁuOu\\˙ʎɔuǝɹɹnɔ ʇꞁnɐɟǝp ǝɥʇ oʇ ʞɔɐqꞁꞁɐɟ ꞁꞁᴉʍ ɯǝʇsʎs ǝɥʇ uǝɥʇ 'ʎʇdɯǝ sᴉ ɹo ʇsᴉxǝ ʇ,usǝop ǝɹǝɥ pǝᴉɟᴉɔǝds ʎɔuǝɹɹnɔ ǝɥʇ ɟIu\\˙sʇuǝɯʎɐd ǝɥʇ ǝʞɐɯ oʇ ʎɔuǝɹɹnɔ ǝɥ⟘
+gui.powermoney.config.cat.payment.payoutinterval=ꞁɐʌɹǝʇuI ʇnoʎɐԀ
+gui.powermoney.config.cat.payment.payoutinterval.tooltip=˙(ǝsɐq puoɔǝs ɹǝd ɐ uo pǝʇɐꞁnɔꞁɐɔ sᴉ sʇǝᵷ ɹǝʎɐꞁd ǝɥʇ ʎǝuoɯ ǝɥʇ) sʇnoʎɐd ʇuɐʇsuᴉ suɐǝɯ ⥝ ǝnꞁɐʌ ǝɥ⟘u\\˙sʇnoʎɐd uǝǝʍʇǝq spuoɔǝs uᴉ ꞁɐʌɹǝʇuᴉ ǝɥ⟘
 
 gui.powermoney.config.cat.misc=snoǝuɐꞁꞁǝɔsᴉW
 gui.powermoney.config.cat.misc.tooltip=˙ǝsꞁǝ ǝɹǝɥʍʎuɐ ᵷuoꞁǝq ʇ,uop ʇɐɥʇ sᵷuᴉʇʇǝS

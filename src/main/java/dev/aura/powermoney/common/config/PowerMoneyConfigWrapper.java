@@ -191,8 +191,12 @@ public class PowerMoneyConfigWrapper {
     addCustomCategoryComment(CAT_MISC, "Settings that don't belong anywhere else.");
   }
 
+  private static String getDefaultLangKey(String category) {
+    return "gui.powermoney.config.cat." + category.toLowerCase();
+  }
+
   private static String getDefaultLangKey(String category, String name) {
-    return "gui.powermoney.config.cat." + category.toLowerCase() + '.' + name.toLowerCase();
+    return getDefaultLangKey(category) + '.' + name.toLowerCase();
   }
 
   /**
@@ -305,6 +309,7 @@ public class PowerMoneyConfigWrapper {
    */
   private static void addCustomCategoryComment(String category, String comment) {
     configStorage.setCategoryComment(category, comment);
+    configStorage.setCategoryLanguageKey(category, getDefaultLangKey(category));
   }
 
   private static void saveIfChanged() {
