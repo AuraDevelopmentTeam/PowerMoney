@@ -19,12 +19,12 @@ public class PowerMoneyConfigWrapper {
 
   private static Configuration configStorage;
 
-  @Getter private static double logBase;
   @Getter private static double logBaseMultiplier;
+  @Getter private static double logBase;
   @Getter private static double logShift;
 
-  @Getter private static double rootBase;
   @Getter private static double rootBaseMultiplier;
+  @Getter private static double rootBase;
   @Getter private static double rootShift;
 
   @Getter private static int calcType;
@@ -59,9 +59,18 @@ public class PowerMoneyConfigWrapper {
             0,
             1,
             "Choose the type of calculation.\n"
-                + "0 - logarithm [LogShift + LogBaseMultiplier * (log_CalcBase(EnergyPerSecond) + 1)]\n"
-                + "1 - root [RootShift + RootBaseMultiplier * root_CalcBase(EnergyPerSecond)");
+                + "    0 - logarithm [LogShift + LogBaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)]\n"
+                + "    1 - root [RootShift + RootBaseMultiplier * root_RootBase(EnergyPerSecond)");
 
+    logBaseMultiplier =
+        getDouble(
+            CAT_CALCULATION,
+            "LogBaseMultiplier",
+            0.10,
+            1E-6,
+            1E6,
+            "The base multiplier in the log calculation.\n"
+                + "Essentially how much 1 unit of energy per second is worth.");
     logBase =
         getDouble(
             CAT_CALCULATION,
@@ -73,15 +82,6 @@ public class PowerMoneyConfigWrapper {
                 + "#######################\n"
                 + "The logarithmic base in the calculation.\n"
                 + "The higher the value the less money the players get.");
-    logBaseMultiplier =
-        getDouble(
-            CAT_CALCULATION,
-            "LogBaseMultiplier",
-            0.10,
-            1E-6,
-            1E6,
-            "The base multiplier in the log calculation.\n"
-                + "Essentially how much 1 unit of energy per second is worth.");
     logShift =
         getDouble(
             CAT_CALCULATION,
@@ -92,6 +92,15 @@ public class PowerMoneyConfigWrapper {
             "The value that will be added each time to the final log calculation result.\n"
                 + "Helps to adjust the energy price.");
 
+    rootBaseMultiplier =
+        getDouble(
+            CAT_CALCULATION,
+            "RootBaseMultiplier",
+            0.10,
+            1E-6,
+            1E6,
+            "The base multiplier in the root calculation.\n"
+                + "Essentially how much 1 unit of energy per second is worth.");
     rootBase =
         getDouble(
             CAT_CALCULATION,
@@ -103,15 +112,6 @@ public class PowerMoneyConfigWrapper {
                 + "################\n"
                 + "The root base in the calculation.\n"
                 + "The higher the value the less money the players get.");
-    rootBaseMultiplier =
-        getDouble(
-            CAT_CALCULATION,
-            "RootBaseMultiplier",
-            0.10,
-            1E-6,
-            1E6,
-            "The base multiplier in the root calculation.\n"
-                + "Essentially how much 1 unit of energy per second is worth.");
     rootShift =
         getDouble(
             CAT_CALCULATION,
@@ -124,10 +124,10 @@ public class PowerMoneyConfigWrapper {
 
     switch (calcType) {
       case (0):
-        moneyCalculator = new MoneyCalculatorLog(logBase, logBaseMultiplier, logShift);
+        moneyCalculator = new MoneyCalculatorLog(logBaseMultiplier, logBase, logShift);
         break;
       case (1):
-        moneyCalculator = new MoneyCalculatorRoot(rootBase, rootBaseMultiplier, rootShift);
+        moneyCalculator = new MoneyCalculatorRoot(rootBaseMultiplier, rootBase, rootShift);
         break;
       default:
         throw new IllegalArgumentException("Unknown calculation type.");
