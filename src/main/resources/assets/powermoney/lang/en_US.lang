@@ -22,11 +22,21 @@ gui.powermoney.energyunit=FE
 gui.powermoney.persecond=/s
 
 gui.powermoney.config.cat.calculation=Calculation
-gui.powermoney.config.cat.calculation.tooltip=Here you can tweak the calculations that converts energy into money.\\n\\nThe money is calculated like this:\\n    MoneyPerSecond = BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)
-gui.powermoney.config.cat.calculation.basemultiplier=Base Multiplier
-gui.powermoney.config.cat.calculation.basemultiplier.tooltip=The base multiplier in the calculation.\\nEssentially how much 1 unit of energy per second is worth.
+gui.powermoney.config.cat.calculation.tooltip=Here you can tweak the calculations that converts energy into money.\\nYou can choose one of two formulas for calculating the energy price.\\n\\nLogarithmic formula:\\n    MoneyPerSecond = LogShift + LogBaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)\\n\\nRoot formula:\\n    MoneyPerSecond = RootShift + RootBaseMultiplier * root_RootBase(EnergyPerSecond)
+gui.powermoney.config.cat.calculation.calctype=Calculation type
+gui.powermoney.config.cat.calculation.calctype.tooltip=Choose the type of calculation.\\n0 - logarithm [LogShift + LogBaseMultiplier * (log_CalcBase(EnergyPerSecond) + 1)]\\n1 - root [RootShift + RootBaseMultiplier * root_CalcBase(EnergyPerSecond)
 gui.powermoney.config.cat.calculation.logbase=Log Base
 gui.powermoney.config.cat.calculation.logbase.tooltip=The logarithmic base in the calculation.\\nThe higher the value the less money the players get.
+gui.powermoney.config.cat.calculation.logbasemultiplier=Log Base Multiplier
+gui.powermoney.config.cat.calculation.logbasemultiplier.tooltip=The base multiplier in the log calculation.\\nEssentially how much 1 unit of energy per second is worth.
+gui.powermoney.config.cat.calculation.logshift=Log Shift
+gui.powermoney.config.cat.calculation.logshift.tooltip=The value that will be added each time to the final log calculation result.\\nHelps to adjust the energy price.
+gui.powermoney.config.cat.calculation.rootbase=Root Base
+gui.powermoney.config.cat.calculation.rootbase.tooltip=The root base in the calculation.\\nThe higher the value the less money the players get.
+gui.powermoney.config.cat.calculation.rootbasemultiplier=Root Base Multiplier
+gui.powermoney.config.cat.calculation.rootbasemultiplier.tooltip=The base multiplier in the root calculation.\\nEssentially how much 1 unit of energy per second is worth.
+gui.powermoney.config.cat.calculation.rootshift=Root Shift
+gui.powermoney.config.cat.calculation.rootshift.tooltip=The value that will be added each time to the final root calculation result.\\nHelps to adjust the energy price.
 
 gui.powermoney.config.cat.payment=Payment
 gui.powermoney.config.cat.payment.tooltip=Settings regarding the payment to the players.

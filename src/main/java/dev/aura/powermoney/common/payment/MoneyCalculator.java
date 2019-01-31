@@ -6,19 +6,18 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Value;
 
-@Value
-public class MoneyCalculator {
-  private static final MathContext CALCULATION_PRECISION = MathContext.DECIMAL128;
-  private static final int RESULT_DIGITS = 4;
-  private static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
+public abstract class MoneyCalculator {
+  protected static final MathContext CALCULATION_PRECISION = MathContext.DECIMAL128;
+  protected static final int RESULT_DIGITS = 4;
+  protected static final RoundingMode RESULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
-  private final double baseMultiplier;
-  private final double logBase;
+  protected final int calcType;
+
+  @Getter protected final double baseMultiplier;
 
   @Getter(AccessLevel.NONE)
-  private final BigDecimal baseMultiplierBD;
+  protected final BigDecimal baseMultiplierBD;
   /**
    * = 1 / log2(logBase)<br>
    * <br>
@@ -28,36 +27,27 @@ public class MoneyCalculator {
    * division we calculate the inverse too, so we just need to multiply it later.
    */
   @Getter(AccessLevel.NONE)
-  private final BigDecimal logHelper;
+  protected final BigDecimal shiftBD;
 
-  public MoneyCalculator(double baseMultiplier, double logBase) {
+  @Getter(AccessLevel.NONE)
+  protected final BigDecimal CalcHelper;
+
+  public MoneyCalculator(int calcType, double calcBase, double baseMultiplier, double shift) {
     this.baseMultiplier = baseMultiplier;
-    this.logBase = logBase;
-
+    this.calcType = calcType;
+    shiftBD = BigDecimal.valueOf(shift);
     baseMultiplierBD = BigDecimal.valueOf(baseMultiplier);
-    logHelper =
-        BigDecimal.ONE.divide(
-            BigDecimal.valueOf(Math.log(logBase) / Math.log(2.0)), CALCULATION_PRECISION);
+
+    if (calcType == 0) {
+      CalcHelper =
+          BigDecimal.ONE.divide(
+              BigDecimal.valueOf(Math.log(calcBase) / Math.log(2.0)), CALCULATION_PRECISION);
+    } else {
+      CalcHelper = BigDecimal.valueOf(calcBase);
+    }
   }
 
-  public BigDecimal covertEnergyToMoney(long energy) {
-    if (energy < 0) throw new IllegalArgumentException("energy must not be negative");
-    else if (energy == 0) return BigDecimal.ZERO;
-
-    // baseMultiplier * ((logHelper * log2(money)) + 1)
-    // which is also
-    // baseMultiplier * (log_logBase(money) + 1)
-    return roundResult(
-        baseMultiplierBD.multiply(
-            logHelper
-                .multiply(BigDecimal.valueOf(log2(energy)), CALCULATION_PRECISION)
-                .add(BigDecimal.ONE, CALCULATION_PRECISION),
-            CALCULATION_PRECISION));
-  }
-
-  private static double log2(long val) {
-    return Math.log(val) / Math.log(2.0);
-  }
+  public abstract BigDecimal covertEnergyToMoney(long energy);
 
   @VisibleForTesting
   static BigDecimal roundResult(BigDecimal val) {

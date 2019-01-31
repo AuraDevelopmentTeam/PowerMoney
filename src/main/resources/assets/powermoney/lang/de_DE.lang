@@ -22,11 +22,21 @@ gui.powermoney.energyunit=FE
 gui.powermoney.persecond=/s
 
 gui.powermoney.config.cat.calculation=Berechnung
-gui.powermoney.config.cat.calculation.tooltip=Hier kannst du die Berechnungen anpassen, die Energie in Geld umwandeln.\\n\\nDas Geld wird so berechnet:\\n    MoneyPerSecond = BaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)
-gui.powermoney.config.cat.calculation.basemultiplier=Basis-Multiplikator
-gui.powermoney.config.cat.calculation.basemultiplier.tooltip=Der Basis-Multiplikator in der Berechnung.\\nIm Wesentlichen, wie viel 1 Einheit Energie pro Sekunde wert ist.
+gui.powermoney.config.cat.calculation.tooltip=Here you can tweak the calculations that converts energy into money.\\nYou can choose one of two formulas for calculating the energy price.\\n\\nLogarithmic formula:\\n    MoneyPerSecond = LogShift + LogBaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)\\n\\nRoot formula:\\n    MoneyPerSecond = RootShift + RootBaseMultiplier * root_RootBase(EnergyPerSecond)
+gui.powermoney.config.cat.calculation.calctype=Calculation type
+gui.powermoney.config.cat.calculation.calctype.tooltip=Choose the type of calculation.\\n0 - logarithm [LogShift + LogBaseMultiplier * (log_CalcBase(EnergyPerSecond) + 1)]\\n1 - root [RootShift + RootBaseMultiplier * root_CalcBase(EnergyPerSecond)
 gui.powermoney.config.cat.calculation.logbase=Log-Basis
 gui.powermoney.config.cat.calculation.logbase.tooltip=Die logarithmische Basis in der Berechnung.\\nJe höher der Wert, desto weniger Geld erhalten die Spieler.
+gui.powermoney.config.cat.calculation.logbasemultiplier=Log-Basis-Multiplikator
+gui.powermoney.config.cat.calculation.logbasemultiplier.tooltip=Der Basis-Multiplikator in der Berechnung Logarithmus.\\nIm Wesentlichen, wie viel 1 Einheit Energie pro Sekunde wert ist.
+gui.powermoney.config.cat.calculation.logshift=Log Shift
+gui.powermoney.config.cat.calculation.logshift.tooltip=The value that will be added each time to the final log calculation result.\\nHelps to adjust the energy price.
+gui.powermoney.config.cat.calculation.rootbase=Wurzel-Basis
+gui.powermoney.config.cat.calculation.rootbase.tooltip=Die WurzelBasis in der Berechnung.\\nJe höher der Wert, desto weniger Geld erhalten die Spieler.
+gui.powermoney.config.cat.calculation.rootbasemultiplier=Wurzel-Basis-Multiplikator
+gui.powermoney.config.cat.calculation.rootbasemultiplier.tooltip=Der Basis-Multiplikator in der Berechnung Wurzel.\\nIm Wesentlichen, wie viel 1 Einheit Energie pro Sekunde wert ist.
+gui.powermoney.config.cat.calculation.rootshift=Root Shift
+gui.powermoney.config.cat.calculation.rootshift.tooltip=The value that will be added each time to the final root calculation result.\\nHelps to adjust the energy price.
 
 gui.powermoney.config.cat.payment=Auszahlung
 gui.powermoney.config.cat.payment.tooltip=Einstellungen bezüglich der Auszahlung an die Spieler.
