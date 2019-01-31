@@ -14,6 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PowerMoneyConfigWrapper {
   public static final String CAT_CALCULATION = "calculation";
+  public static final String CAT_CALCULATION_LOG = CAT_CALCULATION + ".logarithm";
+  public static final String CAT_CALCULATION_ROOT = CAT_CALCULATION + ".root";
   public static final String CAT_MISC = "misc";
   public static final String CAT_PAYMENT = "payment";
 
@@ -58,13 +60,11 @@ public class PowerMoneyConfigWrapper {
             0,
             0,
             1,
-            "Choose the type of calculation.\n"
-                + "    0 - logarithm [LogShift + LogBaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)]\n"
-                + "    1 - root [RootShift + RootBaseMultiplier * root_RootBase(EnergyPerSecond)");
+            "Choose the type of calculation.\n" + " - 0: logarithm\n" + " - 1: root");
 
     logBaseMultiplier =
         getDouble(
-            CAT_CALCULATION,
+            CAT_CALCULATION_LOG,
             "LogBaseMultiplier",
             0.10,
             1E-6,
@@ -73,18 +73,16 @@ public class PowerMoneyConfigWrapper {
                 + "Essentially how much 1 unit of energy per second is worth.");
     logBase =
         getDouble(
-            CAT_CALCULATION,
+            CAT_CALCULATION_LOG,
             "LogBase",
             2,
             Math.nextUp(1.0),
             1E6,
-            "LOGARITHMIC CALCULATION\n"
-                + "#######################\n"
-                + "The logarithmic base in the calculation.\n"
+            "The logarithmic base in the calculation.\n"
                 + "The higher the value the less money the players get.");
     logShift =
         getDouble(
-            CAT_CALCULATION,
+            CAT_CALCULATION_LOG,
             "LogShift",
             0,
             -1E10,
@@ -94,7 +92,7 @@ public class PowerMoneyConfigWrapper {
 
     rootBaseMultiplier =
         getDouble(
-            CAT_CALCULATION,
+            CAT_CALCULATION_ROOT,
             "RootBaseMultiplier",
             0.10,
             1E-6,
@@ -103,18 +101,16 @@ public class PowerMoneyConfigWrapper {
                 + "Essentially how much 1 unit of energy per second is worth.");
     rootBase =
         getDouble(
-            CAT_CALCULATION,
+            CAT_CALCULATION_ROOT,
             "RootBase",
             2,
             Math.nextUp(0.0),
             1E6,
-            "ROOT CALCULATION\n"
-                + "################\n"
-                + "The root base in the calculation.\n"
+            "The root base in the calculation.\n"
                 + "The higher the value the less money the players get.");
     rootShift =
         getDouble(
-            CAT_CALCULATION,
+            CAT_CALCULATION_ROOT,
             "RootShift",
             0,
             -1E10,
@@ -143,6 +139,18 @@ public class PowerMoneyConfigWrapper {
             + "    MoneyPerSecond = LogShift + LogBaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)\n"
             + "\n"
             + "Root formula:\n"
+            + "    MoneyPerSecond = RootShift + RootBaseMultiplier * root_RootBase(EnergyPerSecond)");
+    addCustomCategoryComment(
+        CAT_CALCULATION_LOG,
+        "Logarithmic money calculation.\n"
+            + "\n"
+            + "The money is calcuated like this:\n"
+            + "    MoneyPerSecond = LogShift + LogBaseMultiplier * (log_LogBase(EnergyPerSecond) + 1)");
+    addCustomCategoryComment(
+        CAT_CALCULATION_ROOT,
+        "Root money calculation.\n"
+            + "\n"
+            + "The money is calcuated like this:\n"
             + "    MoneyPerSecond = RootShift + RootBaseMultiplier * root_RootBase(EnergyPerSecond)");
   }
 
