@@ -5,13 +5,16 @@ import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.helper.SerializationHelper;
 import io.netty.buffer.ByteBuf;
 import java.math.BigDecimal;
-import lombok.EqualsAndHashCode;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-@EqualsAndHashCode
+@Data
+@Setter(AccessLevel.NONE)
 public class PacketSendReceiverData implements IMessage {
   private long localEnergy;
   private long totalEnergy;

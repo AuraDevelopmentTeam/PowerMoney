@@ -1,4 +1,4 @@
-package dev.aura.powermoney.client.compat.hwyla;
+package dev.aura.powermoney.common.compat.hwyla;
 
 import dev.aura.powermoney.common.block.BlockPowerReceiver;
 import mcp.mobius.waila.api.IWailaPlugin;
@@ -9,6 +9,9 @@ import mcp.mobius.waila.api.WailaPlugin;
 public class HwylaPlugin implements IWailaPlugin {
   @Override
   public void register(IWailaRegistrar registrar) {
-    registrar.registerBodyProvider(new PowerReceiverDataProvider(), BlockPowerReceiver.class);
+    final PowerReceiverDataProvider powerReceiverDataProvider = new PowerReceiverDataProvider();
+
+    registrar.registerNBTProvider(powerReceiverDataProvider, BlockPowerReceiver.class);
+    registrar.registerBodyProvider(powerReceiverDataProvider, BlockPowerReceiver.class);
   }
 }
