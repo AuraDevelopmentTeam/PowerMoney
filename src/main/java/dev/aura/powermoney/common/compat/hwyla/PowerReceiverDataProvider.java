@@ -104,7 +104,12 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
   private static void deserializeNBT(NBTTagCompound tag) {
     if (tag.hasKey(NBT_DISABLED) && tag.getBoolean(NBT_DISABLED)) {
       ReceiverData.receiverDisabled();
-    } else {
+    } else if (tag.hasKey(NBT_LOCAL_ENERGY)
+        && tag.hasKey(NBT_TOTAL_ENERGY)
+        && tag.hasKey(NBT_MONEY_RAW)
+        && tag.hasKey(NBT_MONEY_SCALE)
+        && tag.hasKey(NBT_MONEY_SYMBOL)
+        && tag.hasKey(NBT_DEFAULT_DIGITS)) {
       final long localEnergy = tag.getLong(NBT_LOCAL_ENERGY);
       final long totalEnergy = tag.getLong(NBT_TOTAL_ENERGY);
       final BigInteger moneyRaw = new BigInteger(tag.getByteArray(NBT_MONEY_RAW));
@@ -114,6 +119,8 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
       final int defaultDigits = tag.getInteger(NBT_DEFAULT_DIGITS);
 
       ReceiverData.setReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
+    } else {
+      ReceiverData.waiting();
     }
   }
 }

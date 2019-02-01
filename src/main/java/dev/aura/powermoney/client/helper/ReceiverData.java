@@ -64,11 +64,16 @@ public class ReceiverData {
     return new ReceiverData(true);
   }
 
-  public static void waiting(TileEntityPowerReceiver tileEntity) {
+  public static void waiting() {
     instance = createWaiting();
+  }
 
-    PacketDispatcher.sendToServer(
-        PacketChangeRequiresReceiverData.startData(tileEntity.getOwner(), tileEntity.getPos()));
+  public static void waiting(TileEntityPowerReceiver tileEntity) {
+    waiting();
+
+    if (tileEntity != null)
+      PacketDispatcher.sendToServer(
+          PacketChangeRequiresReceiverData.startData(tileEntity.getOwner(), tileEntity.getPos()));
   }
 
   @VisibleForTesting
