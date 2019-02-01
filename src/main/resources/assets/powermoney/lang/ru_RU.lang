@@ -1,0 +1,55 @@
+tile.power_receiver.name=Конвертер энергии
+
+container.power_receiver=Конвертер энергии
+
+itemGroup.powermoney=Power Money
+
+advancements.powermoney.root.title=Power Money
+advancements.powermoney.root.description=Энергия - деньги!
+advancements.powermoney.easterEgg.title=Пасхалочка:3
+advancements.powermoney.easterEgg.description=Найди пасхалку
+
+gui.powermoney.decimalseparator=,
+gui.powermoney.groupingseparator= 
+gui.powermoney.owner=Владелец
+gui.powermoney.owner.notyou=Не ты
+gui.powermoney.waiting=Ждите...
+gui.powermoney.disabled=Выключен на сервере
+gui.powermoney.localenergy=Энергии на этом блоке
+gui.powermoney.totalenergy=Всего энергии
+gui.powermoney.totalearning=Общий доход
+gui.powermoney.energyunit=FE
+gui.powermoney.persecond=/сек
+
+gui.powermoney.config.cat.calculation=Расчет энергии
+gui.powermoney.config.cat.calculation.tooltip=Здесь вы можете настроить формулы расчета энергии.\\n\\nВы можете выбрать одну из двух формул расчета дохода.\\n\\nЛогарифмическая формула:\\n    ДеньгиВСекунду = LogСдвиг + LogМножитель * (log_ОснованиеЛогарифма(КоличествоЭнергииВСекунду) + 1)\\n\\nФормула корня произвольной степени:\\n    ДеньгиВСекунду = Сдвиг + RootМножитель * root_СтепеньКорня(КоличествоЭнергииВСекунду)
+gui.powermoney.config.cat.calculation.logarithm=Логарифм
+gui.powermoney.config.cat.calculation.logarithm.tooltip=Логарифмическая формула расчета.\\n\\nСтоимость энергии будет рассчитана по этой формуле:\\n    ДеньгиВСекунду = LogСдвиг + LogМножитель * (log_ОснованиеЛогарифма(КоличествоЭнергииВСекунду) + 1)
+gui.powermoney.config.cat.calculation.logarithm.logbasemultiplier=Log Множитель
+gui.powermoney.config.cat.calculation.logarithm.logbasemultiplier.tooltip=Множитель для логарифмической формулы.\\nПо сути, сколько будет стоить 1 единица энергии в секунду.
+gui.powermoney.config.cat.calculation.logarithm.logbase=Основание логарифма
+gui.powermoney.config.cat.calculation.logarithm.logbase.tooltip=Основание логарифма.\\nЧем больше значение - тем меньше доход.
+gui.powermoney.config.cat.calculation.logarithm.logshift=Log Сдвиг
+gui.powermoney.config.cat.calculation.logarithm.logshift.tooltip=Число, которое будет прибавляться к итоговому результату вычисления логарифмической формулы.\\nСдвигает график по оси y\\nПомогает лучше настроить стоимость энергии.
+gui.powermoney.config.cat.calculation.root=Корень
+gui.powermoney.config.cat.calculation.root.tooltip=Формула корня произвольной степени.\\n\\nСтоимость энергии будет рассчитана по этой формуле:\\n    ДеньгиВСекунду = RootСдвиг + RootМножитель * root_СтепеньКорня(КоличествоЭнергииВСекунду)
+gui.powermoney.config.cat.calculation.root.rootbasemultiplier=Root Множитель
+gui.powermoney.config.cat.calculation.root.rootbasemultiplier.tooltip=Множитель для формулы корня.\\nПо сути, сколько будет стоить 1 единица энергии в секунду.
+gui.powermoney.config.cat.calculation.root.rootbase=Степень корня
+gui.powermoney.config.cat.calculation.root.rootbase.tooltip=Степень корня.\\nЧем больше значение - тем меньше доход.
+gui.powermoney.config.cat.calculation.root.rootshift=Root Сдвиг
+gui.powermoney.config.cat.calculation.root.rootshift.tooltip=Число, которое будет прибавляться к итоговому результату вычисления логарифмической формулы.\\nСдвигает график по оси y\\nПомогает лучше настроить стоимость энергии.
+gui.powermoney.config.cat.calculation.calctype=Формула расчета
+gui.powermoney.config.cat.calculation.calctype.tooltip=Выбери формулу расчета.\\n - 0: логарифм\\n - 1: корень
+
+gui.powermoney.config.cat.payment=Выплата
+gui.powermoney.config.cat.payment.tooltip=Настройка оплаты энергии игрокам.
+gui.powermoney.config.cat.payment.currency=Валюта
+gui.powermoney.config.cat.payment.currency.tooltip=Валюта в которой будут выплачиваться платежи.\\nЕсли указанная здесь валюта не существует или поле пустое, система будет производить платежи в валюте по умолчанию.\\nДействительно необходимо только если существует более одной валюты.(Настраивается в плагине экономики)
+gui.powermoney.config.cat.payment.payoutinterval=интервал выплат
+gui.powermoney.config.cat.payment.payoutinterval.tooltip=Отвечает за интервал в секундах между выплатами.\\При значении 1 выплаты будут производиться сразу как вычисления заработка будут произведены.(вычисления производятся раз в секунду для каждого игрока)
+
+gui.powermoney.config.cat.misc=Другое
+gui.powermoney.config.cat.misc.tooltip=Настройки, которые не подходят в другие категории.
+gui.powermoney.config.cat.misc.simulate=Симулировать
+gui.powermoney.config.cat.misc.simulate.tooltip=Если не установлен экономический Sponge плагин, то Power Money будет производить расчёты и эмулировать выплаты для того, чтобы можно было настроить плагин без экономического плагина Sponge.\\nВнимание: эта опция не добавит вам на сервер экономику, она влияет только на интерфейс Приемника энергии!
