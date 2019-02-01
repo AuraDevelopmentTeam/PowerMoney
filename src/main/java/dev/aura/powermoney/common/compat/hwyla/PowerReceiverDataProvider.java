@@ -1,6 +1,6 @@
 package dev.aura.powermoney.common.compat.hwyla;
 
-import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.client.gui.GuiPowerReceiver;
 import dev.aura.powermoney.client.helper.ReceiverData;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
@@ -13,6 +13,7 @@ import java.util.UUID;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,8 +44,10 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
       return tooltip;
     }
 
-    // TODO: Skip if player is in GUI
-    deserializeNBT(accessor.getNBTData());
+    // If the player has a PowerReceiver GUI open (which handles the data syncing)
+    if (!(Minecraft.getMinecraft().currentScreen instanceof GuiPowerReceiver)) {
+      deserializeNBT(accessor.getNBTData());
+    }
 
     final TileEntityPowerReceiver tileEntity = (TileEntityPowerReceiver) tempTileEntity;
     final UUID uuid = accessor.getPlayer().getUniqueID();
@@ -85,8 +88,6 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
     final IMessage packet = PowerMoneyTickHandler.getDataPacket(blockOwner, worldPos);
 
     if (packet instanceof PacketSendReceiverData) {
-      PowerMoney.getLogger().info("serializeNBT");
-
       final PacketSendReceiverData receiverData = (PacketSendReceiverData) packet;
 
       tag.setLong(NBT_LOCAL_ENERGY, receiverData.getLocalEnergy());
