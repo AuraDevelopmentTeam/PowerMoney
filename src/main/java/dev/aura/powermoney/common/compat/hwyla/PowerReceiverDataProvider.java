@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 public class PowerReceiverDataProvider implements IWailaDataProvider {
+  private static final String NBT_ID = "id";
   private static final String NBT_DISABLED = "disabled";
   private static final String NBT_LOCAL_ENERGY = "localenergy";
   private static final String NBT_TOTAL_ENERGY = "totalenergy";
@@ -31,6 +32,9 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
   private static final String NBT_MONEY_SCALE = NBT_MONEY + "scale";
   private static final String NBT_MONEY_SYMBOL = "moneysymbol";
   private static final String NBT_DEFAULT_DIGITS = "defaultdigits";
+
+  private static int serverDataID = 0;
+  private static int clientDataID = -1;
 
   @Override
   public List<String> getWailaBody(
@@ -87,6 +91,8 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
   private static void serializeNBT(NBTTagCompound tag, UUID blockOwner, WorldBlockPos worldPos) {
     final IMessage packet = PowerMoneyTickHandler.getDataPacket(blockOwner, worldPos);
 
+    tag.setInteger(NBT_ID, ++serverDataID);
+
     if (packet instanceof PacketSendReceiverData) {
       final PacketSendReceiverData receiverData = (PacketSendReceiverData) packet;
 
@@ -102,6 +108,12 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
   }
 
   private static void deserializeNBT(NBTTagCompound tag) {
+    if (tag.getInteger(NBT_ID) == clientDataID) {
+      return;
+    }
+
+    clientDataID = tag.getInteger(NBT_ID);
+
     if (tag.hasKey(NBT_DISABLED) && tag.getBoolean(NBT_DISABLED)) {
       ReceiverData.receiverDisabled();
     } else if (tag.hasKey(NBT_LOCAL_ENERGY)
