@@ -1,3 +1,13 @@
+Version 1.6.0
+-------------
+
+\+ Added Hwyla support.  
+\+ Whitebrim: Added root calculation method. (If you adjusted the calculation values check the config. It has been changed a little!)  
+\+ Whitebrim: Added calculation offset/shift to further adjust the calculation.  
+\+ Whitebrim: Added Russian translation.  
+\* Several performance optimizations on the client and server.  
+
+
 Version 1.5.0
 -------------
 
