@@ -69,8 +69,12 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
       data[3] = receiverData.getMoneyFormatted();
     }
 
-    for (int i = 0; i < headings.length; ++i) {
+    for (int i = 0; i < (receiverData.isEnabled() ? headings.length : 1); ++i) {
       tooltip.add(headings[i] + ": " + data[i]);
+    }
+
+    if (!receiverData.isEnabled()) {
+      tooltip.add(data[1]);
     }
 
     return tooltip;
