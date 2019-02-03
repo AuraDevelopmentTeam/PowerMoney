@@ -1,6 +1,7 @@
 package dev.aura.powermoney.common.compat.theoneprobe;
 
 import dev.aura.powermoney.PowerMoneyBlocks;
+import dev.aura.powermoney.client.helper.ReceiverData;
 import mcjty.theoneprobe.api.IProbeConfig;
 import mcjty.theoneprobe.api.IProbeConfigProvider;
 import mcjty.theoneprobe.api.IProbeHitData;
@@ -37,8 +38,16 @@ public class PowerReceiverDataProvider implements IProbeConfigProvider, IProbeIn
       return;
     }
 
-    if ((mode == ProbeMode.EXTENDED) || (mode == ProbeMode.DEBUG)) {
-      probeInfo.progress(10, 20, getEnergyProgressStyle(probeInfo));
+    // TODO: Somehow request data from server
+
+    final ReceiverData receiverData = ReceiverData.getInstance();
+
+    if ((!receiverData.isWaiting() && receiverData.isEnabled())
+        && ((mode == ProbeMode.EXTENDED) || (mode == ProbeMode.DEBUG))) {
+      probeInfo.progress(
+          receiverData.getLocalEnergyPerSecond(),
+          receiverData.getTotalEnergyPerSecond(),
+          getEnergyProgressStyle(probeInfo));
     }
   }
 
