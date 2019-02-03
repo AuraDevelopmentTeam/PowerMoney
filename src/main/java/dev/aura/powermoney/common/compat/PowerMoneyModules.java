@@ -3,6 +3,7 @@ package dev.aura.powermoney.common.compat;
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.compat.computercraft.ComputerCraftCompat;
 import dev.aura.powermoney.common.compat.opencomputers.OpenComputersCompat;
+import dev.aura.powermoney.common.compat.theoneprobe.TheOneProbeCompat;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -26,6 +27,7 @@ public class PowerMoneyModules {
   public static final String HWYLA_MODID = "waila";
   public static final String OPENCOMPUTERS_MODID = "opencomputers";
   public static final String TESLA_MODID = "tesla";
+  public static final String THEONEPROBE_MODID = "theoneprobe";
 
   public static final String DEPENDENCIES =
       "after:"
@@ -37,13 +39,16 @@ public class PowerMoneyModules {
           + ";after:"
           + OPENCOMPUTERS_MODID
           + ";after:"
-          + TESLA_MODID;
+          + TESLA_MODID
+          + ";after:"
+          + THEONEPROBE_MODID;
 
   private static Boolean SPONGEAPI;
   private static Boolean COMPUTERCRAFT;
   private static Boolean HWYLA;
   private static Boolean OPENCOMPUTERS;
   private static Boolean TESLA;
+  private static Boolean THEONEPROBE;
 
   @Getter private static final Set<ModuleInformation> allModules = detectAllModules();
   @Getter private static final Set<ModuleInformation> activeModules = new TreeSet<>();
@@ -67,7 +72,7 @@ public class PowerMoneyModules {
     return testMod(COMPUTERCRAFT_MODID, COMPUTERCRAFT);
   }
 
-  @Module(modid = HWYLA_MODID, name = "Hwyla", message = "Adding PowerReceiver stats to Hwyla")
+  @Module(modid = HWYLA_MODID, name = "HWYLA", message = "Adding PowerReceiver stats to HWYLA")
   public static boolean hwyla() {
     return testMod(HWYLA_MODID, HWYLA);
   }
@@ -85,6 +90,16 @@ public class PowerMoneyModules {
   @Module(modid = TESLA_MODID, name = "TESLA", message = "Enabling support for TESLA energy API.")
   public static boolean tesla() {
     return testMod(TESLA_MODID, TESLA);
+  }
+
+  @Module(
+    modid = THEONEPROBE_MODID,
+    name = "The One Probe",
+    message = "Adding PowerReceiver stats to The One Probe",
+    integration = TheOneProbeCompat.class
+  )
+  public static boolean theOneProbe() {
+    return testMod(THEONEPROBE_MODID, THEONEPROBE);
   }
 
   private static boolean testMod(String modID, Boolean... storage) {
