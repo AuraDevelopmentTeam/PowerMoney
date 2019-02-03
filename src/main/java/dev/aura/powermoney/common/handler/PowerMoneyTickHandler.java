@@ -31,9 +31,9 @@ public class PowerMoneyTickHandler {
 
   private static final Map<UUID, ReceiverPostion> dataReceivers = new HashMap<>();
 
-  private static ImmutableMap<WorldBlockPos, Long> consumedLocalEnergy;
-  private static ImmutableMap<UUID, Long> consumedTotalEnergy;
-  private static ImmutableMap<UUID, BigDecimal> generatedMoney;
+  private static ImmutableMap<WorldBlockPos, Long> consumedLocalEnergy = ImmutableMap.of();
+  private static ImmutableMap<UUID, Long> consumedTotalEnergy = ImmutableMap.of();
+  private static ImmutableMap<UUID, BigDecimal> generatedMoney = ImmutableMap.of();
 
   private final Map<UUID, BigDecimal> payout = new HashMap<>();
 
