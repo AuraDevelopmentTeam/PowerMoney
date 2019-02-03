@@ -30,8 +30,8 @@ dependencies {
     deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
 
     // Info-Mods
-    deobfCompile "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${theOneProbe_version}"
+    deobfProvided "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
+    deobfProvided "mcjty.theoneprobe:TheOneProbe-1.12:${theOneProbe_version}"
 
     // Computers
     deobfProvided "dan200.computercraft:ComputerCraft:${computerCraft_version}"
