@@ -1,7 +1,7 @@
 package dev.aura.powermoney.common.compat.hwyla;
 
 import dev.aura.powermoney.client.gui.GuiPowerReceiver;
-import dev.aura.powermoney.client.helper.ReceiverData;
+import dev.aura.powermoney.client.helper.ReceiverDataClient;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.common.util.WorldBlockPos;
@@ -55,7 +55,7 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
 
     final TileEntityPowerReceiver tileEntity = (TileEntityPowerReceiver) tempTileEntity;
     final UUID uuid = accessor.getPlayer().getUniqueID();
-    final ReceiverData receiverData = ReceiverData.getInstance();
+    final ReceiverDataClient receiverData = ReceiverDataClient.getInstance();
     final String[] headings = receiverData.getHeadings();
     final String[] data = new String[4];
 
@@ -119,7 +119,7 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
     clientDataID = tag.getInteger(NBT_ID);
 
     if (tag.hasKey(NBT_DISABLED) && tag.getBoolean(NBT_DISABLED)) {
-      ReceiverData.receiverDisabled();
+      ReceiverDataClient.receiverDisabled();
     } else if (tag.hasKey(NBT_LOCAL_ENERGY)
         && tag.hasKey(NBT_TOTAL_ENERGY)
         && tag.hasKey(NBT_MONEY_RAW)
@@ -134,9 +134,10 @@ public class PowerReceiverDataProvider implements IWailaDataProvider {
       final String moneySymbol = tag.getString(NBT_MONEY_SYMBOL);
       final int defaultDigits = tag.getInteger(NBT_DEFAULT_DIGITS);
 
-      ReceiverData.setReceiverData(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
+      ReceiverDataClient.setReceiverData(
+          localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
     } else {
-      ReceiverData.waiting();
+      ReceiverDataClient.waiting();
     }
   }
 }

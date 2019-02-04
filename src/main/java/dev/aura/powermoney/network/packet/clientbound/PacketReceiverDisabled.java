@@ -1,6 +1,6 @@
 package dev.aura.powermoney.network.packet.clientbound;
 
-import dev.aura.powermoney.client.helper.ReceiverData;
+import dev.aura.powermoney.client.helper.ReceiverDataClient;
 import io.netty.buffer.ByteBuf;
 import lombok.EqualsAndHashCode;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +25,7 @@ public class PacketReceiverDisabled implements IMessage {
     @Override
     public IMessage handleClientMessage(
         EntityPlayer player, PacketReceiverDisabled message, MessageContext ctx) {
-      ReceiverData.receiverDisabled();
+      ReceiverDataClient.receiverDisabled();
 
       return null;
     }

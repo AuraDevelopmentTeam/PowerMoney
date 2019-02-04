@@ -2,7 +2,7 @@ package dev.aura.powermoney.client.gui;
 
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.PowerMoneySounds;
-import dev.aura.powermoney.client.helper.ReceiverData;
+import dev.aura.powermoney.client.helper.ReceiverDataClient;
 import dev.aura.powermoney.common.container.ContainerGeneric;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PacketDispatcher;
@@ -73,19 +73,19 @@ public class GuiPowerReceiver extends GuiContainer {
   public void initGui() {
     super.initGui();
 
-    ReceiverData.waiting(tileEntity);
+    ReceiverDataClient.waiting(tileEntity);
   }
 
   @Override
   public void onGuiClosed() {
-    ReceiverData.stopSending();
+    ReceiverDataClient.stopSending();
 
     super.onGuiClosed();
   }
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    final ReceiverData receiverDataLocal = ReceiverData.getInstance();
+    final ReceiverDataClient receiverDataLocal = ReceiverDataClient.getInstance();
 
     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     mc.getTextureManager().bindTexture(TEXTURE);
@@ -101,7 +101,7 @@ public class GuiPowerReceiver extends GuiContainer {
 
   @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    final ReceiverData receiverDataLocal = ReceiverData.getInstance();
+    final ReceiverDataClient receiverDataLocal = ReceiverDataClient.getInstance();
 
     // Headings
     final String tileName = tileEntity.getDisplayName().getFormattedText();
