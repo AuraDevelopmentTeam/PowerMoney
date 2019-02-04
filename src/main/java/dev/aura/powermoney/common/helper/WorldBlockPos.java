@@ -1,4 +1,4 @@
-package dev.aura.powermoney.common.util;
+package dev.aura.powermoney.common.helper;
 
 import lombok.Value;
 import net.minecraft.util.math.BlockPos;

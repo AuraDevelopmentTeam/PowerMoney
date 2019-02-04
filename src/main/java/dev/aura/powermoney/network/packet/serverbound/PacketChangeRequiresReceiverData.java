@@ -1,7 +1,7 @@
 package dev.aura.powermoney.network.packet.serverbound;
 
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
-import dev.aura.powermoney.common.util.WorldBlockPos;
+import dev.aura.powermoney.common.helper.WorldBlockPos;
 import io.netty.buffer.ByteBuf;
 import java.util.UUID;
 import lombok.EqualsAndHashCode;

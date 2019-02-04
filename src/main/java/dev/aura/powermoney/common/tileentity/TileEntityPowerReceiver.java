@@ -2,7 +2,7 @@ package dev.aura.powermoney.common.tileentity;
 
 import dev.aura.powermoney.PowerMoneyBlocks;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
-import dev.aura.powermoney.common.util.WorldBlockPos;
+import dev.aura.powermoney.common.helper.WorldBlockPos;
 import java.util.UUID;
 import lombok.Getter;
 import net.minecraft.block.state.IBlockState;
