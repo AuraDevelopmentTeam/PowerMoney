@@ -3,11 +3,10 @@ package dev.aura.powermoney.common.handler;
 import com.google.common.collect.ImmutableMap;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
+import dev.aura.powermoney.common.helper.ReceiverData;
 import dev.aura.powermoney.common.helper.WorldBlockPos;
 import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.PacketDispatcher;
-import dev.aura.powermoney.network.packet.clientbound.PacketReceiverDisabled;
-import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -35,6 +34,9 @@ public class PowerMoneyTickHandler {
   private static ImmutableMap<UUID, Long> consumedTotalEnergy = ImmutableMap.of();
   private static ImmutableMap<UUID, BigDecimal> generatedMoney = ImmutableMap.of();
 
+  private static final Map<UUID, Map<WorldBlockPos, ReceiverData>> receiverDataCache =
+      new HashMap<>();
+
   private final Map<UUID, BigDecimal> payout = new HashMap<>();
 
   public static void addDataReceiver(UUID receiver, UUID blockOwner, WorldBlockPos worldPos) {
@@ -47,15 +49,25 @@ public class PowerMoneyTickHandler {
     dataReceivers.remove(receiver);
   }
 
-  public static IMessage getDataPacket(UUID blockOwner, WorldBlockPos worldPos) {
+  private static ReceiverData generateReceiverData(UUID blockOwner, WorldBlockPos worldPos) {
     if (canReceiveEnergy()) {
-      return new PacketSendReceiverData(
+      return ReceiverData.createReceiverData(
           getLocalConsumedEnergy(worldPos),
           getConsumedEnergy(blockOwner),
           getGeneratedMoney(blockOwner));
     } else {
-      return new PacketReceiverDisabled();
+      return ReceiverData.createReceiverDisabled();
     }
+  }
+
+  public static ReceiverData getReceiverData(UUID blockOwner, WorldBlockPos worldPos) {
+    return receiverDataCache
+        .computeIfAbsent(blockOwner, owner -> new HashMap<>())
+        .computeIfAbsent(worldPos, pos -> generateReceiverData(blockOwner, pos));
+  }
+
+  public static IMessage getDataPacket(UUID blockOwner, WorldBlockPos worldPos) {
+    return getReceiverData(blockOwner, worldPos).getPacket();
   }
 
   public static long getLocalConsumedEnergy(WorldBlockPos worldPos) {
@@ -111,6 +123,7 @@ public class PowerMoneyTickHandler {
     consumedLocalEnergy = tempConsumedLocalEnergy;
     consumedTotalEnergy = tempConsumedTotalEnergy;
     generatedMoney = generatedMoneyBuilder.build();
+    receiverDataCache.clear();
 
     // Send update packets
     for (Map.Entry<UUID, ReceiverPostion> entry : dataReceivers.entrySet()) {

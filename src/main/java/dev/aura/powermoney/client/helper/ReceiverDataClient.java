@@ -1,6 +1,6 @@
 package dev.aura.powermoney.client.helper;
 
-import com.google.common.annotations.VisibleForTesting;
+import dev.aura.powermoney.common.helper.ReceiverData;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.packet.serverbound.PacketChangeRequiresReceiverData;
@@ -24,9 +24,9 @@ import net.minecraft.entity.player.EntityPlayer;
 )
 @Data
 @Setter(AccessLevel.NONE)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class ReceiverDataClient {
+public class ReceiverDataClient extends ReceiverData {
   @Getter private static ReceiverDataClient instance;
 
   static {
@@ -34,43 +34,7 @@ public class ReceiverDataClient {
     receiverDisabled();
   }
 
-  @EqualsAndHashCode.Include private final boolean waiting;
-  @EqualsAndHashCode.Include private final boolean enabled;
-  @EqualsAndHashCode.Include private final long localEnergyPerSecond;
-  @EqualsAndHashCode.Include private final long totalEnergyPerSecond;
-  @EqualsAndHashCode.Include private final BigDecimal moneyPerSecond;
-  @EqualsAndHashCode.Include private final String moneySymbol;
-  @EqualsAndHashCode.Include private final int defaultDigits;
-
-  @Getter(value = AccessLevel.PRIVATE, lazy = true)
-  private final DecimalFormatSymbols formatSymbols = generateFormatSymbols();
-
-  @Getter(value = AccessLevel.PRIVATE, lazy = true)
-  private final DecimalFormat intFormat = generateIntFormat();
-
-  @Getter(value = AccessLevel.PRIVATE, lazy = true)
-  private final DecimalFormat decimalFormat = generateDecimalFormat();
-
-  @Getter(lazy = true)
-  private final String localEnergyFormatted = generateEnergyFormatted(localEnergyPerSecond);
-
-  @Getter(lazy = true)
-  private final String totalEnergyFormatted = generateEnergyFormatted(totalEnergyPerSecond);
-
-  @Getter(lazy = true)
-  private final String moneyFormatted = generateMoneyFormatted();
-
-  @Getter(lazy = true)
-  private final String[] headings = generateHeadings();
-
-  @Getter(lazy = true)
-  private final String message = generateMessage();
-
-  @Getter(lazy = true)
-  private final String notYouMessage = generateNotYouMessage();
-
-  @VisibleForTesting
-  static ReceiverDataClient createWaiting() {
+  public static ReceiverDataClient createWaiting() {
     return new ReceiverDataClient(true);
   }
 
@@ -86,8 +50,7 @@ public class ReceiverDataClient {
           PacketChangeRequiresReceiverData.startData(tileEntity.getOwner(), tileEntity.getPos()));
   }
 
-  @VisibleForTesting
-  static ReceiverDataClient createReceiverDisabled() {
+  public static ReceiverDataClient createReceiverDisabled() {
     return new ReceiverDataClient(false);
   }
 
@@ -95,7 +58,6 @@ public class ReceiverDataClient {
     instance = createReceiverDisabled();
   }
 
-  @VisibleForTesting
   public static ReceiverDataClient createReceiverData(
       long localEnergy, long totalEnergy, BigDecimal money, String moneySymbol, int defaultDigits) {
     return new ReceiverDataClient(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
@@ -124,28 +86,16 @@ public class ReceiverDataClient {
     }
   }
 
-  private ReceiverDataClient(boolean waiting) {
-    this.waiting = waiting;
-    enabled = false;
-    localEnergyPerSecond = 0L;
-    totalEnergyPerSecond = 0L;
-    moneyPerSecond = null;
-    moneySymbol = null;
-    defaultDigits = 0;
+  protected ReceiverDataClient(boolean waiting) {
+    super(waiting);
   }
 
-  private ReceiverDataClient(
+  protected ReceiverDataClient(
       long localEnergy, long totalEnergy, BigDecimal money, String moneySymbol, int defaultDigits) {
-    waiting = false;
-    enabled = true;
-    localEnergyPerSecond = localEnergy;
-    totalEnergyPerSecond = totalEnergy;
-    moneyPerSecond = money;
-    this.moneySymbol = moneySymbol;
-    this.defaultDigits = defaultDigits;
+    super(localEnergy, totalEnergy, money, moneySymbol, defaultDigits);
   }
 
-  private DecimalFormatSymbols generateFormatSymbols() {
+  protected DecimalFormatSymbols generateFormatSymbols() {
     final DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols();
     formatSymbols.setDecimalSeparator(I18n.format("gui.powermoney.decimalseparator").charAt(0));
     formatSymbols.setGroupingSeparator(I18n.format("gui.powermoney.groupingseparator").charAt(0));
@@ -153,7 +103,7 @@ public class ReceiverDataClient {
     return formatSymbols;
   }
 
-  private DecimalFormat generateIntFormat() {
+  protected DecimalFormat generateIntFormat() {
     final DecimalFormat intFormat = new DecimalFormat();
     intFormat.setMaximumFractionDigits(0);
     intFormat.setMinimumFractionDigits(0);
@@ -163,7 +113,7 @@ public class ReceiverDataClient {
     return intFormat;
   }
 
-  private DecimalFormat generateDecimalFormat() {
+  protected DecimalFormat generateDecimalFormat() {
     final DecimalFormat decimalFormat = new DecimalFormat();
     decimalFormat.setMaximumFractionDigits(defaultDigits);
     decimalFormat.setMinimumFractionDigits(defaultDigits);
@@ -173,21 +123,21 @@ public class ReceiverDataClient {
     return decimalFormat;
   }
 
-  private String generateEnergyFormatted(long energy) {
+  protected String generateEnergyFormatted(long energy) {
     return getIntFormat().format(energy)
         + ' '
         + I18n.format("gui.powermoney.energyunit")
         + I18n.format("gui.powermoney.persecond");
   }
 
-  private String generateMoneyFormatted() {
+  protected String generateMoneyFormatted() {
     return getDecimalFormat().format(moneyPerSecond)
         + ' '
         + moneySymbol
         + I18n.format("gui.powermoney.persecond");
   }
 
-  private String[] generateHeadings() {
+  protected String[] generateHeadings() {
     return new String[] {
       I18n.format("gui.powermoney.owner"),
       I18n.format("gui.powermoney.localenergy"),
@@ -196,11 +146,11 @@ public class ReceiverDataClient {
     };
   }
 
-  private String generateMessage() {
+  protected String generateMessage() {
     return waiting ? I18n.format("gui.powermoney.waiting") : I18n.format("gui.powermoney.disabled");
   }
 
-  private String generateNotYouMessage() {
+  protected String generateNotYouMessage() {
     return " (" + I18n.format("gui.powermoney.owner.notyou") + ')';
   }
 }

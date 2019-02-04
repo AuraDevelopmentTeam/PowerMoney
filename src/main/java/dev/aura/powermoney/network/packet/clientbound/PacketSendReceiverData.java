@@ -24,13 +24,18 @@ public class PacketSendReceiverData implements IMessage {
 
   public PacketSendReceiverData() {}
 
-  public PacketSendReceiverData(Long localEnergy, Long totalEnergy, BigDecimal money) {
+  public PacketSendReceiverData(
+      Long localEnergy,
+      Long totalEnergy,
+      BigDecimal money,
+      String moneySymbol,
+      Integer defaultDigits) {
     this.localEnergy = (localEnergy == null) ? 0L : localEnergy;
     this.totalEnergy = (totalEnergy == null) ? 0L : totalEnergy;
     this.money = (money == null) ? BigDecimal.ZERO : money;
-
-    moneySymbol = SpongeMoneyInterface.getMoneySymbol();
-    defaultDigits = SpongeMoneyInterface.getDefaultDigits();
+    this.moneySymbol = (moneySymbol == null) ? SpongeMoneyInterface.getMoneySymbol() : moneySymbol;
+    this.defaultDigits =
+        (defaultDigits == null) ? SpongeMoneyInterface.getDefaultDigits() : defaultDigits;
   }
 
   @Override
