@@ -1,6 +1,8 @@
 package dev.aura.powermoney.common.handler;
 
 import com.google.common.collect.ImmutableMap;
+import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.client.helper.ReceiverDataClient;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.helper.ReceiverData;
@@ -17,6 +19,8 @@ import java.util.UUID;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 import net.minecraft.world.DimensionType;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -86,6 +90,16 @@ public class PowerMoneyTickHandler {
     return PowerMoneyConfigWrapper.getSimulate() || SpongeMoneyInterface.canAcceptMoney();
   }
 
+  private static void reset() {
+    if (!canReceiveEnergy()) {
+      consumedLocalEnergy = ImmutableMap.of();
+      consumedTotalEnergy = ImmutableMap.of();
+      generatedMoney = ImmutableMap.of();
+
+      receiverDataCache.clear();
+    }
+  }
+
   @SuppressFBWarnings(
     value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
     justification = "Only one instance of this class exists."
@@ -146,6 +160,19 @@ public class PowerMoneyTickHandler {
 
     // Always clear the payouts
     payout.clear();
+  }
+
+  @SubscribeEvent
+  public void onConfigReload(ConfigChangedEvent.OnConfigChangedEvent event) {
+    if (!PowerMoney.ID.equals(event.getModID())) {
+      return;
+    }
+
+    reset();
+
+    if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+      ReceiverDataClient.receiverDisabled();
+    }
   }
 
   @Value
