@@ -1,3 +1,10 @@
+Version 1.6.1
+-------------
+
+\+ Added The One Probe integration.  
+\* Only showing one line in Hwyla when the PowerReceiver cannot receive energy.  
+
+
 Version 1.6.0
 -------------
 
