@@ -16,7 +16,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(I18n.class)
-public class ReceiverDataTest {
+public class ReceiverDataClientTest {
   private static void englishFormatting() {
     Mockito.when(I18n.format("gui.powermoney.decimalseparator")).thenReturn(".");
     Mockito.when(I18n.format("gui.powermoney.groupingseparator")).thenReturn(",");
