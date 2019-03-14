@@ -1,5 +1,7 @@
 package dev.aura.powermoney;
 
+import dev.aura.powermoney.api.MoneyInterface;
+import dev.aura.powermoney.api.PowerMoneyApi;
 import dev.aura.powermoney.client.handler.ConfigChangedHandler;
 import dev.aura.powermoney.client.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.common.CommonProxy;
@@ -10,6 +12,8 @@ import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.PowerMoneyGuiHandler;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import lombok.Getter;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,7 +38,7 @@ import org.apache.logging.log4j.Logger;
   certificateFingerprint = PowerMoney.FINGERPRINT,
   guiFactory = PowerMoney.GUI_FACTORY
 )
-public class PowerMoney {
+public class PowerMoney extends PowerMoneyApi {
   // Hardcode ID to be able to start mod from Eclipse
   public static final String ID = "powermoney";
   public static final String RESOURCE_PACKAGE = ID;
@@ -60,11 +64,16 @@ public class PowerMoney {
 
   @Getter private static Logger logger;
 
+  private final Map<String, MoneyInterface> moneyInterfaces = new LinkedHashMap<>();
+
   public static final PowerMoneyCreativeTab creativeTab = new PowerMoneyCreativeTab();
 
   @EventHandler
   public void preInit(FMLPreInitializationEvent event) {
     if (logger == null) logger = event.getModLog();
+
+    // Set API instance
+    PowerMoneyApi.setInstance(this);
 
     PacketDispatcher.registerPackets();
 
@@ -109,5 +118,15 @@ public class PowerMoney {
     GameRegistry.registerTileEntity(
         TileEntityPowerReceiver.class,
         new ResourceLocation(RESOURCE_PACKAGE, "tileentity_power_receiver"));
+  }
+
+  @Override
+  public void registerMoneyInterface(MoneyInterface moneyInterface) {
+    moneyInterfaces.put(moneyInterface.getName(), moneyInterface);
+  }
+
+  @Override
+  public String getConfiguredCurrencyName() {
+    return PowerMoneyConfigWrapper.getCurrency();
   }
 }
