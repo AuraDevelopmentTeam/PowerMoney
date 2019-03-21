@@ -1,6 +1,7 @@
-package dev.aura.powermoney.common.payment;
+package dev.aura.powermoney.common.compat.sponge;
 
 import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.api.MoneyInterface;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -9,27 +10,32 @@ import java.util.Optional;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.experimental.UtilityClass;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.EconomyService;
 
-@UtilityClass
-public class SpongeMoneyInterface {
-  private static final DirectInterface directInterface =
+public class SpongeMoneyInterface implements MoneyInterface {
+  private final DirectInterface directInterface =
       PowerMoneyModules.spongeAPI() ? new DirectInterface() : null;
 
-  public static boolean isSpongeLoaded() {
+  @Override
+  public String getName() {
+    return PowerMoney.RESOURCE_PREFIX + "sponge";
+  }
+
+  public boolean isSpongeLoaded() {
     return directInterface != null;
   }
 
-  public static boolean canAcceptMoney() {
+  @Override
+  public boolean canAcceptMoney() {
     return isSpongeLoaded() && directInterface.hasEconomyService();
   }
 
-  public static void addMoneyToPlayer(UUID player, BigDecimal money) {
+  @Override
+  public void addMoneyToPlayer(UUID player, BigDecimal money) {
     if (!canAcceptMoney())
       throw new IllegalStateException(
           "Sponge or an EconomySerice is missing. Cannot accept money!");
@@ -37,11 +43,13 @@ public class SpongeMoneyInterface {
     directInterface.addMoneyToPlayer(player, money);
   }
 
-  public static String getMoneySymbol() {
+  @Override
+  public String getCurrencySymbol() {
     return canAcceptMoney() ? directInterface.getMoneySymbol() : "$";
   }
 
-  public static int getDefaultDigits() {
+  @Override
+  public int getDefaultDigits() {
     return canAcceptMoney() ? directInterface.getDefaultDigits() : 2;
   }
 

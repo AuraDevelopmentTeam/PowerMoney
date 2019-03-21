@@ -1,7 +1,7 @@
 package dev.aura.powermoney.network.packet.clientbound;
 
+import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.client.helper.ReceiverDataClient;
-import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.helper.SerializationHelper;
 import io.netty.buffer.ByteBuf;
 import java.math.BigDecimal;
@@ -33,9 +33,14 @@ public class PacketSendReceiverData implements IMessage {
     this.localEnergy = (localEnergy == null) ? 0L : localEnergy;
     this.totalEnergy = (totalEnergy == null) ? 0L : totalEnergy;
     this.money = (money == null) ? BigDecimal.ZERO : money;
-    this.moneySymbol = (moneySymbol == null) ? SpongeMoneyInterface.getMoneySymbol() : moneySymbol;
+    this.moneySymbol =
+        (moneySymbol == null)
+            ? PowerMoney.getInstance().getActiveMoneyInterface().getCurrencySymbol()
+            : moneySymbol;
     this.defaultDigits =
-        (defaultDigits == null) ? SpongeMoneyInterface.getDefaultDigits() : defaultDigits;
+        (defaultDigits == null)
+            ? PowerMoney.getInstance().getActiveMoneyInterface().getDefaultDigits()
+            : defaultDigits;
   }
 
   @Override

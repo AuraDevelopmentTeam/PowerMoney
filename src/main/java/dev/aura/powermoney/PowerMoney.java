@@ -65,6 +65,7 @@ public class PowerMoney extends PowerMoneyApi {
   @Getter private static Logger logger;
 
   private final Map<String, MoneyInterface> moneyInterfaces = new LinkedHashMap<>();
+  @Getter private MoneyInterface activeMoneyInterface;
 
   public static final PowerMoneyCreativeTab creativeTab = new PowerMoneyCreativeTab();
 

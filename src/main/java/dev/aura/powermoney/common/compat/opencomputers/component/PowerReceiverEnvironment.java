@@ -1,8 +1,8 @@
 package dev.aura.powermoney.common.compat.opencomputers.component;
 
+import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
-import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
@@ -31,8 +31,10 @@ public class PowerReceiverEnvironment extends AbstractManagedEnvironment impleme
 
   @NonNull private final TileEntityPowerReceiver tileEntity;
 
-  private final String moneySymbol = SpongeMoneyInterface.getMoneySymbol();
-  private final int defaultDigits = SpongeMoneyInterface.getDefaultDigits();
+  private final String moneySymbol =
+      PowerMoney.getInstance().getActiveMoneyInterface().getCurrencySymbol();
+  private final int defaultDigits =
+      PowerMoney.getInstance().getActiveMoneyInterface().getDefaultDigits();
 
   @Getter(value = AccessLevel.PRIVATE, lazy = true)
   private final DecimalFormatSymbols formatSymbols = generateFormatSymbols();

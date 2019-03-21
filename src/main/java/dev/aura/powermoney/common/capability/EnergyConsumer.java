@@ -1,12 +1,11 @@
 package dev.aura.powermoney.common.capability;
 
 import com.google.common.collect.ImmutableMap;
+import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.block.BlockPowerReceiver;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.compat.tesla.TeslaCompat;
-import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.helper.WorldBlockPos;
-import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import java.util.HashMap;
 import java.util.Map;
@@ -110,7 +109,7 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
   @Override
   public boolean canReceive() {
     return ((owner != null) && !TileEntityPowerReceiver.UUID_NOBODY.equals(owner))
-        && (PowerMoneyConfigWrapper.getSimulate() || SpongeMoneyInterface.canAcceptMoney())
+        && PowerMoney.getInstance().getActiveMoneyInterface().canAcceptMoney()
         && worldPos
             .getWorld()
             .getBlockState(worldPos.getPos())

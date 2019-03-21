@@ -1,9 +1,10 @@
 package dev.aura.powermoney.network.packet.clientbound;
 
-import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
+import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.api.MoneyInterface;
 import dev.aura.powermoney.helper.AssertHelper;
 import java.math.BigDecimal;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -13,15 +14,20 @@ import org.powermock.core.classloader.annotations.SuppressStaticInitializationFo
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@SuppressStaticInitializationFor("dev.aura.powermoney.common.payment.SpongeMoneyInterface")
-@PrepareForTest(SpongeMoneyInterface.class)
+@SuppressStaticInitializationFor("dev.aura.powermoney.PowerMoney")
+@PrepareForTest(PowerMoney.class)
 public class PacketSendReceiverDataTest {
-  @BeforeClass
-  public static void mockSpongeMoneyInterface() {
-    PowerMockito.mockStatic(SpongeMoneyInterface.class);
+  @Before
+  public void mockMoneyInterface() {
+    PowerMockito.mockStatic(PowerMoney.class);
 
-    Mockito.when(SpongeMoneyInterface.getMoneySymbol()).thenReturn("Test");
-    Mockito.when(SpongeMoneyInterface.getDefaultDigits()).thenReturn(123);
+    final PowerMoney mockPowerMoney = Mockito.mock(PowerMoney.class);
+    final MoneyInterface mockMoneyInterface = Mockito.mock(MoneyInterface.class);
+
+    Mockito.when(PowerMoney.getInstance()).thenReturn(mockPowerMoney);
+    Mockito.when(mockPowerMoney.getActiveMoneyInterface()).thenReturn(mockMoneyInterface);
+    Mockito.when(mockMoneyInterface.getCurrencySymbol()).thenReturn("Test");
+    Mockito.when(mockMoneyInterface.getDefaultDigits()).thenReturn(123);
   }
 
   @Test

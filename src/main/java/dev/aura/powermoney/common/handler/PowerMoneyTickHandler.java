@@ -7,7 +7,6 @@ import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.helper.ReceiverData;
 import dev.aura.powermoney.common.helper.WorldBlockPos;
-import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
 import dev.aura.powermoney.network.PacketDispatcher;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
@@ -87,7 +86,7 @@ public class PowerMoneyTickHandler {
   }
 
   private static boolean canReceiveEnergy() {
-    return PowerMoneyConfigWrapper.getSimulate() || SpongeMoneyInterface.canAcceptMoney();
+    return PowerMoney.getInstance().getActiveMoneyInterface().canAcceptMoney();
   }
 
   private static void reset() {
@@ -152,9 +151,11 @@ public class PowerMoneyTickHandler {
         != 0L) return;
 
     // Only actually pay when we can
-    if (SpongeMoneyInterface.canAcceptMoney()) {
+    if (PowerMoney.getInstance().getActiveMoneyInterface().canAcceptMoney()) {
       for (Entry<UUID, BigDecimal> entry : payout.entrySet()) {
-        SpongeMoneyInterface.addMoneyToPlayer(entry.getKey(), entry.getValue());
+        PowerMoney.getInstance()
+            .getActiveMoneyInterface()
+            .addMoneyToPlayer(entry.getKey(), entry.getValue());
       }
     }
 

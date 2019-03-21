@@ -1,6 +1,6 @@
 package dev.aura.powermoney.common.helper;
 
-import dev.aura.powermoney.common.payment.SpongeMoneyInterface;
+import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.packet.clientbound.PacketReceiverDisabled;
 import dev.aura.powermoney.network.packet.clientbound.PacketSendReceiverData;
@@ -78,8 +78,8 @@ public class ReceiverData {
         localEnergy,
         totalEnergy,
         money,
-        SpongeMoneyInterface.getMoneySymbol(),
-        SpongeMoneyInterface.getDefaultDigits());
+        PowerMoney.getInstance().getActiveMoneyInterface().getCurrencySymbol(),
+        PowerMoney.getInstance().getActiveMoneyInterface().getDefaultDigits());
   }
 
   public static ReceiverData createReceiverData(

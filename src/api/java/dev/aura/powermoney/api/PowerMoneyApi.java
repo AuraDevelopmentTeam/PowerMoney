@@ -35,6 +35,14 @@ public abstract class PowerMoneyApi {
   public abstract void registerMoneyInterface(MoneyInterface moneyInterface);
 
   /**
+   * This method allows you to retrieve the currently active {@link MoneyInterface}.
+   *
+   * @return the currently active {@link MoneyInterface}
+   * @since 1.7.0
+   */
+  public abstract MoneyInterface getActiveMoneyInterface();
+
+  /**
    * Use this method to access the config value that allows a manual override.
    *
    * <p>Only useful if your interface can offer multiple currencies.
