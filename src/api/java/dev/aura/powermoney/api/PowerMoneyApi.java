@@ -10,6 +10,15 @@ import lombok.Setter;
  * @author BrainStone
  */
 public abstract class PowerMoneyApi {
+  // Hardcode ID to be able to start mod from Eclipse
+  public static final String ID = "powermoney";
+  public static final String RESOURCE_PACKAGE = ID;
+  public static final String RESOURCE_PREFIX = RESOURCE_PACKAGE + ":";
+  public static final String NAME = "@name@";
+  public static final String VERSION = "@version@";
+  public static final String GROUP = "@group@";
+  public static final String DESCRIPTION = "@description@";
+
   /**
    * The plugin API instance.
    *

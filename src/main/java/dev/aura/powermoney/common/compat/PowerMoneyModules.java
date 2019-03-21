@@ -3,6 +3,7 @@ package dev.aura.powermoney.common.compat;
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.compat.computercraft.ComputerCraftCompat;
 import dev.aura.powermoney.common.compat.opencomputers.OpenComputersCompat;
+import dev.aura.powermoney.common.compat.sponge.SpongeCompat;
 import dev.aura.powermoney.common.compat.theoneprobe.TheOneProbeCompat;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -56,7 +57,8 @@ public class PowerMoneyModules {
   @Module(
     modid = SPONGEAPI_MODID,
     name = "SpongeAPI",
-    message = "Hooking into the currency API of Sponge."
+    message = "Hooking into the currency API of Sponge.",
+    integration = SpongeCompat.class
   )
   public static boolean spongeAPI() {
     return testMod(SPONGEAPI_MODID, SPONGEAPI);

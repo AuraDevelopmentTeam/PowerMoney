@@ -1,9 +1,8 @@
 package dev.aura.powermoney.common.compat.sponge;
 
-import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.api.MoneyInterface;
+import dev.aura.powermoney.api.PowerMoneyApi;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
-import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -22,7 +21,7 @@ public class SpongeMoneyInterface implements MoneyInterface {
 
   @Override
   public String getName() {
-    return PowerMoney.RESOURCE_PREFIX + "sponge";
+    return PowerMoneyApi.RESOURCE_PREFIX + "sponge";
   }
 
   public boolean isSpongeLoaded() {
@@ -75,7 +74,8 @@ public class SpongeMoneyInterface implements MoneyInterface {
           .get()
           .getOrCreateAccount(player)
           .get()
-          .deposit(getCurrency(), money, Cause.of(EventContext.empty(), PowerMoney.getInstance()));
+          .deposit(
+              getCurrency(), money, Cause.of(EventContext.empty(), PowerMoneyApi.getInstance()));
     }
 
     public String getMoneySymbol() {
@@ -93,7 +93,7 @@ public class SpongeMoneyInterface implements MoneyInterface {
     private Currency getCurrencyFromConfig() {
       verifyEconomyService();
 
-      final String currencyName = PowerMoneyConfigWrapper.getCurrency();
+      final String currencyName = PowerMoneyApi.getInstance().getConfiguredCurrencyName();
 
       for (Currency currency : economyService.get().getCurrencies()) {
         if (currency.getId().equalsIgnoreCase(currencyName)

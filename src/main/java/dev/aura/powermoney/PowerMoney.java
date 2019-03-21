@@ -31,22 +31,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
 @Mod(
-  modid = PowerMoney.ID,
-  name = PowerMoney.NAME,
-  version = PowerMoney.VERSION,
+  modid = PowerMoneyApi.ID,
+  name = PowerMoneyApi.NAME,
+  version = PowerMoneyApi.VERSION,
   dependencies = PowerMoneyModules.DEPENDENCIES,
   certificateFingerprint = PowerMoney.FINGERPRINT,
   guiFactory = PowerMoney.GUI_FACTORY
 )
 public class PowerMoney extends PowerMoneyApi {
-  // Hardcode ID to be able to start mod from Eclipse
-  public static final String ID = "powermoney";
-  public static final String RESOURCE_PACKAGE = ID;
-  public static final String RESOURCE_PREFIX = RESOURCE_PACKAGE + ":";
-  public static final String NAME = "@name@";
-  public static final String VERSION = "@version@";
-  public static final String GROUP = "@group@";
-  public static final String DESCRIPTION = "@description@";
   public static final String FINGERPRINT = "2238d4a92d81ab407741a2fdb741cebddfeacba6";
   public static final String GUI_FACTORY =
       "dev.aura.powermoney.client.gui.config.PowerMoneyGuiFactory";
