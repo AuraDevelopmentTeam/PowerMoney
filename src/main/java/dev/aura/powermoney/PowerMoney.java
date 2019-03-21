@@ -9,6 +9,7 @@ import dev.aura.powermoney.common.advancement.CriterionRegistry;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
+import dev.aura.powermoney.common.payment.SimulateMoneyInterface;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
 import dev.aura.powermoney.network.PacketDispatcher;
 import dev.aura.powermoney.network.PowerMoneyGuiHandler;
@@ -105,6 +106,41 @@ public class PowerMoney extends PowerMoneyApi {
   @EventHandler
   public void postInit(FMLPostInitializationEvent event) {
     PowerMoneyModules.postInit(event);
+
+    final MoneyInterface simulateInterface = new SimulateMoneyInterface();
+
+    registerMoneyInterface(simulateInterface);
+
+    for (Map.Entry<String, MoneyInterface> entry : moneyInterfaces.entrySet()) {
+      final String name = entry.getKey();
+      final MoneyInterface moneyInterface = entry.getValue();
+
+      logger.debug("Checking if MoneyInterface \"" + name + "\" can accept money...");
+
+      if (moneyInterface.canAcceptMoney()) {
+        logger.debug("    Yes!");
+        logger.debug("Selecting MoneyInterface \"" + name + "\"!");
+
+        activeMoneyInterface = moneyInterface;
+      } else {
+        logger.debug("    No!");
+      }
+    }
+
+    if (activeMoneyInterface == null) {
+      final Side side = event.getSide();
+
+      if (side == Side.CLIENT) {
+        logger.debug(
+            "No working MoneyInterface found. That's ok on the client, as the server may use Sponge.");
+      } else if (side == Side.SERVER) {
+        logger.warn("No working MoneyInterface found! This is means the mod will NOT work");
+      }
+
+      logger.debug("Selecting \"powermoney:simulate\" anyways.");
+
+      activeMoneyInterface = simulateInterface;
+    }
   }
 
   private static final void registerTileEntities() {
