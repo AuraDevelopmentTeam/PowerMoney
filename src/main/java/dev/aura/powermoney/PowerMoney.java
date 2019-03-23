@@ -107,6 +107,10 @@ public class PowerMoney extends PowerMoneyApi {
   public void postInit(FMLPostInitializationEvent event) {
     PowerMoneyModules.postInit(event);
 
+    selectMoneyInterface(event.getSide());
+  }
+
+  private void selectMoneyInterface(Side side) {
     final MoneyInterface simulateInterface = new SimulateMoneyInterface();
 
     registerMoneyInterface(simulateInterface);
@@ -128,8 +132,6 @@ public class PowerMoney extends PowerMoneyApi {
     }
 
     if (activeMoneyInterface == null) {
-      final Side side = event.getSide();
-
       if (side == Side.CLIENT) {
         logger.debug(
             "No working MoneyInterface found. That's ok on the client, as the server may use Sponge.");
