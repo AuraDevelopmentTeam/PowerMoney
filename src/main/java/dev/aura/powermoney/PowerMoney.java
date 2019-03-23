@@ -126,6 +126,8 @@ public class PowerMoney extends PowerMoneyApi {
         logger.debug("Selecting MoneyInterface \"" + name + "\"!");
 
         activeMoneyInterface = moneyInterface;
+
+        break;
       } else {
         logger.debug("    No!");
       }
