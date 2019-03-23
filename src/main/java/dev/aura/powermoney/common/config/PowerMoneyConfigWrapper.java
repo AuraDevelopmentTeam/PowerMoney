@@ -33,6 +33,7 @@ public class PowerMoneyConfigWrapper {
   @Getter private static MoneyCalculator moneyCalculator;
 
   @Getter private static String currency;
+  @Getter private static String moneyInterface;
   @Getter private static int payoutInterval;
 
   @Getter private static boolean simulate;
@@ -164,6 +165,16 @@ public class PowerMoneyConfigWrapper {
                 + "If the currency specified here doesn't exist or is empty, then the system will fallback to the\n"
                 + "default currency.\n"
                 + "Only really needs to be set if there's more than one currency.");
+    moneyInterface =
+        getString(
+            CAT_PAYMENT,
+            "MoneyInterface",
+            "auto",
+            "Which MoneyInterface to use.\n"
+                + "Check the debug log for available MoneyInterfaces. If the specified interface cannot be found or is\n"
+                + "\"auto\", the system automatically select one. It will prioritize mod interfaces over the Sponge API.\n"
+                + "Only really needs to be set if there's more than one MoneyInterface and default one is not the\n"
+                + "one you want to use.");
     payoutInterval =
         getInt(
             CAT_PAYMENT,

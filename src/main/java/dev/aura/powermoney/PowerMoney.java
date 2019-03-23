@@ -115,6 +115,23 @@ public class PowerMoney extends PowerMoneyApi {
 
     registerMoneyInterface(simulateInterface);
 
+    logger.debug("Available MoneyInterfaces: " + String.join(", ", moneyInterfaces.keySet()));
+
+    final String requestedMoneyInterface = PowerMoneyConfigWrapper.getMoneyInterface();
+    activeMoneyInterface = moneyInterfaces.get(requestedMoneyInterface);
+
+    if (activeMoneyInterface == null) {
+      if (!"auto".equals(requestedMoneyInterface)) {
+        logger.warn("The MoneyInterface \"" + requestedMoneyInterface + "\" is unknown.");
+        logger.info("Falling back to automatically selecting a MoneyInterface");
+      }
+    } else if (!activeMoneyInterface.canAcceptMoney()) {
+      logger.warn("The MoneyInterface that has been selected cannot accept money.");
+      logger.info("Falling back to automatically selecting a MoneyInterface");
+    } else {
+      return;
+    }
+
     for (Map.Entry<String, MoneyInterface> entry : moneyInterfaces.entrySet()) {
       final String name = entry.getKey();
       final MoneyInterface moneyInterface = entry.getValue();
@@ -123,7 +140,7 @@ public class PowerMoney extends PowerMoneyApi {
 
       if (moneyInterface.canAcceptMoney()) {
         logger.debug("    Yes!");
-        logger.debug("Selecting MoneyInterface \"" + name + "\"!");
+        logger.info("Selecting MoneyInterface \"" + name + "\"!");
 
         activeMoneyInterface = moneyInterface;
 
@@ -141,7 +158,7 @@ public class PowerMoney extends PowerMoneyApi {
         logger.warn("No working MoneyInterface found! This is means the mod will NOT work");
       }
 
-      logger.debug("Selecting \"powermoney:simulate\" anyways.");
+      logger.info("Selecting \"powermoney:simulate\" anyways.");
 
       activeMoneyInterface = simulateInterface;
     }
