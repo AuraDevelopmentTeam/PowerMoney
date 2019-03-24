@@ -21,6 +21,10 @@ repositories {
         name "OpenComputers"
         url "http://maven.cil.li/"
     }
+    maven { // EnderPay
+        name "kamildanak"
+        url "http://kamildanak.com/maven/"
+    }
 }
 
 dependencies {
@@ -28,6 +32,9 @@ dependencies {
 
     // Energy
     deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
+
+    // Money-Mods
+    deobfProvided "com.kamildanak.minecraft.enderpay:enderpay:${minecraft_version}-${enderpay_version}"
 
     // Info-Mods
     deobfProvided "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
