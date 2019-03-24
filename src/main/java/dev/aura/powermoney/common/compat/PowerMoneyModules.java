@@ -2,6 +2,7 @@ package dev.aura.powermoney.common.compat;
 
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.compat.computercraft.ComputerCraftCompat;
+import dev.aura.powermoney.common.compat.enderpay.EnderPayCompat;
 import dev.aura.powermoney.common.compat.opencomputers.OpenComputersCompat;
 import dev.aura.powermoney.common.compat.sponge.SpongeCompat;
 import dev.aura.powermoney.common.compat.theoneprobe.TheOneProbeCompat;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class PowerMoneyModules {
   public static final String SPONGEAPI_MODID = "spongeapi";
   public static final String COMPUTERCRAFT_MODID = "computercraft";
+  public static final String ENDERPAY_MODID = "enderpay";
   public static final String HWYLA_MODID = "waila";
   public static final String OPENCOMPUTERS_MODID = "opencomputers";
   public static final String TESLA_MODID = "tesla";
@@ -36,6 +38,8 @@ public class PowerMoneyModules {
           + ";after:"
           + COMPUTERCRAFT_MODID
           + ";after:"
+          + ENDERPAY_MODID
+          + ";after:"
           + HWYLA_MODID
           + ";after:"
           + OPENCOMPUTERS_MODID
@@ -46,6 +50,7 @@ public class PowerMoneyModules {
 
   private static Boolean SPONGEAPI;
   private static Boolean COMPUTERCRAFT;
+  private static Boolean ENDERPAY;
   private static Boolean HWYLA;
   private static Boolean OPENCOMPUTERS;
   private static Boolean TESLA;
@@ -74,7 +79,17 @@ public class PowerMoneyModules {
     return testMod(COMPUTERCRAFT_MODID, COMPUTERCRAFT);
   }
 
-  @Module(modid = HWYLA_MODID, name = "HWYLA", message = "Adding PowerReceiver stats to HWYLA")
+  @Module(
+    modid = ENDERPAY_MODID,
+    name = "EnderPay",
+    message = "Adding the EnderPay MoneyInteface.",
+    integration = EnderPayCompat.class
+  )
+  public static boolean enderPay() {
+    return testMod(ENDERPAY_MODID, ENDERPAY);
+  }
+
+  @Module(modid = HWYLA_MODID, name = "HWYLA", message = "Adding PowerReceiver stats to HWYLA.")
   public static boolean hwyla() {
     return testMod(HWYLA_MODID, HWYLA);
   }
@@ -97,7 +112,7 @@ public class PowerMoneyModules {
   @Module(
     modid = THEONEPROBE_MODID,
     name = "The One Probe",
-    message = "Adding PowerReceiver stats to The One Probe",
+    message = "Adding PowerReceiver stats to The One Probe.",
     integration = TheOneProbeCompat.class
   )
   public static boolean theOneProbe() {
