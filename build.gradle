@@ -28,6 +28,8 @@ repositories {
 }
 
 dependencies {
+    apiCompileOnly "com.github.spotbugs:spotbugs-annotations:${spotBugs_version}"
+
     compile "org.spongepowered:spongeapi:${sponge_version}"
 
     // Energy

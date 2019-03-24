@@ -1,9 +1,11 @@
 package dev.aura.powermoney.api;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javax.annotation.Nonnull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @since 1.7.0
@@ -18,6 +20,13 @@ public abstract class PowerMoneyApi {
   public static final String VERSION = "@version@";
   public static final String GROUP = "@group@";
   public static final String DESCRIPTION = "@description@";
+
+  @SuppressFBWarnings(
+    value = {"MS_SHOULD_BE_FINAL", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"},
+    justification = "The logger has such loose security for convinience."
+  )
+  @Getter
+  protected static Logger logger;
 
   /**
    * The plugin API instance.
