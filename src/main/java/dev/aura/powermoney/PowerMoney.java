@@ -107,7 +107,7 @@ public class PowerMoney extends PowerMoneyApi {
     selectMoneyInterface(event.getSide());
   }
 
-  private void selectMoneyInterface(Side side) {
+  public void selectMoneyInterface(Side side) {
     final MoneyInterface simulateInterface = new SimulateMoneyInterface();
 
     registerMoneyInterface(simulateInterface);

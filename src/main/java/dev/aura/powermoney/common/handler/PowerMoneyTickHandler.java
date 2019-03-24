@@ -171,9 +171,13 @@ public class PowerMoneyTickHandler {
 
     reset();
 
-    if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+    final Side side = FMLCommonHandler.instance().getSide();
+
+    if (side == Side.CLIENT) {
       ReceiverDataClient.receiverDisabled();
     }
+
+    PowerMoney.getInstance().selectMoneyInterface(side);
   }
 
   @Value
