@@ -3,15 +3,15 @@ apply from: "GradleCommon/common.gradle"
 repositories {
     maven { // Tesla
         name "MCModDev"
-        url "http://maven.mcmoddev.com"
+        url "https://maven.mcmoddev.com"
     }
     maven { // HWYLA
         name "TehNut"
-        url "http://tehnut.info/maven"
+        url "https://tehnut.info/maven"
     }
     maven { // TOP
         name "tterrag"
-        url "http://maven.tterrag.com/"
+        url "https://maven.tterrag.com/"
     }
     maven { // ComputerCraft
         name "ComputerCraft"
@@ -19,11 +19,19 @@ repositories {
     }
     maven { // OpenComputers
         name "OpenComputers"
-        url "http://maven.cil.li/"
+        url "https://maven.cil.li/"
     }
     maven { // EnderPay
         name "kamildanak"
-        url "http://kamildanak.com/maven/"
+        url "https://kamildanak.com/maven/"
+    }
+    maven { // FTBMoney
+        name "FTB"
+        url "https://maven.latmod.com/"
+    }
+    maven {  // JEI (as a dependcy of FTBMoney)
+        name "DVS1"
+        url "https://dvs1.progwml6.com/files/maven"
     }
 }
 
@@ -37,6 +45,7 @@ dependencies {
 
     // Money-Mods
     deobfProvided "com.kamildanak.minecraft.enderpay:enderpay:${minecraft_version}-${enderpay_version}"
+    deobfProvided "com.feed_the_beast.mods:FTBMoney:${ftbMoney_version}"
 
     // Info-Mods
     deobfProvided "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
