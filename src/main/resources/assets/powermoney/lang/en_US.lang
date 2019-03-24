@@ -48,8 +48,7 @@ gui.powermoney.config.cat.payment.currency=Currency
 gui.powermoney.config.cat.payment.currency.tooltip=The currency to make the payments.\\nIf the currency specified here doesn't exist or is empty, then the system will fallback to the default currency.\\nOnly really needs to be set if there's more than one currency.
 gui.powermoney.config.cat.payment.payoutinterval=Payout Interval
 gui.powermoney.config.cat.payment.payoutinterval.tooltip=The interval in seconds between payouts.\\nThe value 1 means instant payouts (the money the player gets is calculated on a per second base).
-
-gui.powermoney.config.cat.misc=Miscellaneous
-gui.powermoney.config.cat.misc.tooltip=Settings that don't belong anywhere else.
-gui.powermoney.config.cat.misc.simulate=Simulate
-gui.powermoney.config.cat.misc.simulate.tooltip=If Sponge or an Economy plugin is missing, the blocks will not consume energy. Enabling this will make them consume energy. But it will not produce any money. This is useful for testing and shouldn't be enabled on a production server.\\n§4If Sponge and an Economy plugin is installed, this setting has no effect!
+gui.powermoney.config.cat.payment.moneyinterface=Money Interface
+gui.powermoney.config.cat.payment.moneyinterface.tooltip=Which MoneyInterface to use.\\nCheck the debug log for available MoneyInterfaces. If the specified interface cannot be found or is "auto", the system automatically select one. It will prioritize mod interfaces over the Sponge API.\\nOnly really needs to be set if there's more than one MoneyInterface and default one is not the one you want to use.
+gui.powermoney.config.cat.payment.simulate=Simulate
+gui.powermoney.config.cat.payment.simulate.tooltip=If no MoneyInterface can be used, the blocks will not consume energy. Enabling this will make them consume energy. But it will not produce any money. This is useful for testing and shouldn't be enabled on a production server.\\n§4If any MoneyInterface is found, this setting has no effect!

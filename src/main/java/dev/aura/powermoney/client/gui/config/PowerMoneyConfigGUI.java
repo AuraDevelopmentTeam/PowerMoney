@@ -29,11 +29,6 @@ public class PowerMoneyConfigGUI extends GuiConfig {
             PowerMoneyConfigWrapper.getPaymentCategory(),
             "Payment",
             "gui.powermoney.config.cat.payment"));
-    list.add(
-        categoryElement(
-            PowerMoneyConfigWrapper.getMiscCategory(),
-            "Miscellaneous",
-            "gui.powermoney.config.cat.misc"));
 
     return list;
   }

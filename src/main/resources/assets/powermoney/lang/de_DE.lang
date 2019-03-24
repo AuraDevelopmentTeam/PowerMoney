@@ -48,8 +48,7 @@ gui.powermoney.config.cat.payment.currency=Währung
 gui.powermoney.config.cat.payment.currency.tooltip=Die Währung, in der die Zahlungen erfolgen.\\nWenn die hier angegebene Währung nicht existiert oder leer ist, greift das System auf die Standardwährung zurück.\\nMuss eigentlich nur eingestellt werden, wenn es mehr als eine Währung gibt.
 gui.powermoney.config.cat.payment.payoutinterval=Auszahlungsintervall
 gui.powermoney.config.cat.payment.payoutinterval.tooltip=Das Intervall in Sekunden zwischen den Auszahlungen.\\nDer Wert 1 bedeutet sofortige Auszahlungen (das Geld, das der Spieler erhält, wird auf einer sekündlichen Basis berechnet).
-
-gui.powermoney.config.cat.misc=Sonstiges
-gui.powermoney.config.cat.misc.tooltip=Einstellungen, die nirgendwo sonst hingehören.
-gui.powermoney.config.cat.misc.simulate=Simulieren
-gui.powermoney.config.cat.misc.simulate.tooltip=Falls Sponge oder ein Economy-Plugin fehlt, verbrauchen die Blöcke keine Energie. Wenn du dies aktivierst, werden sie Energie verbrauchen. Aber es wird kein Geld erzeugen. Dies ist nützlich für den Test und sollte auf einem Produktionsserver nicht aktiviert werden.\\n§4Wenn Sponge und ein Economy-Plugin installiert sind, hat diese Einstellung keine Auswirkung!
+gui.powermoney.config.cat.payment.moneyinterface=Geld-Interface
+gui.powermoney.config.cat.payment.moneyinterface.tooltip=Welches Geld-Interface verwendet werden soll.\\nSchau im Debug-Log nach verfügbaren Geld-Interfaces. Wenn das angegebene Interface nicht gefunden werden kann oder "auto" ist, wählt das System automatisch eines aus. Es priorisiert Mod-Interfaces über die Sponge API.\\nMuss nur dann wirklich eingestellt werden, wenn es mehr als ein Geld-Interface gibt und das Standardinterface nicht das ist, das du verwenden möchtest.
+gui.powermoney.config.cat.payment.simulate=Simulieren
+gui.powermoney.config.cat.payment.simulate.tooltip=Falls kein Geld-Interface verwendet werden kann, verbrauchen die Blöcke keine Energie. Wenn du diese Option aktivierst, werden sie Energie verbrauchen. Aber es wird kein Geld erzeugen. Dies ist nützlich für den Test und sollte auf einem Produktionsserver nicht aktiviert werden.\\\n§4Wenn irgendein Geld-Interface gefunden wird, hat diese Einstellung keine Auswirkung!

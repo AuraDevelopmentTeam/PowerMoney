@@ -16,7 +16,6 @@ public class PowerMoneyConfigWrapper {
   public static final String CAT_CALCULATION = "calculation";
   public static final String CAT_CALCULATION_LOG = CAT_CALCULATION + ".logarithm";
   public static final String CAT_CALCULATION_ROOT = CAT_CALCULATION + ".root";
-  public static final String CAT_MISC = "misc";
   public static final String CAT_PAYMENT = "payment";
 
   private static Configuration configStorage;
@@ -35,13 +34,11 @@ public class PowerMoneyConfigWrapper {
   @Getter private static String currency;
   @Getter private static String moneyInterface;
   @Getter private static int payoutInterval;
-
   @Getter private static boolean simulate;
 
   public static void loadConfig() {
     loadCalculationSettings();
     loadPaymentSettings();
-    loadMiscSettings();
 
     saveIfChanged();
   }
@@ -184,22 +181,17 @@ public class PowerMoneyConfigWrapper {
             1000,
             "The interval in seconds between payouts.\n"
                 + "The value 1 means instant payouts (the money the player gets is calculated on a per second base).");
-
-    addCustomCategoryComment(CAT_PAYMENT, "Settings regarding the payment to the players.");
-  }
-
-  private static void loadMiscSettings() {
     simulate =
         getBoolean(
-            CAT_MISC,
+            CAT_PAYMENT,
             "Simulate",
             false,
-            "If Sponge or an Economy plugin is missing, the blocks will not consume energy. Enabling this will\n"
-                + "make them consume energy. But it will not produce any money. This is useful for testing and\n"
-                + "shouldn't be enabled on a production server.\n"
-                + "If Sponge and an Economy plugin is installed, this setting has no effect!");
+            "If no MoneyInterface can be used, the blocks will not consume energy. Enabling this will make them\n"
+                + "consume energy. But it will not produce any money. This is useful for testing and shouldn't be\n"
+                + "enabled on a production server.\n"
+                + "If any MoneyInterface is found, this setting has no effect!");
 
-    addCustomCategoryComment(CAT_MISC, "Settings that don't belong anywhere else.");
+    addCustomCategoryComment(CAT_PAYMENT, "Settings regarding the payment to the players.");
   }
 
   private static String getDefaultLangKey(String category) {
@@ -337,10 +329,5 @@ public class PowerMoneyConfigWrapper {
   @SideOnly(Side.CLIENT)
   public static List<IConfigElement> getPaymentCategory() {
     return new ConfigElement(configStorage.getCategory(CAT_PAYMENT)).getChildElements();
-  }
-
-  @SideOnly(Side.CLIENT)
-  public static List<IConfigElement> getMiscCategory() {
-    return new ConfigElement(configStorage.getCategory(CAT_MISC)).getChildElements();
   }
 }
