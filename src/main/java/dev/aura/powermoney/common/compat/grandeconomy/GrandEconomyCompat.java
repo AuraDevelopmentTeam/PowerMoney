@@ -14,7 +14,7 @@ public class GrandEconomyCompat implements IModIntegration {
 
   @Override
   public void init(FMLInitializationEvent event) {
-    // TODO: Add GrandEconomyInterface
+    PowerMoneyApi.getInstance().registerMoneyInterface(new GrandEconomyMoneyInterface());
   }
 
   @Override
