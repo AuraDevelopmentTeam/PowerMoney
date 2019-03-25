@@ -1,6 +1,5 @@
 package dev.aura.powermoney.common.compat.grandeconomy;
 
-import com.kamildanak.minecraft.enderpay.api.EnderPayApi;
 import dev.aura.powermoney.api.MoneyInterface;
 import dev.aura.powermoney.api.PowerMoneyApi;
 import java.math.BigDecimal;
@@ -26,7 +25,7 @@ public class GrandEconomyMoneyInterface implements MoneyInterface {
 
   @Override
   public String getCurrencySymbol() {
-    return EnderPayApi.getCurrencyName(0);
+    return GrandEconomyApi.getCurrencyName(0);
   }
 
   @Override
