@@ -25,6 +25,10 @@ repositories {
         name "kamildanak"
         url "http://kamildanak.com/maven/"
     }
+    maven { // Grand Economy
+        name "CurseForge"
+        url "https://minecraft.curseforge.com/api/maven/"
+    }
 }
 
 dependencies {
@@ -37,6 +41,7 @@ dependencies {
 
     // Money-Mods
     deobfProvided "com.kamildanak.minecraft.enderpay:enderpay:${minecraft_version}-${enderpay_version}"
+    deobfProvided "grand-economy:GrandEconomy:${minecraft_version}:${grandEconomy_version}"
 
     // Info-Mods
     deobfProvided "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
