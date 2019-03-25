@@ -3,6 +3,7 @@ package dev.aura.powermoney.common.compat;
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.compat.computercraft.ComputerCraftCompat;
 import dev.aura.powermoney.common.compat.enderpay.EnderPayCompat;
+import dev.aura.powermoney.common.compat.grandeconomy.GrandEconomyCompat;
 import dev.aura.powermoney.common.compat.opencomputers.OpenComputersCompat;
 import dev.aura.powermoney.common.compat.sponge.SpongeCompat;
 import dev.aura.powermoney.common.compat.theoneprobe.TheOneProbeCompat;
@@ -27,6 +28,7 @@ public class PowerMoneyModules {
   public static final String SPONGEAPI_MODID = "spongeapi";
   public static final String COMPUTERCRAFT_MODID = "computercraft";
   public static final String ENDERPAY_MODID = "enderpay";
+  public static final String GRANDECONOMY_MODID = "grandeconomy";
   public static final String HWYLA_MODID = "waila";
   public static final String OPENCOMPUTERS_MODID = "opencomputers";
   public static final String TESLA_MODID = "tesla";
@@ -37,6 +39,8 @@ public class PowerMoneyModules {
           + SPONGEAPI_MODID
           + ";after:"
           + COMPUTERCRAFT_MODID
+          + ";after:"
+          + GRANDECONOMY_MODID
           + ";after:"
           + ENDERPAY_MODID
           + ";after:"
@@ -51,6 +55,7 @@ public class PowerMoneyModules {
   private static Boolean SPONGEAPI;
   private static Boolean COMPUTERCRAFT;
   private static Boolean ENDERPAY;
+  private static Boolean GRANDECONOMY;
   private static Boolean HWYLA;
   private static Boolean OPENCOMPUTERS;
   private static Boolean TESLA;
@@ -87,6 +92,16 @@ public class PowerMoneyModules {
   )
   public static boolean enderPay() {
     return testMod(ENDERPAY_MODID, ENDERPAY);
+  }
+
+  @Module(
+    modid = GRANDECONOMY_MODID,
+    name = "Grand Economy",
+    message = "Adding the GrandEconomy MoneyInteface.",
+    integration = GrandEconomyCompat.class
+  )
+  public static boolean grandEconomy() {
+    return testMod(GRANDECONOMY_MODID, GRANDECONOMY);
   }
 
   @Module(modid = HWYLA_MODID, name = "HWYLA", message = "Adding PowerReceiver stats to HWYLA.")
