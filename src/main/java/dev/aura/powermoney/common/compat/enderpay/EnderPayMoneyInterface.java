@@ -1,5 +1,6 @@
 package dev.aura.powermoney.common.compat.enderpay;
 
+import com.kamildanak.minecraft.enderpay.EnderPay;
 import com.kamildanak.minecraft.enderpay.api.EnderPayApi;
 import com.kamildanak.minecraft.enderpay.api.NoSuchAccountException;
 import dev.aura.powermoney.api.MoneyInterface;
@@ -10,7 +11,7 @@ import java.util.UUID;
 public class EnderPayMoneyInterface implements MoneyInterface {
   @Override
   public String getName() {
-    return PowerMoneyApi.RESOURCE_PREFIX + "enderpay";
+    return PowerMoneyApi.RESOURCE_PREFIX + EnderPay.modID;
   }
 
   @Override
