@@ -126,6 +126,8 @@ public class PowerMoney extends PowerMoneyApi {
       logger.warn("The MoneyInterface that has been selected cannot accept money.");
       logger.info("Falling back to automatically selecting a MoneyInterface");
     } else {
+      logger.info("Selecting MoneyInterface \"" + requestedMoneyInterface + "\"!");
+
       return;
     }
 
