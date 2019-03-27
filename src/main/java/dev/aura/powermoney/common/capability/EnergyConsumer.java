@@ -1,9 +1,12 @@
 package dev.aura.powermoney.common.capability;
 
+import buildcraft.api.mj.IMjConnector;
+import buildcraft.api.mj.IMjReceiver;
 import com.google.common.collect.ImmutableMap;
 import dev.aura.powermoney.PowerMoney;
 import dev.aura.powermoney.common.block.BlockPowerReceiver;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
+import dev.aura.powermoney.common.compat.buildcraft.BuildcraftCompat;
 import dev.aura.powermoney.common.compat.tesla.TeslaCompat;
 import dev.aura.powermoney.common.helper.WorldBlockPos;
 import dev.aura.powermoney.common.tileentity.TileEntityPowerReceiver;
@@ -24,10 +27,15 @@ import net.minecraftforge.fml.common.Optional;
 @Value
 @RequiredArgsConstructor
 @Optional.Interface(
+  iface = "buildcraft.api.mj.IMjReceiver",
+  modid = PowerMoneyModules.BUILDCRAFT_MODID
+)
+@Optional.Interface(
   iface = "net.darkhax.tesla.api.ITeslaConsumer",
   modid = PowerMoneyModules.TESLA_MODID
 )
-public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabilityProvider {
+public class EnergyConsumer
+    implements IEnergyStorage, ICapabilityProvider, IMjReceiver, ITeslaConsumer {
   private static final Map<WorldBlockPos, Long> consumedLocalEnergy = new HashMap<>();
   private static final Map<UUID, Long> consumedTotalEnergy = new HashMap<>();
 
@@ -63,6 +71,8 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
   @Override
   public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
     return (capability == CapabilityEnergy.ENERGY)
+        || (PowerMoneyModules.buildcraft()
+            && BuildcraftCompat.isBuildcraftEnergyReceiverCapability(capability))
         || (PowerMoneyModules.tesla() && TeslaCompat.isTeslaCapabilityConsumer(capability));
   }
 
@@ -72,13 +82,6 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
     if (hasCapability(capability, facing)) return (T) this;
 
     return null;
-  }
-
-  @Override
-  public long givePower(long maxReceive, boolean simulate) {
-    if (!canReceive()) return 0;
-
-    return addEnergy(maxReceive, simulate);
   }
 
   @Override
@@ -132,5 +135,39 @@ public class EnergyConsumer implements IEnergyStorage, ITeslaConsumer, ICapabili
 
       return maxEnergy;
     }
+  }
+
+  // ==================================================================================
+  // Buildcraft
+  // ==================================================================================
+
+  @Override
+  public boolean canConnect(IMjConnector other) {
+    return true;
+  }
+
+  @Override
+  public long getPowerRequested() {
+    return Long.MAX_VALUE;
+  }
+
+  @Override
+  public long receivePower(long microJoules, boolean simulate) {
+    if (!canReceive()) return microJoules;
+
+    return microJoules
+        - BuildcraftCompat.CONVERSION_FACTOR
+            * addEnergy(microJoules / BuildcraftCompat.CONVERSION_FACTOR, simulate);
+  }
+
+  // ==================================================================================
+  // Tesla
+  // ==================================================================================
+
+  @Override
+  public long givePower(long maxReceive, boolean simulate) {
+    if (!canReceive()) return 0;
+
+    return addEnergy(maxReceive, simulate);
   }
 }
