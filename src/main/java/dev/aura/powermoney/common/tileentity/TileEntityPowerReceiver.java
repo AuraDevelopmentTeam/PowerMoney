@@ -5,6 +5,8 @@ import dev.aura.powermoney.PowerMoneyBlocks;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.helper.WorldBlockPos;
+import ic2.api.energy.tile.IEnergyEmitter;
+import ic2.api.energy.tile.IEnergySink;
 import java.util.UUID;
 import lombok.Getter;
 import net.minecraft.block.state.IBlockState;
@@ -20,11 +22,12 @@ import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.Optional;
 
+@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = PowerMoneyModules.IC2_MODID)
 @Optional.Interface(
   iface = "cofh.redstoneflux.api.IEnergyReceiver",
   modid = PowerMoneyModules.REDSTONEFLUX_MODID
 )
-public class TileEntityPowerReceiver extends TileEntity implements IEnergyReceiver {
+public class TileEntityPowerReceiver extends TileEntity implements IEnergySink, IEnergyReceiver {
   public static final UUID UUID_NOBODY = new UUID(0, 0);
   public static final String NAME_NOBODY = "<nobody>";
 
@@ -147,6 +150,34 @@ public class TileEntityPowerReceiver extends TileEntity implements IEnergyReceiv
       return null;
     else return (TileEntityPowerReceiver) tempTileEntity;
   }
+
+  // ==================================================================================
+  // IC2
+  // ==================================================================================
+
+  @Override
+  public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side) {
+    return true;
+  }
+
+  @Override
+  public double getDemandedEnergy() {
+    return Long.MAX_VALUE / 4.0;
+  }
+
+  @Override
+  public int getSinkTier() {
+    return Integer.MAX_VALUE;
+  }
+
+  @Override
+  public double injectEnergy(EnumFacing directionFrom, double amount, double voltage) {
+    return amount - energyConsumer.givePower((long) (amount * 4.0), false);
+  }
+
+  // ==================================================================================
+  // RedstoneFlux
+  // ==================================================================================
 
   @Override
   public int getEnergyStored(EnumFacing from) {
