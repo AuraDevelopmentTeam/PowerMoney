@@ -13,10 +13,13 @@
         "dependencies": [
             "forge",
             "spongeapi@7.1.0",
+            "buildcraftenergy",
             "computercraft",
             "enderpay",
             "grandeconomy",
+            "ic2",
             "opencomputers",
+            "redstoneflux",
             "tesla",
             "theoneprobe",
             "waila"

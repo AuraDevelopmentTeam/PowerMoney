@@ -26,17 +26,22 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @UtilityClass
 public class PowerMoneyModules {
   public static final String SPONGEAPI_MODID = "spongeapi";
+  public static final String BUILDCRAFT_MODID = "buildcraftenergy";
   public static final String COMPUTERCRAFT_MODID = "computercraft";
   public static final String ENDERPAY_MODID = "enderpay";
   public static final String GRANDECONOMY_MODID = "grandeconomy";
   public static final String HWYLA_MODID = "waila";
+  public static final String IC2_MODID = "ic2";
   public static final String OPENCOMPUTERS_MODID = "opencomputers";
+  public static final String REDSTONEFLUX_MODID = "redstoneflux";
   public static final String TESLA_MODID = "tesla";
   public static final String THEONEPROBE_MODID = "theoneprobe";
 
   public static final String DEPENDENCIES =
       "after:"
           + SPONGEAPI_MODID
+          + ";after:"
+          + BUILDCRAFT_MODID
           + ";after:"
           + COMPUTERCRAFT_MODID
           + ";after:"
@@ -46,18 +51,25 @@ public class PowerMoneyModules {
           + ";after:"
           + HWYLA_MODID
           + ";after:"
+          + IC2_MODID
+          + ";after:"
           + OPENCOMPUTERS_MODID
+          + ";after:"
+          + REDSTONEFLUX_MODID
           + ";after:"
           + TESLA_MODID
           + ";after:"
           + THEONEPROBE_MODID;
 
   private static Boolean SPONGEAPI;
+  private static Boolean BUILDCRAFT;
   private static Boolean COMPUTERCRAFT;
   private static Boolean ENDERPAY;
   private static Boolean GRANDECONOMY;
   private static Boolean HWYLA;
+  private static Boolean IC2;
   private static Boolean OPENCOMPUTERS;
+  private static Boolean REDSTONEFLUX;
   private static Boolean TESLA;
   private static Boolean THEONEPROBE;
 
@@ -72,6 +84,15 @@ public class PowerMoneyModules {
   )
   public static boolean spongeAPI() {
     return testMod(SPONGEAPI_MODID, SPONGEAPI);
+  }
+
+  @Module(
+    modid = BUILDCRAFT_MODID,
+    name = "BuildCraft Energy",
+    message = "Enabling support for BuildCraft energy."
+  )
+  public static boolean buildcraft() {
+    return testMod(BUILDCRAFT_MODID, BUILDCRAFT);
   }
 
   @Module(
@@ -110,6 +131,15 @@ public class PowerMoneyModules {
   }
 
   @Module(
+    modid = IC2_MODID,
+    name = "IndustrialCraft²",
+    message = "Enabling support for IC2 energy."
+  )
+  public static boolean ic2() {
+    return testMod(IC2_MODID, IC2);
+  }
+
+  @Module(
     modid = OPENCOMPUTERS_MODID,
     name = "OpenComputers",
     message = "Adding the PowerReceiver as a OC component.",
@@ -117,6 +147,15 @@ public class PowerMoneyModules {
   )
   public static boolean openComputers() {
     return testMod(OPENCOMPUTERS_MODID, OPENCOMPUTERS);
+  }
+
+  @Module(
+    modid = REDSTONEFLUX_MODID,
+    name = "Redstone Flux",
+    message = "Enabling support for RF energy."
+  )
+  public static boolean redstoneFlux() {
+    return testMod(REDSTONEFLUX_MODID, REDSTONEFLUX);
   }
 
   @Module(modid = TESLA_MODID, name = "TESLA", message = "Enabling support for TESLA energy API.")
