@@ -1,7 +1,9 @@
 package dev.aura.powermoney.common.tileentity;
 
+import cofh.redstoneflux.api.IEnergyReceiver;
 import dev.aura.powermoney.PowerMoneyBlocks;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
+import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.helper.WorldBlockPos;
 import java.util.UUID;
 import lombok.Getter;
@@ -16,8 +18,13 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.Optional;
 
-public class TileEntityPowerReceiver extends TileEntity {
+@Optional.Interface(
+  iface = "cofh.redstoneflux.api.IEnergyReceiver",
+  modid = PowerMoneyModules.REDSTONEFLUX_MODID
+)
+public class TileEntityPowerReceiver extends TileEntity implements IEnergyReceiver {
   public static final UUID UUID_NOBODY = new UUID(0, 0);
   public static final String NAME_NOBODY = "<nobody>";
 
@@ -139,5 +146,25 @@ public class TileEntityPowerReceiver extends TileEntity {
     if ((tempTileEntity == null) || !(tempTileEntity instanceof TileEntityPowerReceiver))
       return null;
     else return (TileEntityPowerReceiver) tempTileEntity;
+  }
+
+  @Override
+  public int getEnergyStored(EnumFacing from) {
+    return energyConsumer.getEnergyStored();
+  }
+
+  @Override
+  public int getMaxEnergyStored(EnumFacing from) {
+    return energyConsumer.getMaxEnergyStored();
+  }
+
+  @Override
+  public boolean canConnectEnergy(EnumFacing from) {
+    return true;
+  }
+
+  @Override
+  public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
+    return energyConsumer.receiveEnergy(maxReceive, simulate);
   }
 }
