@@ -1,5 +1,8 @@
 package dev.aura.powermoney.common.tileentity;
 
+import buildcraft.api.mj.IMjConnector;
+import buildcraft.api.mj.IMjReceiver;
+import buildcraft.api.mj.MjAPI;
 import cofh.redstoneflux.api.IEnergyReceiver;
 import dev.aura.powermoney.PowerMoneyBlocks;
 import dev.aura.powermoney.common.capability.EnergyConsumer;
@@ -22,12 +25,17 @@ import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.Optional;
 
+@Optional.Interface(
+  iface = "buildcraft.api.mj.IMjReceiver",
+  modid = PowerMoneyModules.BUILDCRAFT_MODID
+)
 @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = PowerMoneyModules.IC2_MODID)
 @Optional.Interface(
   iface = "cofh.redstoneflux.api.IEnergyReceiver",
   modid = PowerMoneyModules.REDSTONEFLUX_MODID
 )
-public class TileEntityPowerReceiver extends TileEntity implements IEnergySink, IEnergyReceiver {
+public class TileEntityPowerReceiver extends TileEntity
+    implements IMjReceiver, IEnergySink, IEnergyReceiver {
   public static final UUID UUID_NOBODY = new UUID(0, 0);
   public static final String NAME_NOBODY = "<nobody>";
 
@@ -149,6 +157,27 @@ public class TileEntityPowerReceiver extends TileEntity implements IEnergySink, 
     if ((tempTileEntity == null) || !(tempTileEntity instanceof TileEntityPowerReceiver))
       return null;
     else return (TileEntityPowerReceiver) tempTileEntity;
+  }
+
+  // ==================================================================================
+  // Buildcraft
+  // ==================================================================================
+
+  @Override
+  public boolean canConnect(IMjConnector other) {
+    return true;
+  }
+
+  @Override
+  public long getPowerRequested() {
+    return Long.MAX_VALUE;
+  }
+
+  @Override
+  public long receivePower(long microJoules, boolean simulate) {
+    final long conversion = MjAPI.ONE_MINECRAFT_JOULE / 15L;
+
+    return microJoules - conversion * energyConsumer.givePower(microJoules / conversion, simulate);
   }
 
   // ==================================================================================
