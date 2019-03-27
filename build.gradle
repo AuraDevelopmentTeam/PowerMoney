@@ -11,7 +11,7 @@ repositories {
     }
     maven { // TOP
         name "tterrag"
-        url "http://maven.tterrag.com/"
+        url "https://maven.tterrag.com/"
     }
     maven { // ComputerCraft
         name "ComputerCraft"
@@ -19,11 +19,22 @@ repositories {
     }
     maven { // OpenComputers
         name "OpenComputers"
-        url "http://maven.cil.li/"
+        url "https://maven.cil.li/"
     }
     maven { // EnderPay
         name "kamildanak"
-        url "http://kamildanak.com/maven/"
+        url "https://kamildanak.com/maven/"
+    }
+    maven { // Redstone Flux
+        name "COFH Mods"
+        url "https://maven.covers1624.net"
+    }
+    maven {
+        name "IC2"
+        url "http://maven.ic2.player.to/"
+    }
+    ivy { // Buildcraft
+        artifactPattern "https://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision].[ext]"
     }
     maven { // Grand Economy
         name "CurseForge"
@@ -37,6 +48,9 @@ dependencies {
     compile "org.spongepowered:spongeapi:${sponge_version}"
 
     // Energy
+    deobfProvided name: "buildcraft-api", version: "${buildcraft_version}"
+    deobfProvided "net.industrial-craft:industrialcraft-2:${ic2_version}:api"
+    deobfProvided "cofh:RedstoneFlux:1.12-${redstoneFlux_version}:universal"
     deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
 
     // Money-Mods
