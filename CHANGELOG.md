@@ -1,3 +1,17 @@
+Version 1.7.0
+-------------
+
+\+ Added API for adding MoneyInterfaces.  
+\+ Added economy support for Ender Pay.  
+\+ Added economy support for Grand Economy.  
+\+ Added energy support for BuildCraft.  
+\+ Added energy support for IC².  
+\+ Added energy support for RedstoneFlux.  
+\* Rewrote MoneyInterface system to allow support for more than just Forge.  
+\* Feniksovich: Updated ru_RU.lang.  
+\* Fixed URLs in docs.  
+
+
 Version 1.6.1
 -------------
 
