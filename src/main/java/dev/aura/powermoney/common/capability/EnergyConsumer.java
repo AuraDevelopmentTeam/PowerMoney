@@ -31,10 +31,6 @@ import net.minecraftforge.fml.common.Optional;
   modid = PowerMoneyModules.BUILDCRAFT_MODID
 )
 @Optional.Interface(
-  iface = "buildcraft.api.mj.IMjConnector",
-  modid = PowerMoneyModules.BUILDCRAFT_MODID
-)
-@Optional.Interface(
   iface = "net.darkhax.tesla.api.ITeslaConsumer",
   modid = PowerMoneyModules.TESLA_MODID
 )
