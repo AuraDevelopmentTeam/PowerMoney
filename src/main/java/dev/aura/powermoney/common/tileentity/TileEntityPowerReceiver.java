@@ -24,7 +24,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Optional;
 
 @Optional.Interface(iface = "net.minecraft.util.ITickable", modid = PowerMoneyModules.IC2_MODID)
@@ -166,39 +165,41 @@ public class TileEntityPowerReceiver extends TileEntity
 
   @Override
   public void update() {
-    if (addedToNet || world.isRemote) return;
-
-    onLoaded();
+    if (!world.isRemote && PowerMoneyModules.ic2()) {
+      onLoaded();
+    }
   }
 
   @Override
   public void invalidate() {
-    onUnloaded();
+    if (!world.isRemote && PowerMoneyModules.ic2()) {
+      onUnloaded();
+    }
 
     super.invalidate();
   }
 
   @Override
   public void onChunkUnload() {
-    onUnloaded();
+    if (!world.isRemote && PowerMoneyModules.ic2()) {
+      onUnloaded();
+    }
 
     super.onChunkUnload();
   }
 
+  @Optional.Method(modid = PowerMoneyModules.IC2_MODID)
   private void onLoaded() {
-    if (addedToNet
-        || FMLCommonHandler.instance().getEffectiveSide().isClient()
-        || !PowerMoneyModules.ic2()) return;
+    if (addedToNet) return;
 
     MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 
     addedToNet = true;
   }
 
+  @Optional.Method(modid = PowerMoneyModules.IC2_MODID)
   private void onUnloaded() {
-    if (!addedToNet
-        || FMLCommonHandler.instance().getEffectiveSide().isClient()
-        || !PowerMoneyModules.ic2()) return;
+    if (!addedToNet) return;
 
     MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 
