@@ -1,7 +1,7 @@
 Version 1.7.1
 -------------
 
-\* Fixed crash when IC² is missing (Fixes [#14](https://github.com/AuraDevelopmentTeam/PowerMoney/issues/14).  
+\* Fixed crash when IC² is missing (Fixes [#14](https://github.com/AuraDevelopmentTeam/PowerMoney/issues/14)).  
 
 
 Version 1.7.0
