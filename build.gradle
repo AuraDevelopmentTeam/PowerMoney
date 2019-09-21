@@ -34,7 +34,7 @@ repositories {
         url "http://maven.ic2.player.to/"
     }
     ivy { // Buildcraft
-        artifactPattern "https://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision].[ext]"
+        artifactPattern "https://www.mod-buildcraft.com/releases/BuildCraft/[revision]/modules/[module]-[revision].[ext]"
     }
     maven { // Grand Economy
         name "CurseForge"
