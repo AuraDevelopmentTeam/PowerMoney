@@ -25,7 +25,7 @@ public class EnderPayMoneyInterface implements MoneyInterface {
       EnderPayApi.addToBalance(player, money.longValue());
     } catch (NoSuchAccountException e) {
       PowerMoneyApi.getLogger()
-          .error("EnderPay does not have an accout for a player witht the UUID " + player, e);
+          .error("EnderPay does not have an account for a player with the UUID " + player, e);
     }
   }
 

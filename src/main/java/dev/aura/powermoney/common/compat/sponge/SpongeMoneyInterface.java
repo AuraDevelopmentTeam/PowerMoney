@@ -13,6 +13,8 @@ import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.EconomyService;
+import org.spongepowered.api.service.economy.transaction.ResultType;
+import org.spongepowered.api.service.economy.transaction.TransactionResult;
 
 @SuppressFBWarnings(
   value = {"JLM_JSR166_UTILCONCURRENT_MONITORENTER", "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"},
@@ -39,11 +41,23 @@ public class SpongeMoneyInterface implements MoneyInterface {
   public void addMoneyToPlayer(UUID player, BigDecimal money) {
     verifyEconomyService();
 
-    economyService
-        .get()
-        .getOrCreateAccount(player)
-        .get()
-        .deposit(getCurrency(), money, Cause.of(EventContext.empty(), PowerMoneyApi.getInstance()));
+    final TransactionResult result =
+        economyService
+            .get()
+            .getOrCreateAccount(player)
+            .get()
+            .deposit(
+                getCurrency(), money, Cause.of(EventContext.empty(), PowerMoneyApi.getInstance()));
+
+    if (result.getResult() != ResultType.SUCCESS) {
+      PowerMoneyApi.getLogger()
+          .error(
+              "Tranferring money over Sponge to the player with the UUID "
+                  + player
+                  + " failed.\n"
+                  + "TransactionResult: "
+                  + result);
+    }
   }
 
   @Override

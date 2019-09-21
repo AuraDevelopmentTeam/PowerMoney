@@ -20,7 +20,15 @@ public class GrandEconomyMoneyInterface implements MoneyInterface {
 
   @Override
   public void addMoneyToPlayer(UUID player, BigDecimal money) {
-    GrandEconomyApi.addToBalance(player, money.longValue(), false);
+    final boolean result = GrandEconomyApi.addToBalance(player, money.longValue(), false);
+
+    if (!result) {
+      PowerMoneyApi.getLogger()
+          .error(
+              "Tranferring money over GrandEconomy to the player with the UUID "
+                  + player
+                  + " failed.");
+    }
   }
 
   @Override
