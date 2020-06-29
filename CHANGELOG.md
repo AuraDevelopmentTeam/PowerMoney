@@ -1,3 +1,10 @@
+Version 1.7.2
+-------------
+
+\+ Added support for Oxygen-Core.  
+\* Be more verbose about transaction failures.  
+
+
 Version 1.7.1
 -------------
 
