@@ -5,10 +5,6 @@ repositories {
         name "MCModDev"
         url "http://maven.mcmoddev.com"
     }
-    maven { // HWYLA
-        name "TehNut"
-        url "http://tehnut.info/maven"
-    }
     maven { // TOP
         name "tterrag"
         url "https://maven.tterrag.com/"
@@ -16,10 +12,6 @@ repositories {
     maven { // ComputerCraft
         name "ComputerCraft"
         url "https://cc.crzd.me/maven/"
-    }
-    maven { // OpenComputers
-        name "OpenComputers"
-        url "https://maven.cil.li/"
     }
     maven { // EnderPay
         name "kamildanak"
@@ -39,6 +31,14 @@ repositories {
     maven { // Grand Economy
         name "CurseForge"
         url "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven { // HWYLA
+        name "TehNut"
+        url "https://maven.tehnut.info"
+    }
+    maven { // OpenComputers
+        name "OpenComputers"
+        url "https://maven.cil.li/"
     }
 }
 
