@@ -28,7 +28,7 @@ repositories {
     ivy { // Buildcraft
         artifactPattern "https://www.mod-buildcraft.com/releases/BuildCraft/[revision]/modules/[module]-[revision].[ext]"
     }
-    maven { // Grand Economy
+    maven { // Grand Economy, Oxygen: Core/Curreny Providers
         name "CurseForge"
         url "https://minecraft.curseforge.com/api/maven/"
     }
@@ -56,6 +56,7 @@ dependencies {
     // Money-Mods
     deobfProvided "com.kamildanak.minecraft.enderpay:enderpay:${minecraft_version}-${enderpay_version}"
     deobfProvided "grand-economy:GrandEconomy:${minecraft_version}:${grandEconomy_version}"
+    deobfProvided "oxygen-core:oxygen-core:${minecraft_version}:${oxygenCore_version}"
 
     // Info-Mods
     deobfProvided "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"

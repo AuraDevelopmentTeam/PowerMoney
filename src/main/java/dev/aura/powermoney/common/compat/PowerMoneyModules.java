@@ -5,6 +5,7 @@ import dev.aura.powermoney.common.compat.computercraft.ComputerCraftCompat;
 import dev.aura.powermoney.common.compat.enderpay.EnderPayCompat;
 import dev.aura.powermoney.common.compat.grandeconomy.GrandEconomyCompat;
 import dev.aura.powermoney.common.compat.opencomputers.OpenComputersCompat;
+import dev.aura.powermoney.common.compat.oxygen.OxygenCompat;
 import dev.aura.powermoney.common.compat.sponge.SpongeCompat;
 import dev.aura.powermoney.common.compat.theoneprobe.TheOneProbeCompat;
 import java.lang.reflect.Field;
@@ -33,6 +34,7 @@ public class PowerMoneyModules {
   public static final String HWYLA_MODID = "waila";
   public static final String IC2_MODID = "ic2";
   public static final String OPENCOMPUTERS_MODID = "opencomputers";
+  public static final String OXYGEN_MODID = "oxygen_core";
   public static final String REDSTONEFLUX_MODID = "redstoneflux";
   public static final String TESLA_MODID = "tesla";
   public static final String THEONEPROBE_MODID = "theoneprobe";
@@ -55,6 +57,8 @@ public class PowerMoneyModules {
           + ";after:"
           + OPENCOMPUTERS_MODID
           + ";after:"
+          + OXYGEN_MODID
+          + ";after:"
           + REDSTONEFLUX_MODID
           + ";after:"
           + TESLA_MODID
@@ -69,6 +73,7 @@ public class PowerMoneyModules {
   private static Boolean HWYLA;
   private static Boolean IC2;
   private static Boolean OPENCOMPUTERS;
+  private static Boolean OXYGEN;
   private static Boolean REDSTONEFLUX;
   private static Boolean TESLA;
   private static Boolean THEONEPROBE;
@@ -147,6 +152,16 @@ public class PowerMoneyModules {
   )
   public static boolean openComputers() {
     return testMod(OPENCOMPUTERS_MODID, OPENCOMPUTERS);
+  }
+
+  @Module(
+    modid = OXYGEN_MODID,
+    name = "Oxygen",
+    message = "Adding the Oxygen MoneyInteface.",
+    integration = OxygenCompat.class
+  )
+  public static boolean oxygen() {
+    return testMod(OXYGEN_MODID, OXYGEN);
   }
 
   @Module(
