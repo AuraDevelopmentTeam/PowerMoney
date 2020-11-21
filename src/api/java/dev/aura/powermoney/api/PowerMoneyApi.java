@@ -22,9 +22,8 @@ public abstract class PowerMoneyApi {
   public static final String DESCRIPTION = "@description@";
 
   @SuppressFBWarnings(
-    value = {"MS_SHOULD_BE_FINAL", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"},
-    justification = "The logger has such loose security for convinience."
-  )
+      value = {"MS_SHOULD_BE_FINAL", "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"},
+      justification = "The logger has such loose security for convinience.")
   @Getter
   protected static Logger logger;
 

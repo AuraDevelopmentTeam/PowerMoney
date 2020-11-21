@@ -31,13 +31,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(
-  modid = PowerMoneyApi.ID,
-  name = PowerMoneyApi.NAME,
-  version = PowerMoneyApi.VERSION,
-  dependencies = PowerMoneyModules.DEPENDENCIES,
-  certificateFingerprint = PowerMoney.FINGERPRINT,
-  guiFactory = PowerMoney.GUI_FACTORY
-)
+    modid = PowerMoneyApi.ID,
+    name = PowerMoneyApi.NAME,
+    version = PowerMoneyApi.VERSION,
+    dependencies = PowerMoneyModules.DEPENDENCIES,
+    certificateFingerprint = PowerMoney.FINGERPRINT,
+    guiFactory = PowerMoney.GUI_FACTORY)
 public class PowerMoney extends PowerMoneyApi {
   public static final String FINGERPRINT = "2238d4a92d81ab407741a2fdb741cebddfeacba6";
   public static final String GUI_FACTORY =
@@ -48,9 +47,8 @@ public class PowerMoney extends PowerMoneyApi {
   private static PowerMoney instance;
 
   @SidedProxy(
-    clientSide = "dev.aura.powermoney.client.ClientProxy",
-    serverSide = "dev.aura.powermoney.common.CommonProxy"
-  )
+      clientSide = "dev.aura.powermoney.client.ClientProxy",
+      serverSide = "dev.aura.powermoney.common.CommonProxy")
   @Getter
   private static CommonProxy proxy;
 

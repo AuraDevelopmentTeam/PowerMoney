@@ -27,13 +27,11 @@ import net.minecraftforge.fml.common.Optional;
 @Value
 @RequiredArgsConstructor
 @Optional.Interface(
-  iface = "buildcraft.api.mj.IMjReceiver",
-  modid = PowerMoneyModules.BUILDCRAFT_MODID
-)
+    iface = "buildcraft.api.mj.IMjReceiver",
+    modid = PowerMoneyModules.BUILDCRAFT_MODID)
 @Optional.Interface(
-  iface = "net.darkhax.tesla.api.ITeslaConsumer",
-  modid = PowerMoneyModules.TESLA_MODID
-)
+    iface = "net.darkhax.tesla.api.ITeslaConsumer",
+    modid = PowerMoneyModules.TESLA_MODID)
 public class EnergyConsumer
     implements IEnergyStorage, ICapabilityProvider, IMjReceiver, ITeslaConsumer {
   private static final Map<WorldBlockPos, Long> consumedLocalEnergy = new HashMap<>();

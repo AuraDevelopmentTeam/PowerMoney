@@ -82,50 +82,45 @@ public class PowerMoneyModules {
   @Getter private static final Set<ModuleInformation> activeModules = new TreeSet<>();
 
   @Module(
-    modid = SPONGEAPI_MODID,
-    name = "SpongeAPI",
-    message = "Hooking into the currency API of Sponge.",
-    integration = SpongeCompat.class
-  )
+      modid = SPONGEAPI_MODID,
+      name = "SpongeAPI",
+      message = "Hooking into the currency API of Sponge.",
+      integration = SpongeCompat.class)
   public static boolean spongeAPI() {
     return testMod(SPONGEAPI_MODID, SPONGEAPI);
   }
 
   @Module(
-    modid = BUILDCRAFT_MODID,
-    name = "BuildCraft Energy",
-    message = "Enabling support for BuildCraft energy."
-  )
+      modid = BUILDCRAFT_MODID,
+      name = "BuildCraft Energy",
+      message = "Enabling support for BuildCraft energy.")
   public static boolean buildcraft() {
     return testMod(BUILDCRAFT_MODID, BUILDCRAFT);
   }
 
   @Module(
-    modid = COMPUTERCRAFT_MODID,
-    name = "ComputerCraft",
-    message = "Adding the PowerReceiver as a CC peripheral.",
-    integration = ComputerCraftCompat.class
-  )
+      modid = COMPUTERCRAFT_MODID,
+      name = "ComputerCraft",
+      message = "Adding the PowerReceiver as a CC peripheral.",
+      integration = ComputerCraftCompat.class)
   public static boolean computerCraft() {
     return testMod(COMPUTERCRAFT_MODID, COMPUTERCRAFT);
   }
 
   @Module(
-    modid = ENDERPAY_MODID,
-    name = "EnderPay",
-    message = "Adding the EnderPay MoneyInteface.",
-    integration = EnderPayCompat.class
-  )
+      modid = ENDERPAY_MODID,
+      name = "EnderPay",
+      message = "Adding the EnderPay MoneyInteface.",
+      integration = EnderPayCompat.class)
   public static boolean enderPay() {
     return testMod(ENDERPAY_MODID, ENDERPAY);
   }
 
   @Module(
-    modid = GRANDECONOMY_MODID,
-    name = "Grand Economy",
-    message = "Adding the GrandEconomy MoneyInteface.",
-    integration = GrandEconomyCompat.class
-  )
+      modid = GRANDECONOMY_MODID,
+      name = "Grand Economy",
+      message = "Adding the GrandEconomy MoneyInteface.",
+      integration = GrandEconomyCompat.class)
   public static boolean grandEconomy() {
     return testMod(GRANDECONOMY_MODID, GRANDECONOMY);
   }
@@ -136,39 +131,35 @@ public class PowerMoneyModules {
   }
 
   @Module(
-    modid = IC2_MODID,
-    name = "IndustrialCraft²",
-    message = "Enabling support for IC2 energy."
-  )
+      modid = IC2_MODID,
+      name = "IndustrialCraft²",
+      message = "Enabling support for IC2 energy.")
   public static boolean ic2() {
     return testMod(IC2_MODID, IC2);
   }
 
   @Module(
-    modid = OPENCOMPUTERS_MODID,
-    name = "OpenComputers",
-    message = "Adding the PowerReceiver as a OC component.",
-    integration = OpenComputersCompat.class
-  )
+      modid = OPENCOMPUTERS_MODID,
+      name = "OpenComputers",
+      message = "Adding the PowerReceiver as a OC component.",
+      integration = OpenComputersCompat.class)
   public static boolean openComputers() {
     return testMod(OPENCOMPUTERS_MODID, OPENCOMPUTERS);
   }
 
   @Module(
-    modid = OXYGEN_MODID,
-    name = "Oxygen",
-    message = "Adding the Oxygen MoneyInteface.",
-    integration = OxygenCompat.class
-  )
+      modid = OXYGEN_MODID,
+      name = "Oxygen",
+      message = "Adding the Oxygen MoneyInteface.",
+      integration = OxygenCompat.class)
   public static boolean oxygen() {
     return testMod(OXYGEN_MODID, OXYGEN);
   }
 
   @Module(
-    modid = REDSTONEFLUX_MODID,
-    name = "Redstone Flux",
-    message = "Enabling support for RF energy."
-  )
+      modid = REDSTONEFLUX_MODID,
+      name = "Redstone Flux",
+      message = "Enabling support for RF energy.")
   public static boolean redstoneFlux() {
     return testMod(REDSTONEFLUX_MODID, REDSTONEFLUX);
   }
@@ -179,11 +170,10 @@ public class PowerMoneyModules {
   }
 
   @Module(
-    modid = THEONEPROBE_MODID,
-    name = "The One Probe",
-    message = "Adding PowerReceiver stats to The One Probe.",
-    integration = TheOneProbeCompat.class
-  )
+      modid = THEONEPROBE_MODID,
+      name = "The One Probe",
+      message = "Adding PowerReceiver stats to The One Probe.",
+      integration = TheOneProbeCompat.class)
   public static boolean theOneProbe() {
     return testMod(THEONEPROBE_MODID, THEONEPROBE);
   }
@@ -201,8 +191,7 @@ public class PowerMoneyModules {
   private static Set<ModuleInformation> detectAllModules() {
     Set<ModuleInformation> modules = new TreeSet<>();
     Map<String, Field> modidsToFields =
-        Arrays.asList(PowerMoneyModules.class.getDeclaredFields())
-            .stream()
+        Arrays.asList(PowerMoneyModules.class.getDeclaredFields()).stream()
             .filter(field -> String.class.equals(field.getType()))
             .collect(
                 Collectors.toMap(
@@ -280,8 +269,7 @@ public class PowerMoneyModules {
   }
 
   private static void forEachActiveModule(Consumer<? super IModIntegration> consumer) {
-    activeModules
-        .stream()
+    activeModules.stream()
         .map(ModuleInformation::getIntegration)
         .filter(Objects::nonNull)
         .forEach(consumer);

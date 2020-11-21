@@ -100,9 +100,8 @@ public class PowerMoneyTickHandler {
   }
 
   @SuppressFBWarnings(
-    value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
-    justification = "Only one instance of this class exists."
-  )
+      value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
+      justification = "Only one instance of this class exists.")
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onServerTick(WorldTickEvent event) {
     // Make sure we're

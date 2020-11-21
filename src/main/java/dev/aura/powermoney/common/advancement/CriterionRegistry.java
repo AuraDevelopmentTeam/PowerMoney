@@ -7,9 +7,8 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.ICriterionTrigger;
 
 @SuppressFBWarnings(
-  value = "MS_CANNOT_BE_FINAL",
-  justification = "The criterions need to be initalized late"
-)
+    value = "MS_CANNOT_BE_FINAL",
+    justification = "The criterions need to be initalized late")
 @UtilityClass
 public class CriterionRegistry {
   public static CriterionEasterEgg EASTER_EGG;

@@ -37,9 +37,7 @@ public class PowerMoneyItems {
 
   @SubscribeEvent
   public void registerItems(RegistryEvent.Register<Item> event) {
-    items
-        .values()
-        .stream()
+    items.values().stream()
         .forEach(
             item -> {
               event.getRegistry().register(item);

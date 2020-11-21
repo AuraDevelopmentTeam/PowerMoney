@@ -66,9 +66,8 @@ public class GuiPowerReceiver extends GuiContainer {
   }
 
   @SuppressFBWarnings(
-    value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
-    justification = "Only one object exists at any one time."
-  )
+      value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
+      justification = "Only one object exists at any one time.")
   @Override
   public void initGui() {
     super.initGui();

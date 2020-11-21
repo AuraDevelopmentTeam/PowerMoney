@@ -42,9 +42,7 @@ public class PowerMoneyBlocks {
 
   @SubscribeEvent
   public void registerBlocks(RegistryEvent.Register<Block> event) {
-    blocks
-        .values()
-        .stream()
+    blocks.values().stream()
         .forEach(
             block -> {
               event.getRegistry().register(block);

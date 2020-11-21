@@ -8,9 +8,8 @@ import lombok.Value;
 
 @Value
 @EqualsAndHashCode(
-  callSuper = false,
-  exclude = {"baseMultiplierBD", "rootBase", "shiftBD"}
-)
+    callSuper = false,
+    exclude = {"baseMultiplierBD", "rootBase", "shiftBD"})
 public class MoneyCalculatorRoot extends MoneyCalculator {
   private final double baseMultiplier;
   private final double rootBase;

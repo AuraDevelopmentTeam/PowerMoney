@@ -29,9 +29,8 @@ import net.minecraftforge.fml.common.Optional;
 @Optional.Interface(iface = "net.minecraft.util.ITickable", modid = PowerMoneyModules.IC2_MODID)
 @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = PowerMoneyModules.IC2_MODID)
 @Optional.Interface(
-  iface = "cofh.redstoneflux.api.IEnergyReceiver",
-  modid = PowerMoneyModules.REDSTONEFLUX_MODID
-)
+    iface = "cofh.redstoneflux.api.IEnergyReceiver",
+    modid = PowerMoneyModules.REDSTONEFLUX_MODID)
 public class TileEntityPowerReceiver extends TileEntity
     implements ITickable, IEnergySink, IEnergyReceiver {
   public static final UUID UUID_NOBODY = new UUID(0, 0);
