@@ -1,6 +1,14 @@
 apply from: "GradleCommon/common.gradle"
 
 repositories {
+    ivy { // Buildcraft
+        name "Buildcraft"
+        artifactPattern "https://www.mod-buildcraft.com/releases/BuildCraft/[revision]/modules/[module]-[revision].[ext]"
+        content {
+            includeGroup "buildcraft.api"
+        }
+    }
+
     maven { // Tesla
         name "MCModDev"
         url "http://maven.mcmoddev.com"
@@ -25,9 +33,6 @@ repositories {
         name "IC2"
         url "http://maven.ic2.player.to/"
     }
-    ivy { // Buildcraft
-        artifactPattern "https://www.mod-buildcraft.com/releases/BuildCraft/[revision]/modules/[module]-[revision].[ext]"
-    }
     maven { // HWYLA
         name "TehNut"
         url "https://maven.tehnut.info"
@@ -40,7 +45,7 @@ repositories {
 
 dependencies {
     // Energy
-    api fg.deobf(name: "buildcraft-api", version: "${buildcraft_version}")
+    api fg.deobf("buildcraft.api:buildcraft-api:${buildcraft_version}")
     api fg.deobf("net.industrial-craft:industrialcraft-2:${ic2_version}:api")
     api fg.deobf("cofh:RedstoneFlux:1.12-${redstoneFlux_version}:universal")
     api fg.deobf("net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}")
