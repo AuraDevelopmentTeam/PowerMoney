@@ -28,10 +28,6 @@ repositories {
     ivy { // Buildcraft
         artifactPattern "https://www.mod-buildcraft.com/releases/BuildCraft/[revision]/modules/[module]-[revision].[ext]"
     }
-    maven { // Grand Economy, Oxygen: Core/Curreny Providers
-        name "CurseForge"
-        url "https://minecraft.curseforge.com/api/maven/"
-    }
     maven { // HWYLA
         name "TehNut"
         url "https://maven.tehnut.info"
@@ -43,28 +39,24 @@ repositories {
 }
 
 dependencies {
-    apiCompileOnly "com.github.spotbugs:spotbugs-annotations:${spotBugs_version}"
-
-    compile "org.spongepowered:spongeapi:${sponge_version}"
-
     // Energy
-    deobfProvided name: "buildcraft-api", version: "${buildcraft_version}"
-    deobfProvided "net.industrial-craft:industrialcraft-2:${ic2_version}:api"
-    deobfProvided "cofh:RedstoneFlux:1.12-${redstoneFlux_version}:universal"
-    deobfProvided "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"
+    api fg.deobf(name: "buildcraft-api", version: "${buildcraft_version}")
+    api fg.deobf("net.industrial-craft:industrialcraft-2:${ic2_version}:api")
+    api fg.deobf("cofh:RedstoneFlux:1.12-${redstoneFlux_version}:universal")
+    api fg.deobf("net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}")
 
     // Money-Mods
-    deobfProvided "com.kamildanak.minecraft.enderpay:enderpay:${minecraft_version}-${enderpay_version}"
-    deobfProvided "grand-economy:GrandEconomy:${minecraft_version}:${grandEconomy_version}"
-    deobfProvided "oxygen-core:oxygen-core:${minecraft_version}:${oxygenCore_version}"
+    api fg.deobf("com.kamildanak.minecraft.enderpay:enderpay:${minecraft_version}-${enderpay_version}")
+    api fg.deobf("curse.maven:GrandEconomy:${grandEconomy_id}") // https://www.curseforge.com/minecraft/mc-mods/grand-economy/files/all?filter-game-version=1738749986%3A628
+    api fg.deobf("curse.maven:OxygenCore:${oxygenCore_id}") // https://www.curseforge.com/minecraft/mc-mods/oxygen-core/files/all?filter-game-version=1738749986%3A628
 
     // Info-Mods
-    deobfProvided "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}"
-    deobfProvided "mcjty.theoneprobe:TheOneProbe-1.12:${theOneProbe_version}"
+    api fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}")
+    api fg.deobf("mcjty.theoneprobe:TheOneProbe-1.12:${theOneProbe_version}")
 
     // Computers
-    deobfProvided "dan200.computercraft:ComputerCraft:${computerCraft_version}"
-    deobfProvided "li.cil.oc:OpenComputers:MC${minecraft_version}-${openComputers_version}"
+    api fg.deobf("dan200.computercraft:ComputerCraft:${computerCraft_version}")
+    api fg.deobf("li.cil.oc:OpenComputers:MC${minecraft_version}-${openComputers_version}")
 
     testRuntime "org.slf4j:slf4j-simple:1.7.25"
 }
