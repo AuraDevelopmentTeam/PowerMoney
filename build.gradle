@@ -43,6 +43,10 @@ repositories {
         name "OpenComputers"
         url "https://maven.cil.li/"
     }
+    maven { // Tesla
+        name "BlameJared"
+        url "https://mmdmaven.blamejared.com/"
+    }
 }
 
 dependencies {
@@ -50,7 +54,7 @@ dependencies {
     api fg.deobf("buildcraft.api:buildcraft-api:${buildcraft_version}", true)
     api fg.deobf("net.industrial-craft:industrialcraft-2:${ic2_version}:api")
     api fg.deobf("cofh:RedstoneFlux:1.12-${redstoneFlux_version}:universal", true)
-    api fg.deobf("curse.maven:Tesla-${tesla_id}:${tesla_version}", true) // https://www.curseforge.com/minecraft/mc-mods/tesla/files/all?filter-game-version=1738749986%3A628
+    api fg.deobf("net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}", true)
 
     // Money-Mods
     api fg.deobf("com.kamildanak.minecraft.enderpay:enderpay:${minecraft_version}-${enderpay_version}", true)
