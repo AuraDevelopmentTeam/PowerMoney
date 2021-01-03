@@ -6,6 +6,7 @@ import dev.aura.powermoney.client.handler.ConfigChangedHandler;
 import dev.aura.powermoney.client.helper.PowerMoneyCreativeTab;
 import dev.aura.powermoney.common.CommonProxy;
 import dev.aura.powermoney.common.advancement.CriterionRegistry;
+import dev.aura.powermoney.common.command.BaseCommand;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.config.PowerMoneyConfigWrapper;
 import dev.aura.powermoney.common.handler.PowerMoneyTickHandler;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -105,6 +107,11 @@ public class PowerMoney extends PowerMoneyApi {
     selectMoneyInterface(event.getSide());
   }
 
+  @EventHandler
+  public void serverLoad(FMLServerStartingEvent event) {
+    registerCommands(event);
+  }
+
   private void selectMoneyInterface(Side side) {
     final MoneyInterface simulateInterface = new SimulateMoneyInterface();
 
@@ -165,6 +172,10 @@ public class PowerMoney extends PowerMoneyApi {
     GameRegistry.registerTileEntity(
         TileEntityPowerReceiver.class,
         new ResourceLocation(RESOURCE_PACKAGE, "tileentity_power_receiver"));
+  }
+
+  private static final void registerCommands(FMLServerStartingEvent event) {
+    event.registerServerCommand(new BaseCommand());
   }
 
   @Override
