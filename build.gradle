@@ -1,6 +1,7 @@
 apply from: "GradleCommon/common.gradle"
 
 repositories {
+    // Limited repos
     ivy { // Buildcraft
         name "Buildcraft"
         artifactPattern "https://www.mod-buildcraft.com/releases/BuildCraft/[revision]/modules/[module]-[revision].[ext]"
@@ -9,10 +10,15 @@ repositories {
         }
     }
 
-    maven { // Tesla
-        name "MCModDev"
-        url "http://maven.mcmoddev.com"
+    maven { // HWYLA
+        name "TehNut"
+        url "https://maven.tehnut.info"
+        content {
+            includeGroup "mcp.mobius.waila"
+        }
     }
+
+    // Custom repos
     maven { // TOP
         name "tterrag"
         url "https://maven.tterrag.com/"
@@ -33,10 +39,6 @@ repositories {
         name "IC2"
         url "http://maven.ic2.player.to/"
     }
-    maven { // HWYLA
-        name "TehNut"
-        url "https://maven.tehnut.info"
-    }
     maven { // OpenComputers
         name "OpenComputers"
         url "https://maven.cil.li/"
@@ -46,14 +48,14 @@ repositories {
 dependencies {
     // Energy
     api fg.deobf("buildcraft.api:buildcraft-api:${buildcraft_version}", true)
-    api fg.deobf("net.industrial-craft:industrialcraft-2:${ic2_version}:api", true)
+    api fg.deobf("net.industrial-craft:industrialcraft-2:${ic2_version}:api")
     api fg.deobf("cofh:RedstoneFlux:1.12-${redstoneFlux_version}:universal", true)
-    api fg.deobf("net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}", true)
+    api fg.deobf("curse.maven:Tesla-${tesla_id}:${tesla_version}", true) // https://www.curseforge.com/minecraft/mc-mods/tesla/files/all?filter-game-version=1738749986%3A628
 
     // Money-Mods
     api fg.deobf("com.kamildanak.minecraft.enderpay:enderpay:${minecraft_version}-${enderpay_version}", true)
-    api fg.deobf("curse.maven:GrandEconomy:${grandEconomy_id}", true) // https://www.curseforge.com/minecraft/mc-mods/grand-economy/files/all?filter-game-version=1738749986%3A628
-    api fg.deobf("curse.maven:OxygenCore:${oxygenCore_id}") // https://www.curseforge.com/minecraft/mc-mods/oxygen-core/files/all?filter-game-version=1738749986%3A628
+    api fg.deobf("curse.maven:GrandEconomy-${grandEconomy_id}:${grandEconomy_version}", true) // https://www.curseforge.com/minecraft/mc-mods/grand-economy/files/all?filter-game-version=1738749986%3A628
+    api fg.deobf("curse.maven:OxygenCore-${oxygenCore_id}:${oxygenCore_version}") // https://www.curseforge.com/minecraft/mc-mods/oxygen-core/files/all?filter-game-version=1738749986%3A628
 
     // Info-Mods
     api fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}", true)
@@ -64,8 +66,4 @@ dependencies {
     api fg.deobf("li.cil.oc:OpenComputers:MC${minecraft_version}-${openComputers_version}")
 
     testRuntime "org.slf4j:slf4j-simple:1.7.25"
-}
-
-javadoc {
-    failOnError = false
 }

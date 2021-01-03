@@ -1,6 +1,6 @@
 # [PowerMoney](https://github.com/AuraDevelopmentTeam/PowerMoney)
 
-[![Build Status](https://gitlab.aura-dev.team/AuraDev/PowerMoney/badges/master/build.svg)](https://gitlab.aura-dev.team/AuraDev/PowerMoney/commits/master)
+[![Build Status](https://gitlab.aura-dev.team/AuraDev/PowerMoney/badges/master/pipeline.svg)](https://gitlab.aura-dev.team/AuraDev/PowerMoney/commits/master)
 [![Coverage Report](https://gitlab.aura-dev.team/AuraDev/PowerMoney/badges/master/coverage.svg)](https://gitlab.aura-dev.team/AuraDev/PowerMoney/commits/master)
 
 A mod/plugin that allows players to earn money with Energy
