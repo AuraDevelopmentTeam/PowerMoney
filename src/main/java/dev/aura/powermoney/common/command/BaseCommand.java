@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -16,12 +18,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.server.permission.DefaultPermissionLevel;
 import net.minecraftforge.server.permission.PermissionAPI;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class BaseCommand extends CommandBase {
   private static final String BASE_PERMISSION = PowerMoney.ID + ".command";
   private static final String RELOAD_PERMISSION = BASE_PERMISSION + ".reload";
 
   public BaseCommand() {
-    PermissionAPI.registerNode(RELOAD_PERMISSION, DefaultPermissionLevel.OP, "Allows to reload " +PowerMoney.NAME);
+    PermissionAPI.registerNode(
+        RELOAD_PERMISSION, DefaultPermissionLevel.OP, "Allows to reload " + PowerMoney.NAME);
   }
 
   @Override
