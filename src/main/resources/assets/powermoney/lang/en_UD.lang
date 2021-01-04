@@ -52,3 +52,5 @@ gui.powermoney.config.cat.payment.moneyinterface=ǝɔɐɟɹǝʇuI ʎǝuoW
 gui.powermoney.config.cat.payment.moneyinterface.tooltip=˙ǝsn oʇ ʇuɐʍ noʎ ǝuo ǝɥʇ ʇou sᴉ ǝuo ʇꞁnɐɟǝp puɐ ǝɔɐɟɹǝʇuIʎǝuoW ǝuo uɐɥʇ ǝɹoɯ s,ǝɹǝɥʇ ɟᴉ ʇǝs ǝq oʇ spǝǝu ʎꞁꞁɐǝɹ ʎꞁuO\\n˙IԀⱯ ǝᵷuodS ǝɥʇ ɹǝʌo sǝɔɐɟɹǝʇuᴉ poɯ ǝzᴉʇᴉɹoᴉɹd ꞁꞁᴉʍ ʇI ˙ǝuo ʇɔǝꞁǝs ʎꞁꞁɐɔᴉʇɐɯoʇnɐ ɯǝʇsʎs ǝɥʇ '„oʇnɐ„ sᴉ ɹo punoɟ ǝq ʇouuɐɔ ǝɔɐɟɹǝʇuᴉ pǝᴉɟᴉɔǝds ǝɥʇ ɟI ˙sǝɔɐɟɹǝʇuIʎǝuoW ǝꞁqɐꞁᴉɐʌɐ ɹoɟ ᵷoꞁ ᵷnqǝp ǝɥʇ ʞɔǝɥƆ\\n˙ǝsn oʇ ǝɔɐɟɹǝʇuIʎǝuoW ɥɔᴉɥM
 gui.powermoney.config.cat.payment.simulate=ǝʇɐꞁnɯᴉS
 gui.powermoney.config.cat.payment.simulate.tooltip=§4¡ʇɔǝɟɟǝ ou sɐɥ ᵷuᴉʇʇǝs sᴉɥʇ 'punoɟ sᴉ ǝɔɐɟɹǝʇuIʎǝuoW ʎuɐ ɟI§f\\n˙ɹǝʌɹǝs uoᴉʇɔnpoɹd ɐ uo pǝꞁqɐuǝ ǝq ʇ,upꞁnoɥs puɐ ᵷuᴉʇsǝʇ ɹoɟ ꞁnɟǝsn sᴉ sᴉɥ⟘ ˙ʎǝuoɯ ʎuɐ ǝɔnpoɹd ʇou ꞁꞁᴉʍ ʇᴉ ʇnᗺ ˙ʎᵷɹǝuǝ ǝɯnsuoɔ ɯǝɥʇ ǝʞɐɯ ꞁꞁᴉʍ sᴉɥʇ ᵷuᴉꞁqɐuƎ ˙ʎᵷɹǝuǝ ǝɯnsuoɔ ʇou ꞁꞁᴉʍ sʞɔoꞁq ǝɥʇ 'pǝsn ǝq uɐɔ ǝɔɐɟɹǝʇuIʎǝuoW ou ɟI
+
+command.powermoney.powermoney.reload.success=¡ᵷᴉɟuoɔ ʎǝuoWɹǝʍoԀ pǝpɐoꞁǝᴚ

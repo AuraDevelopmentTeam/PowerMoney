@@ -1,1 +1,3 @@
 include "GradleCommon"
+
+rootProject.name = "PowerMoney"

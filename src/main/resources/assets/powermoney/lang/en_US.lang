@@ -52,3 +52,5 @@ gui.powermoney.config.cat.payment.moneyinterface=Money Interface
 gui.powermoney.config.cat.payment.moneyinterface.tooltip=Which MoneyInterface to use.\\nCheck the debug log for available MoneyInterfaces. If the specified interface cannot be found or is "auto", the system automatically select one. It will prioritize mod interfaces over the Sponge API.\\nOnly really needs to be set if there's more than one MoneyInterface and default one is not the one you want to use.
 gui.powermoney.config.cat.payment.simulate=Simulate
 gui.powermoney.config.cat.payment.simulate.tooltip=If no MoneyInterface can be used, the blocks will not consume energy. Enabling this will make them consume energy. But it will not produce any money. This is useful for testing and shouldn't be enabled on a production server.\\n§4If any MoneyInterface is found, this setting has no effect!
+
+command.powermoney.powermoney.reload.success=Reloaded PowerMoney config!
