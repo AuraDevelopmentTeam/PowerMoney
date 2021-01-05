@@ -50,6 +50,9 @@ repositories {
 }
 
 dependencies {
+    // Sponge
+    api "org.spongepowered:spongeapi:${sponge_version}"
+
     // Energy
     api fg.deobf("buildcraft.api:buildcraft-api:${buildcraft_version}", true)
     api fg.deobf("net.industrial-craft:industrialcraft-2:${ic2_version}:api")
