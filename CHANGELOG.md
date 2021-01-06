@@ -1,3 +1,9 @@
+Version 1.7.4
+-------------
+
+\* Fixed Forge bug related to block states causing a game crash (Fixes [#19](https://github.com/AuraDevelopmentTeam/PowerMoney/issues/19)).  
+
+
 Version 1.7.3
 -------------
 
