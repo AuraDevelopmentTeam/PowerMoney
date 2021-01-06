@@ -4,6 +4,7 @@ import buildcraft.api.mj.IMjConnector;
 import buildcraft.api.mj.IMjReceiver;
 import com.google.common.collect.ImmutableMap;
 import dev.aura.powermoney.PowerMoney;
+import dev.aura.powermoney.PowerMoneyBlocks;
 import dev.aura.powermoney.common.block.BlockPowerReceiver;
 import dev.aura.powermoney.common.compat.PowerMoneyModules;
 import dev.aura.powermoney.common.compat.buildcraft.BuildcraftCompat;
@@ -17,6 +18,7 @@ import javax.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import net.darkhax.tesla.api.ITeslaConsumer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -109,12 +111,14 @@ public class EnergyConsumer
 
   @Override
   public boolean canReceive() {
-    return ((owner != null) && !TileEntityPowerReceiver.UUID_NOBODY.equals(owner))
-        && PowerMoney.getInstance().getActiveMoneyInterface().canAcceptMoney()
-        && worldPos
-            .getWorld()
-            .getBlockState(worldPos.getPos())
-            .getValue(BlockPowerReceiver.RECEIVING);
+    if (((owner == null) || TileEntityPowerReceiver.UUID_NOBODY.equals(owner))
+        || !PowerMoney.getInstance().getActiveMoneyInterface().canAcceptMoney()) return false;
+
+    IBlockState blockState = worldPos.getWorld().getBlockState(worldPos.getPos());
+
+    return (blockState.getBlock() == PowerMoneyBlocks.powerReceiver())
+        && blockState.getPropertyKeys().contains(BlockPowerReceiver.RECEIVING)
+        && blockState.getValue(BlockPowerReceiver.RECEIVING);
   }
 
   private long addEnergy(long energy, boolean simulate) {
