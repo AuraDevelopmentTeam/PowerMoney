@@ -324,10 +324,6 @@ public class PowerMoneyConfigWrapper {
     configStorage.setCategoryLanguageKey(category, getDefaultLangKey(category));
   }
 
-  private static void save() {
-    save(false);
-  }
-
   private static void save(boolean forceSave) {
     if (forceSave || configStorage.hasChanged()) {
       configStorage.save();
