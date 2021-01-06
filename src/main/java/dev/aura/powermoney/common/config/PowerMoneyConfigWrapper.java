@@ -37,19 +37,20 @@ public class PowerMoneyConfigWrapper {
   @Getter private static boolean simulate;
 
   public static void loadConfig() {
+    loadConfig(false);
+  }
+
+  public static void loadConfig(boolean forceSave) {
     loadCalculationSettings();
     loadPaymentSettings();
 
-    saveIfChanged();
+    save(forceSave);
   }
 
   public static void reloadConfig() {
     configStorage.load();
 
-    loadConfig();
-
-    // Force save
-    configStorage.save();
+    loadConfig(true);
   }
 
   public static void loadConfig(Configuration config) {
@@ -323,8 +324,12 @@ public class PowerMoneyConfigWrapper {
     configStorage.setCategoryLanguageKey(category, getDefaultLangKey(category));
   }
 
-  private static void saveIfChanged() {
-    if (configStorage.hasChanged()) {
+  private static void save() {
+    save(false);
+  }
+
+  private static void save(boolean forceSave) {
+    if (forceSave || configStorage.hasChanged()) {
       configStorage.save();
     }
   }
