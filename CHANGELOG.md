@@ -1,3 +1,9 @@
+Version 1.7.3
+-------------
+
+\+ Added `/powermoney reload` command to reload the config (Adds [#18](https://github.com/AuraDevelopmentTeam/PowerMoney/issues/18)).  
+
+
 Version 1.7.2
 -------------
 
