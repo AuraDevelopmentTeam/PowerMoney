@@ -17,6 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.server.permission.DefaultPermissionLevel;
 import net.minecraftforge.server.permission.PermissionAPI;
 
@@ -64,7 +66,13 @@ public class BaseCommand extends CommandBase {
       throw new WrongUsageException(getUsage(sender));
     }
 
-    PowerMoneyConfigWrapper.loadConfig();
+    // Reload config
+    PowerMoneyConfigWrapper.reloadConfig();
+
+    // Inform the TickHandler
+    MinecraftForge.EVENT_BUS.post(
+        new ConfigChangedEvent.OnConfigChangedEvent(PowerMoney.ID, null, true, false));
+
     sender.sendMessage(
         new TextComponentTranslation("command.powermoney.powermoney.reload.success")
             .setStyle(new Style().setColor(TextFormatting.GREEN)));

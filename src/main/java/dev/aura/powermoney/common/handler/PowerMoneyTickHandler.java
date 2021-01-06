@@ -31,7 +31,7 @@ import net.minecraftforge.fml.relauncher.Side;
 public class PowerMoneyTickHandler {
   private static final long TICKS_PER_SECOND = 20L;
 
-  private static final Map<UUID, ReceiverPostion> dataReceivers = new HashMap<>();
+  private static final Map<UUID, ReceiverPosition> dataReceivers = new HashMap<>();
 
   private static ImmutableMap<WorldBlockPos, Long> consumedLocalEnergy = ImmutableMap.of();
   private static ImmutableMap<UUID, Long> consumedTotalEnergy = ImmutableMap.of();
@@ -44,7 +44,7 @@ public class PowerMoneyTickHandler {
 
   public static void addDataReceiver(UUID receiver, UUID blockOwner, WorldBlockPos worldPos) {
     if (canReceiveEnergy()) {
-      dataReceivers.put(receiver, new ReceiverPostion(blockOwner, worldPos));
+      dataReceivers.put(receiver, new ReceiverPosition(blockOwner, worldPos));
     }
   }
 
@@ -138,7 +138,7 @@ public class PowerMoneyTickHandler {
     receiverDataCache.clear();
 
     // Send update packets
-    for (Map.Entry<UUID, ReceiverPostion> entry : dataReceivers.entrySet()) {
+    for (Map.Entry<UUID, ReceiverPosition> entry : dataReceivers.entrySet()) {
       PacketDispatcher.sendTo(
           getDataPacket(entry.getValue().getUuid(), entry.getValue().getWorldPos()),
           event.world.getMinecraftServer().getPlayerList().getPlayerByUUID(entry.getKey()));
@@ -176,7 +176,7 @@ public class PowerMoneyTickHandler {
   }
 
   @Value
-  private static class ReceiverPostion {
+  private static class ReceiverPosition {
     private final UUID uuid;
     private final WorldBlockPos worldPos;
   }

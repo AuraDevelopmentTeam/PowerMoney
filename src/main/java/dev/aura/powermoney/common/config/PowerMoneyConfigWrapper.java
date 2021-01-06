@@ -43,11 +43,19 @@ public class PowerMoneyConfigWrapper {
     saveIfChanged();
   }
 
-  public static void loadConfig(Configuration config) {
-    configStorage = config;
+  public static void reloadConfig() {
     configStorage.load();
 
     loadConfig();
+
+    // Force save
+    configStorage.save();
+  }
+
+  public static void loadConfig(Configuration config) {
+    configStorage = config;
+
+    reloadConfig();
   }
 
   private static void loadCalculationSettings() {
@@ -117,10 +125,10 @@ public class PowerMoneyConfigWrapper {
                 + "Helps to adjust the energy price.");
 
     switch (calcType) {
-      case (0):
+      case 0:
         moneyCalculator = new MoneyCalculatorLog(logBaseMultiplier, logBase, logShift);
         break;
-      case (1):
+      case 1:
         moneyCalculator = new MoneyCalculatorRoot(rootBaseMultiplier, rootBase, rootShift);
         break;
       default:
